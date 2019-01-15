@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace RemoteX.Bluetooth
+namespace RemoteX.Bluetooth.Droid
 {
     public class Class1
     {
