@@ -5,13 +5,13 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{06C008EB-DB13-4E78-94B5-5CAD7F6E8364}</ProjectGuid>
+    <ProjectGuid>{3D04330F-9107-41DA-907D-84039C411B94}</ProjectGuid>
     <ProjectTypeGuids>{EFBA0AD7-5A72-4C68-AF49-83D382785DCF};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <TemplateGuid>{9ef11e43-1701-4396-8835-8392d57abb70}</TemplateGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>RemoteX.Bluetooth.Droid</RootNamespace>
-    <AssemblyName>RemoteX.Bluetooth.Droid</AssemblyName>
+    <RootNamespace>RemoteX.Droid.Bluetooth</RootNamespace>
+    <AssemblyName>RemoteX.Droid.Bluetooth</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
@@ -45,7 +45,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="BluetoothDeviceWrapper.cs" />
+    <Compile Include="BluetoothManager.cs" />
+    <Compile Include="Extensions.cs" />
+    <Compile Include="LE\Gatt\BatteryService.cs" />
+    <Compile Include="LE\Gatt\ClientCharacteristicConfigurationDescriptor.cs" />
+    <Compile Include="LE\Gatt\DeviceInfomationService.cs" />
+    <Compile Include="LE\Gatt\Extensions.cs" />
+    <Compile Include="LE\Gatt\GattCharacteristicBuilder.cs" />
+    <Compile Include="LE\Gatt\GattDescriptorBuilder.cs" />
+    <Compile Include="LE\Gatt\GattServer.cs" />
+    <Compile Include="LE\Gatt\GattServerCharacteristic.cs" />
+    <Compile Include="LE\Gatt\GattServerDescriptor.cs" />
+    <Compile Include="LE\Gatt\GattServerService.cs" />
+    <Compile Include="LE\Gatt\GattServiceBuilder.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -60,6 +73,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RemoteX.Bluetooth\RemoteX.Bluetooth.csproj">
+      <Project>{da0fdbdc-7c4f-4f13-a7de-e1c5637d586f}</Project>
+      <Name>RemoteX.Bluetooth</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

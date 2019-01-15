@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Remote.Bluetooth.Tester.GattServer;
+using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -11,7 +12,8 @@ namespace Remote.Bluetooth.Tester
         {
             InitializeComponent();
 
-            MainPage = new MainPage();
+            //MainPage = new MainPage();
+            MainPage = new NavigationPage(new ServiceListPage());
         }
 
         protected override void OnStart()

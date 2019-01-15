@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:gattserver="clr-namespace:Remote.Bluetooth.Tester.GattServer"
+             x:Class="Remote.Bluetooth.Tester.GattServer.ServiceListPage">
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="Welcome to Xamarin.Forms!"
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand" />
+            <Button x:Name="StartAdvertisingButton" Text="Start Advertising" Clicked="StartAdvertisingButton_Clicked"/>
+            <ListView x:Name="GattServiceListView" SeparatorColor="Black" HasUnevenRows="True" ItemSelected="GattServiceListView_ItemSelected">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <gattserver:GattServiceListViewCell />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

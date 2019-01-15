@@ -1,5 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="1.0" package="com.companyname.Remote.Bluetooth.Tester">
-    <uses-sdk android:minSdkVersion="21" android:targetSdkVersion="27" />
-    <application android:label="Remote.Bluetooth.Tester.Android"></application>
+﻿<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="1.0" package="com.companyname.Remote.Bluetooth.Tester" android:installLocation="auto">
+	<uses-sdk android:minSdkVersion="21" android:targetSdkVersion="27" />
+	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+	<uses-permission android:name="android.permission.BLUETOOTH" />
+	<uses-permission android:name="android.permission.BLUETOOTH_PRIVILEGED" />
+	<uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+	<application android:label="Remote.Bluetooth.Tester.Android"></application>
 </manifest>
