@@ -78,11 +78,11 @@ namespace RemoteX.Bluetooth.LE.Gatt
             BatteryLevel = 10;
         }
 
-        private void _OnRead(object sender, CharacteristicReadRequest e)
+        private void _OnRead(object sender, ICharacteristicReadRequest e)
         {
-            var device = e.Device;
+            var device = e.SourceDevice;
             
-            GattServerCharacteristic.Service.Server.SendResponse(e.Device, e.RequestId, GattServerCharacteristic.Value);
+            GattServerCharacteristic.Service.Server.SendResponse(e.SourceDevice, e.RequestId, GattServerCharacteristic.Value);
         }
     }
 }

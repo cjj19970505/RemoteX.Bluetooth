@@ -171,7 +171,7 @@ namespace RemoteX.Droid.Bluetooth.LE.Gatt
             {
                 base.OnCharacteristicWriteRequest(device, requestId, droidCharacteristic, preparedWrite, responseNeeded, offset, value);
 
-                Log.Info("BLEAdver", "OnCharacteristicWriteRequest");
+                Log.Info("BLEAdver", "OnCharacteristicWriteRequest Device:"+device.ToString() );
                 var service = GattServer._GattServices.GetFromUuid(droidCharacteristic.Service.Uuid.ToGuid());
                 var characteristic = service.GattCharacteristics.GetFromUuid(droidCharacteristic.Uuid.ToGuid());
                 characteristic.OnCharacteristicWrite(device, requestId, droidCharacteristic, preparedWrite, responseNeeded, offset, value);

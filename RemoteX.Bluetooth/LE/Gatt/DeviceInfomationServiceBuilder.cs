@@ -26,14 +26,14 @@ namespace RemoteX.Bluetooth.LE.Gatt
                                 .AddCharacteristics(manufacturerNameStringCharacteristic);
         }
 
-        private void OnManufacturerNameStringCharacteristicWrite(object sender, WriteRequest e)
+        private void OnManufacturerNameStringCharacteristicWrite(object sender, ICharacteristicWriteRequest e)
         {
-            (sender as IGattServerCharacteristic).Service.Server.SendResponse(e.Device, e.RequestId, null);
+            (sender as IGattServerCharacteristic).Service.Server.SendResponse(e.SourceDevice, e.RequestId, null);
         }
 
-        private void OnManufacturerNameStringCharacteristicRead(object sender, CharacteristicReadRequest e)
+        private void OnManufacturerNameStringCharacteristicRead(object sender, ICharacteristicReadRequest e)
         {
-            (sender as IGattServerCharacteristic).Service.Server.SendResponse(e.Device, e.RequestId, null);
+            (sender as IGattServerCharacteristic).Service.Server.SendResponse(e.SourceDevice, e.RequestId, null);
         }
 
         public IGattServerService Build()

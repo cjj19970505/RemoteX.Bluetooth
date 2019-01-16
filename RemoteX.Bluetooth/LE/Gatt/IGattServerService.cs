@@ -12,32 +12,7 @@ namespace RemoteX.Bluetooth.LE.Gatt
     /// </summary>
     public enum GattServiceType { Primary, Secondary}
     
-    public struct CharacteristicReadRequest
-    {
-        public IBluetoothDevice Device;
-        public IGattServerCharacteristic TargetCharacteristic; 
-        public int RequestId;
-        public int Offset;
-        public byte[] Value;
-    }
-    public struct DescriptorReadRequest
-    {
-        public IBluetoothDevice Device;
-        public IGattServerDescriptor TargetDescriptor;
-        public int RequestId;
-        public int Offset;
-        public byte[] Value;
-    }
-    public struct WriteRequest
-    {
-        //BluetoothDevice device, int requestId, BluetoothGattCharacteristic characteristic, bool preparedWrite, bool responseNeeded, int offset, byte[] value
-        public IBluetoothDevice Device;
-        public int RequestId;
-        //bool PreparedWrite;
-        public bool ResponseNeeded;
-        public int Offset;
-        public byte[] Value;
-    }
+    
     public struct GattPermissions
     {
         public bool Read;
@@ -52,8 +27,8 @@ namespace RemoteX.Bluetooth.LE.Gatt
 
     public interface IGattServerCharacteristic:IGattCharacteristic
     {
-        event EventHandler<CharacteristicReadRequest> OnRead;
-        event EventHandler<WriteRequest> OnWrite;
+        event EventHandler<ICharacteristicReadRequest> OnRead;
+        event EventHandler<ICharacteristicWriteRequest> OnWrite;
         IGattServerService Service { get; }
         byte[] Value { get; set; }
         void NotifyValueChanged(IBluetoothDevice bluetoothDevice, bool confirm);
@@ -64,8 +39,8 @@ namespace RemoteX.Bluetooth.LE.Gatt
 
     public interface IGattServerDescriptor:IGattDescriptor
     {
-        event EventHandler<DescriptorReadRequest> OnRead;
-        event EventHandler<WriteRequest> OnWrite;
+        event EventHandler<IDescriptorReadRequest> OnRead;
+        event EventHandler<IDescriptorWriteRequest> OnWrite;
         
     }
 

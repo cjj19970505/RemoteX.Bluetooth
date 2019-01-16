@@ -17,6 +17,7 @@ namespace Remote.Bluetooth.Tester.GattServer
 	{
         ObservableCollection<GattServiceModel> serviceModelList;
         BatteryServiceWrapper BatteryServiceWrapper;
+        TestGattServiceWrapper TestGattServiceWrapper;
 
         public ServiceListPage ()
 		{
@@ -48,6 +49,8 @@ namespace Remote.Bluetooth.Tester.GattServer
             bluetoothManager.GattSever.AddService(new DeviceInfomationServiceBuilder(bluetoothManager).Build());
             BatteryServiceWrapper = new BatteryServiceWrapper(bluetoothManager);
             bluetoothManager.GattSever.AddService(BatteryServiceWrapper.GattServerService);
+            TestGattServiceWrapper = new TestGattServiceWrapper(bluetoothManager, 0x3432);
+            bluetoothManager.GattSever.AddService(TestGattServiceWrapper.GattServerService);
             bluetoothManager.GattSever.StartAdvertising();
 
             var gattServices = bluetoothManager.GattSever.Services;

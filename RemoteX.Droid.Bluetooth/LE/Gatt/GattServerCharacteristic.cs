@@ -26,8 +26,8 @@ namespace RemoteX.Droid.Bluetooth.LE.Gatt
 
                 private List<GattServerDescriptor> _Descritptor;
 
-                public event EventHandler<CharacteristicReadRequest> OnRead;
-                public event EventHandler<WriteRequest> OnWrite;
+                public event EventHandler<ICharacteristicReadRequest> OnRead;
+                public event EventHandler<ICharacteristicWriteRequest> OnWrite;
 
                 public IGattServerDescriptor[] Descriptors
                 {
@@ -107,7 +107,7 @@ namespace RemoteX.Droid.Bluetooth.LE.Gatt
                 {
                     CharacteristicReadRequest readRequest = new CharacteristicReadRequest
                     {
-                        Device = BluetoothManager.BluetoothDeviceWrapper.GetBluetoothDeviceFromDroidDevice((Service.Server as GattServer).BluetoothManager, device),
+                        SourceDevice = BluetoothManager.BluetoothDeviceWrapper.GetBluetoothDeviceFromDroidDevice((Service.Server as GattServer).BluetoothManager, device),
                         TargetCharacteristic = this,
                         Offset = offset,
                         RequestId = requestId,
@@ -119,9 +119,10 @@ namespace RemoteX.Droid.Bluetooth.LE.Gatt
                 public virtual void OnCharacteristicWrite(Android.Bluetooth.BluetoothDevice droidDevice, int requestId, Android.Bluetooth.BluetoothGattCharacteristic characteristic, bool preparedWrite, bool responseNeeded, int offset, byte[] value)
                 {
                     var device = BluetoothManager.BluetoothDeviceWrapper.GetBluetoothDeviceFromDroidDevice((Service.Server as GattServer).BluetoothManager, droidDevice);
-                    WriteRequest writeRequest = new WriteRequest
+                    var writeRequest = new CharacteristicWriteRequest
                     {
-                        Device = device,
+                        SourceDevice = device,
+                        TargetCharacteristic = this,
                         Offset = offset,
                         ResponseNeeded = responseNeeded,
                         RequestId = requestId,

@@ -6,31 +6,40 @@ using System.Text;
 
 namespace Remote.Bluetooth.Tester.GattServer
 {
-    class TestGattService
+    class TestGattServiceWrapper
     {
         public IGattServerService GattServerService { get; }
         public TestCharacteristicWrapper TestCharacteristicWrapper { get; }
-        public TestGattService(IBluetoothManager bluetoothManager, Int32 shortUuid)
+        public List<Object> RequestsList;
+        public IBluetoothManager BluetoothManager { get; }
+        byte[] value;
+        public TestGattServiceWrapper(IBluetoothManager bluetoothManager, Int32 shortUuid)
         {
+            BluetoothManager = bluetoothManager;
+            RequestsList = new List<object>();
             TestCharacteristicWrapper = new TestCharacteristicWrapper(bluetoothManager);
             
             IGattServiceBuilder builder = bluetoothManager.NewGattServiceBuilder();
             GattServerService = builder.SetUuid(BluetoothUtils.ShortValueUuid(shortUuid))
-                .AddCharacteristics(TestCharacteristicWrapper.GattCharacteristic)
+                .AddCharacteristics(TestCharacteristicWrapper.GattServerCharacteristic)
                 .Build();
 
-            TestCharacteristicWrapper.GattCharacteristic.OnWrite += _OnCharacteristicWrite;
-            TestCharacteristicWrapper.GattCharacteristic.OnRead += _OnCharacteristicRead;
+            TestCharacteristicWrapper.GattServerCharacteristic.OnWrite += _OnCharacteristicWrite;
+            TestCharacteristicWrapper.GattServerCharacteristic.OnRead += _OnCharacteristicRead;
+            value = BitConverter.GetBytes(232);
         }
 
-        private void _OnCharacteristicRead(object sender, CharacteristicReadRequest e)
+        private void _OnCharacteristicWrite(object sender, ICharacteristicWriteRequest e)
         {
-            throw new NotImplementedException();
+            RequestsList.Add(e);
+            value = e.Value;
+            BluetoothManager.GattSever.SendResponse(e.SourceDevice, e.RequestId, new byte[] { });
         }
 
-        private void _OnCharacteristicWrite(object sender, WriteRequest e)
+        private void _OnCharacteristicRead(object sender, ICharacteristicReadRequest e)
         {
-            throw new NotImplementedException();
+            RequestsList.Add(e);
+            BluetoothManager.GattSever.SendResponse(e.SourceDevice, e.RequestId, value);
         }
     }
 
@@ -41,23 +50,37 @@ namespace Remote.Bluetooth.Tester.GattServer
         private static GattCharacteristicProperties PROPERTIES = new GattCharacteristicProperties
         {
             Read = true,
+            Write= true,
             Notify = true,
         };
         private static GattPermissions PERMISSIONS = new GattPermissions
         {
             Read = true,
+            Write = true
         };
-        public IGattServerCharacteristic GattCharacteristic { get; }
+        public IGattServerCharacteristic GattServerCharacteristic { get; }
         public TestCharacteristicWrapper(IBluetoothManager bluetoothManager)
         {
             ClientCharacteristicConfigurationDescriptorWrapper = new ClientCharacteristicConfigurationDescriptorWrapper(bluetoothManager);
             var builder = bluetoothManager.NewGattCharacteristicBuilder();
-            GattCharacteristic = builder.SetUuid(UUID)
+            GattServerCharacteristic = builder.SetUuid(UUID)
                 .AddDescriptors(ClientCharacteristicConfigurationDescriptorWrapper.GattServerDescriptor)
                 .SetPermissions(PERMISSIONS)
                 .SetProperties(PROPERTIES)
                 .Build();
 
+        }
+
+        public void NotifyAll()
+        {
+            var clientConfigurations = ClientCharacteristicConfigurationDescriptorWrapper.ClientConfigurations;
+            foreach (var pair in clientConfigurations)
+            {
+                if (pair.Value.Notifications)
+                {
+                    GattServerCharacteristic.NotifyValueChanged(pair.Key, false);
+                }
+            }
         }
     }
 }

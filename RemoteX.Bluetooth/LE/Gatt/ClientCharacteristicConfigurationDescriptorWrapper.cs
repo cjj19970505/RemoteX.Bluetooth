@@ -61,16 +61,18 @@ namespace RemoteX.Bluetooth.LE.Gatt
             GattServerDescriptor.OnWrite += _OnWrite;
         }
 
-        private void _OnWrite(object sender, WriteRequest e)
+        private void _OnWrite(object sender, IDescriptorWriteRequest e)
         {
+            
             var configuration = Configuration.FromBytes(e.Value);
-            this[e.Device] = configuration;
-            GattServerDescriptor.Characteristic.Service.Server.SendResponse(e.Device, e.RequestId, null);
+            System.Diagnostics.Debug.WriteLine("FUCK:::" + configuration);
+            this[e.SourceDevice] = configuration;
+            GattServerDescriptor.Characteristic.Service.Server.SendResponse(e.SourceDevice, e.RequestId, null);
         }
 
-        private void _OnRead(object sender, DescriptorReadRequest e)
+        private void _OnRead(object sender, IDescriptorReadRequest e)
         {
-            GattServerDescriptor.Characteristic.Service.Server.SendResponse(e.Device, e.RequestId, this[e.Device].Value);
+            GattServerDescriptor.Characteristic.Service.Server.SendResponse(e.SourceDevice, e.RequestId, this[e.SourceDevice].Value);
         }
 
         public struct Configuration
@@ -101,6 +103,11 @@ namespace RemoteX.Bluetooth.LE.Gatt
                 configuration.Notifications = (bytes[0] & 0x01) != 0;
                 configuration.Indications = (bytes[0] & 0x02) != 0;
                 return configuration;
+            }
+
+            public override string ToString()
+            {
+                return "Notification:" + Notifications + " Indication:" + Indications;
             }
         }
     }
