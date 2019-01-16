@@ -49,7 +49,7 @@ namespace RemoteX.Bluetooth.LE.Gatt
                 _ClientConfigurations[bluetoothDevice] = value;
             }
         }
-        
+
         public IGattServerDescriptor GattServerDescriptor { get; private set; }
         public ClientCharacteristicConfigurationDescriptorWrapper(IBluetoothManager bluetoothManager)
         {
@@ -63,16 +63,14 @@ namespace RemoteX.Bluetooth.LE.Gatt
 
         private void _OnWrite(object sender, IDescriptorWriteRequest e)
         {
-            
             var configuration = Configuration.FromBytes(e.Value);
-            System.Diagnostics.Debug.WriteLine("FUCK:::" + configuration);
             this[e.SourceDevice] = configuration;
-            GattServerDescriptor.Characteristic.Service.Server.SendResponse(e.SourceDevice, e.RequestId, null);
+            e.RespondSuccess();
         }
 
         private void _OnRead(object sender, IDescriptorReadRequest e)
         {
-            GattServerDescriptor.Characteristic.Service.Server.SendResponse(e.SourceDevice, e.RequestId, this[e.SourceDevice].Value);
+            e.RespondWithValue(this[e.SourceDevice].Value);
         }
 
         public struct Configuration

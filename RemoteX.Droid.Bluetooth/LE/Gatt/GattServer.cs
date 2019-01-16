@@ -121,7 +121,6 @@ namespace RemoteX.Droid.Bluetooth.LE.Gatt
             var scanResult = scanResultBuilder.Build();
             var advertisier = BluetoothManager.BluetoothAdapter.BluetoothLeAdvertiser;
             advertisier.StartAdvertising(advertiseSettings, advertiseData, _AdvertiserCallback);
-            
         }
 
 

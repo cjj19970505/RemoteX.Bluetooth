@@ -25,6 +25,16 @@ namespace RemoteX.Droid.Bluetooth.LE.Gatt
         public int RequestId { get; set; }
 
         public byte[] Value { get; set; }
+
+        public void RespondWithValue(byte[] value)
+        {
+            (TargetCharacteristic.Service.Server as GattServer).DroidGattServer.SendResponse((SourceDevice as BluetoothManager.BluetoothDeviceWrapper).DroidDevice, RequestId, Android.Bluetooth.GattStatus.Success, 0, value);
+        }
+
+        public void RespondWithProtocolError(GattErrorCode errorCode)
+        {
+            (TargetCharacteristic.Service.Server as GattServer).DroidGattServer.SendResponse((SourceDevice as BluetoothManager.BluetoothDeviceWrapper).DroidDevice, RequestId, (Android.Bluetooth.GattStatus)errorCode, 0, null);
+        }
     }
 
     class DescriptorReadRequest : IDescriptorReadRequest
@@ -38,6 +48,16 @@ namespace RemoteX.Droid.Bluetooth.LE.Gatt
         public byte[] Value { get; set; }
 
         public int Offset { get; set; }
+
+        public void RespondWithValue(byte[] value)
+        {
+            (TargetDescriptor.Characteristic.Service.Server as GattServer).DroidGattServer.SendResponse((SourceDevice as BluetoothManager.BluetoothDeviceWrapper).DroidDevice, RequestId, Android.Bluetooth.GattStatus.Success, 0, value);
+        }
+
+        public void RespondWithProtocolError(GattErrorCode errorCode)
+        {
+            (TargetDescriptor.Characteristic.Service.Server as GattServer).DroidGattServer.SendResponse((SourceDevice as BluetoothManager.BluetoothDeviceWrapper).DroidDevice, RequestId, (Android.Bluetooth.GattStatus)errorCode, 0, null);
+        }
     }
 
     class CharacteristicWriteRequest : ICharacteristicWriteRequest
@@ -54,6 +74,16 @@ namespace RemoteX.Droid.Bluetooth.LE.Gatt
         public int RequestId { get; set; }
 
         public byte[] Value { get; set; }
+
+        public void RespondSuccess()
+        {
+            (TargetCharacteristic.Service.Server as GattServer).DroidGattServer.SendResponse((SourceDevice as BluetoothManager.BluetoothDeviceWrapper).DroidDevice, RequestId, Android.Bluetooth.GattStatus.Success, 0, null);
+        }
+
+        public void RespondWithProtocolError(GattErrorCode errorCode)
+        {
+            (TargetCharacteristic.Service.Server as GattServer).DroidGattServer.SendResponse((SourceDevice as BluetoothManager.BluetoothDeviceWrapper).DroidDevice, RequestId, (Android.Bluetooth.GattStatus)errorCode, 0, null);
+        }
     }
 
     class DescriptorWriteRequest : IDescriptorWriteRequest
@@ -70,5 +100,15 @@ namespace RemoteX.Droid.Bluetooth.LE.Gatt
         public int RequestId { get; set; }
 
         public byte[] Value { get; set; }
+
+        public void RespondSuccess()
+        {
+            (TargetDescriptor.Characteristic.Service.Server as GattServer).DroidGattServer.SendResponse((SourceDevice as BluetoothManager.BluetoothDeviceWrapper).DroidDevice, RequestId, Android.Bluetooth.GattStatus.Success, 0, null);
+        }
+
+        public void RespondWithProtocolError(GattErrorCode errorCode)
+        {
+            (TargetDescriptor.Characteristic.Service.Server as GattServer).DroidGattServer.SendResponse((SourceDevice as BluetoothManager.BluetoothDeviceWrapper).DroidDevice, RequestId, (Android.Bluetooth.GattStatus)errorCode, 0, null);
+        }
     }
 }

@@ -28,12 +28,12 @@ namespace RemoteX.Bluetooth.LE.Gatt
 
         private void OnManufacturerNameStringCharacteristicWrite(object sender, ICharacteristicWriteRequest e)
         {
-            (sender as IGattServerCharacteristic).Service.Server.SendResponse(e.SourceDevice, e.RequestId, null);
+            e.RespondSuccess();
         }
 
         private void OnManufacturerNameStringCharacteristicRead(object sender, ICharacteristicReadRequest e)
         {
-            (sender as IGattServerCharacteristic).Service.Server.SendResponse(e.SourceDevice, e.RequestId, null);
+            e.RespondWithValue(Encoding.UTF8.GetBytes("XJ Studio"));
         }
 
         public IGattServerService Build()

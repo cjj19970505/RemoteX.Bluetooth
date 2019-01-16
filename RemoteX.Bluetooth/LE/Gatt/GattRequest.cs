@@ -9,17 +9,20 @@ namespace RemoteX.Bluetooth.LE.Gatt
         IBluetoothDevice SourceDevice { get; }
         int RequestId { get; }
         byte[] Value { get; }
+        void RespondWithProtocolError(GattErrorCode errorCode);
     }
     public interface ICharacteristicReadRequest: IGattServerRequest
     {
         IGattServerCharacteristic TargetCharacteristic { get; }
         int Offset { get; }
+        void RespondWithValue(byte[] value);
     }
 
     public interface IDescriptorReadRequest: IGattServerRequest
     {
         IGattServerDescriptor TargetDescriptor { get; }
         int Offset { get; }
+        void RespondWithValue(byte[] value);
     }
 
     public interface ICharacteristicWriteRequest:IGattServerRequest
@@ -28,6 +31,7 @@ namespace RemoteX.Bluetooth.LE.Gatt
         //bool PreparedWrite;
         bool ResponseNeeded { get; }
         int Offset { get; }
+        void RespondSuccess();
     }
 
     public interface IDescriptorWriteRequest : IGattServerRequest
@@ -35,5 +39,6 @@ namespace RemoteX.Bluetooth.LE.Gatt
         IGattServerDescriptor TargetDescriptor { get; }
         bool ResponseNeeded { get; }
         int Offset { get; }
+        void RespondSuccess();
     }
 }

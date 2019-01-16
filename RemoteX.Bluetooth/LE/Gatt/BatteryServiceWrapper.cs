@@ -82,7 +82,7 @@ namespace RemoteX.Bluetooth.LE.Gatt
         {
             var device = e.SourceDevice;
             
-            GattServerCharacteristic.Service.Server.SendResponse(e.SourceDevice, e.RequestId, GattServerCharacteristic.Value);
+            e.RespondWithValue(GattServerCharacteristic.Value);
         }
     }
 }

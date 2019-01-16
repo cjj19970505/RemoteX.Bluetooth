@@ -23,6 +23,6 @@ namespace RemoteX.Bluetooth.LE.Gatt
         /// <param name=""></param>
         /// <param name=""></param>
         /// <param name=""></param>
-        void SendResponse(IBluetoothDevice bluetoothDevice, int requestId, byte[] responseBytes);
+        //void SendResponse(IBluetoothDevice bluetoothDevice, int requestId, byte[] responseBytes);
     }
 }

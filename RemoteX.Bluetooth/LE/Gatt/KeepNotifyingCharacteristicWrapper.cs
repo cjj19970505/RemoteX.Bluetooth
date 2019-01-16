@@ -54,7 +54,7 @@ namespace RemoteX.Bluetooth.LE.Gatt
 
         private void _OnRead(object sender, ICharacteristicReadRequest e)
         {
-            GattServerCharacteristic.Service.Server.SendResponse(e.SourceDevice, e.RequestId, null);
+            e.RespondWithValue(null);
         }
 
         public void NotifyAll()

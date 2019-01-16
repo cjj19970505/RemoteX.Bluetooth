@@ -33,13 +33,13 @@ namespace Remote.Bluetooth.Tester.GattServer
         {
             RequestsList.Add(e);
             value = e.Value;
-            BluetoothManager.GattSever.SendResponse(e.SourceDevice, e.RequestId, new byte[] { });
+            e.RespondSuccess();
         }
 
         private void _OnCharacteristicRead(object sender, ICharacteristicReadRequest e)
         {
             RequestsList.Add(e);
-            BluetoothManager.GattSever.SendResponse(e.SourceDevice, e.RequestId, value);
+            e.RespondWithValue(value);
         }
     }
 
