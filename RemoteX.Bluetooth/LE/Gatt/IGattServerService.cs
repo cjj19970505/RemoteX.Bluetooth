@@ -11,6 +11,7 @@ namespace RemoteX.Bluetooth.LE.Gatt
     /// From Core_v5.0.pdf Page2230
     /// </summary>
     public enum GattServiceType { Primary, Secondary}
+    
     public struct CharacteristicReadRequest
     {
         public IBluetoothDevice Device;
