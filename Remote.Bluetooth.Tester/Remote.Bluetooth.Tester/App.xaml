@@ -5,5 +5,7 @@
              x:Class="Remote.Bluetooth.Tester.App">
     <Application.Resources>
         <tester:GuidToStringConverter x:Key="GuidToStringConverter"/>
+        <tester:IntEnumConverter x:Key="IntEnumConverter"/>
+        <tester:GattRequestStateToStringConverter x:Key="GattRequestStateToStringConverter"/>
     </Application.Resources>
 </Application>

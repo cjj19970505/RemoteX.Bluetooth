@@ -6,6 +6,7 @@ namespace RemoteX.Bluetooth.LE.Gatt
 {
     public enum GattErrorCode
     {
+        Success = 0,
         //
         // 摘要:
         //     GATT read operation is not permitted

@@ -6,23 +6,24 @@ using Xamarin.Forms;
 
 namespace Remote.Bluetooth.Tester
 {
-    public class GuidToStringConverter : IValueConverter
+    public class IntEnumConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            
-            return ((Guid)value).ToString();
-            
+            if (value is Enum)
+            {
+                return (int)value;
+            }
+            return 0;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            Guid result;
-            if(!Guid.TryParse(value as string, out result))
+            if (value is int)
             {
-                return Guid.Empty;
+                return Enum.ToObject(targetType, value);
             }
-            return result;
+            return 0;
         }
     }
 }

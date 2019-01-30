@@ -4,12 +4,25 @@ using System.Text;
 
 namespace RemoteX.Bluetooth.LE.Gatt
 {
+    public enum GattRequestState
+    {
+        Pending = 0,
+        Completed = 1,
+        Canceled = 2
+    }
     public interface IGattServerRequest
     {
         IBluetoothDevice SourceDevice { get; }
         int RequestId { get; }
         byte[] Value { get; }
+        GattRequestState State { get; }
         void RespondWithProtocolError(GattErrorCode errorCode);
+
+        /// <summary>
+        /// Second Arg is previous state
+        /// current state can be seen in State Property
+        /// </summary>
+        event EventHandler<GattRequestState> StateChanged;
     }
     public interface ICharacteristicReadRequest: IGattServerRequest
     {

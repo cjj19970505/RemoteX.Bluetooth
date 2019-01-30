@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RemoteX.Bluetooth.LE.Gatt;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
@@ -6,23 +7,16 @@ using Xamarin.Forms;
 
 namespace Remote.Bluetooth.Tester
 {
-    public class GuidToStringConverter : IValueConverter
+    class GattRequestStateToStringConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            
-            return ((Guid)value).ToString();
-            
+            return Enum.GetName(typeof(GattRequestState), value);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            Guid result;
-            if(!Guid.TryParse(value as string, out result))
-            {
-                return Guid.Empty;
-            }
-            return result;
+            return Enum.Parse(typeof(GattRequestState), value.ToString());
         }
     }
 }

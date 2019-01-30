@@ -1,4 +1,5 @@
-﻿using RemoteX.Bluetooth.LE;
+﻿using RemoteX.Bluetooth;
+using RemoteX.Bluetooth.LE;
 using RemoteX.Bluetooth.LE.Gatt;
 using System;
 using System.Collections.Generic;
@@ -35,8 +36,12 @@ namespace Remote.Bluetooth.Tester.GattServer
             {
                 return;
             }
-
-            var servicePage = new GattServicePage(e.SelectedItem as GattServiceModel);
+            
+            Page servicePage = new GattServicePage(e.SelectedItem as GattServiceModel);
+            if((e.SelectedItem as GattServiceModel).GattServerService.Uuid == BluetoothUtils.ShortValueUuid(0x3432))
+            {
+                servicePage = new TestGattServicePage(e.SelectedItem as GattServiceModel, TestGattServiceWrapper);
+            }
 
             GattServiceListView.SelectedItem = null;
             await Navigation.PushAsync(servicePage);

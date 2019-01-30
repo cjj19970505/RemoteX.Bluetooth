@@ -26,14 +26,27 @@ namespace RemoteX.Droid.Bluetooth.LE.Gatt
 
         public byte[] Value { get; set; }
 
+        public GattRequestState State { get; private set; }
+
+        public CharacteristicReadRequest()
+        {
+            State = GattRequestState.Pending;
+        }
+
+        public event EventHandler<GattRequestState> StateChanged;
+
         public void RespondWithValue(byte[] value)
         {
             (TargetCharacteristic.Service.Server as GattServer).DroidGattServer.SendResponse((SourceDevice as BluetoothManager.BluetoothDeviceWrapper).DroidDevice, RequestId, Android.Bluetooth.GattStatus.Success, 0, value);
+            State = GattRequestState.Completed;
+            StateChanged?.Invoke(this, GattRequestState.Pending);
         }
 
         public void RespondWithProtocolError(GattErrorCode errorCode)
         {
             (TargetCharacteristic.Service.Server as GattServer).DroidGattServer.SendResponse((SourceDevice as BluetoothManager.BluetoothDeviceWrapper).DroidDevice, RequestId, (Android.Bluetooth.GattStatus)errorCode, 0, null);
+            State = GattRequestState.Canceled;
+            StateChanged?.Invoke(this, GattRequestState.Pending);
         }
     }
 
@@ -49,14 +62,31 @@ namespace RemoteX.Droid.Bluetooth.LE.Gatt
 
         public int Offset { get; set; }
 
+        public GattRequestState State { get; private set; }
+
+        public DescriptorReadRequest()
+        {
+            State = GattRequestState.Pending;
+        }
+
+        public event EventHandler<GattRequestState> StateChanged;
+
         public void RespondWithValue(byte[] value)
         {
             (TargetDescriptor.Characteristic.Service.Server as GattServer).DroidGattServer.SendResponse((SourceDevice as BluetoothManager.BluetoothDeviceWrapper).DroidDevice, RequestId, Android.Bluetooth.GattStatus.Success, 0, value);
+            State = GattRequestState.Completed;
+            StateChanged?.Invoke(this, GattRequestState.Pending);
         }
 
+        /// <summary>
+        /// 不知道这个是要把State设置成Cancelled还是Completed
+        /// </summary>
+        /// <param name="errorCode"></param>
         public void RespondWithProtocolError(GattErrorCode errorCode)
         {
             (TargetDescriptor.Characteristic.Service.Server as GattServer).DroidGattServer.SendResponse((SourceDevice as BluetoothManager.BluetoothDeviceWrapper).DroidDevice, RequestId, (Android.Bluetooth.GattStatus)errorCode, 0, null);
+            State = GattRequestState.Canceled;
+            StateChanged?.Invoke(this, GattRequestState.Pending);
         }
     }
 
@@ -75,14 +105,35 @@ namespace RemoteX.Droid.Bluetooth.LE.Gatt
 
         public byte[] Value { get; set; }
 
+        public GattRequestState State { get; private set; }
+
+        public CharacteristicWriteRequest()
+        {
+            if (ResponseNeeded)
+            {
+                State = GattRequestState.Pending;
+            }
+            else
+            {
+                State = GattRequestState.Completed;
+            }
+            
+        }
+
+        public event EventHandler<GattRequestState> StateChanged;
+
         public void RespondSuccess()
         {
             (TargetCharacteristic.Service.Server as GattServer).DroidGattServer.SendResponse((SourceDevice as BluetoothManager.BluetoothDeviceWrapper).DroidDevice, RequestId, Android.Bluetooth.GattStatus.Success, 0, null);
+            State = GattRequestState.Completed;
+            StateChanged?.Invoke(this, GattRequestState.Pending);
         }
 
         public void RespondWithProtocolError(GattErrorCode errorCode)
         {
             (TargetCharacteristic.Service.Server as GattServer).DroidGattServer.SendResponse((SourceDevice as BluetoothManager.BluetoothDeviceWrapper).DroidDevice, RequestId, (Android.Bluetooth.GattStatus)errorCode, 0, null);
+            State = GattRequestState.Canceled;
+            StateChanged?.Invoke(this, GattRequestState.Pending);
         }
     }
 
@@ -101,14 +152,34 @@ namespace RemoteX.Droid.Bluetooth.LE.Gatt
 
         public byte[] Value { get; set; }
 
+        public GattRequestState State { get; private set; }
+
+        public DescriptorWriteRequest()
+        {
+            if (ResponseNeeded)
+            {
+                State = GattRequestState.Pending;
+            }
+            else
+            {
+                State = GattRequestState.Completed;
+            }
+        }
+
+        public event EventHandler<GattRequestState> StateChanged;
+
         public void RespondSuccess()
         {
             (TargetDescriptor.Characteristic.Service.Server as GattServer).DroidGattServer.SendResponse((SourceDevice as BluetoothManager.BluetoothDeviceWrapper).DroidDevice, RequestId, Android.Bluetooth.GattStatus.Success, 0, null);
+            State = GattRequestState.Completed;
+            StateChanged?.Invoke(this, GattRequestState.Pending);
         }
 
         public void RespondWithProtocolError(GattErrorCode errorCode)
         {
             (TargetDescriptor.Characteristic.Service.Server as GattServer).DroidGattServer.SendResponse((SourceDevice as BluetoothManager.BluetoothDeviceWrapper).DroidDevice, RequestId, (Android.Bluetooth.GattStatus)errorCode, 0, null);
+            State = GattRequestState.Canceled;
+            StateChanged?.Invoke(this, GattRequestState.Pending);
         }
     }
 }

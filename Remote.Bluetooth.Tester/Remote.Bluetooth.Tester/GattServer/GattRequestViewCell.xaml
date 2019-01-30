@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ViewCell xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Remote.Bluetooth.Tester.GattServer.GattRequestViewCell">
+    <ViewCell.View>
+        <StackLayout Orientation="Vertical">
+            <Label Text="{Binding GattRequestType}"/>
+            <StackLayout Orientation="Horizontal">
+                <Editor x:Name="ResponseEditor" Text="Response"/>
+                <Picker x:Name="ResponseErrorCodePicker" ItemsSource="{Binding ErrorCodeNames}" HorizontalOptions="StartAndExpand"/>
+                <Label Text="{Binding GattRequestState, Converter={StaticResource GattRequestStateToStringConverter}}"/>
+                <Button x:Name="RespondButton" Text="Respond" Clicked="RespondButton_Clicked" />
+            </StackLayout>
+        </StackLayout>
+        
+    </ViewCell.View>
+</ViewCell>

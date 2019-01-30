@@ -2,21 +2,22 @@
 using RemoteX.Bluetooth.LE.Gatt;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text;
 
 namespace Remote.Bluetooth.Tester.GattServer
 {
-    class TestGattServiceWrapper
+    public class TestGattServiceWrapper
     {
         public IGattServerService GattServerService { get; }
         public TestCharacteristicWrapper TestCharacteristicWrapper { get; }
-        public List<Object> RequestsList;
         public IBluetoothManager BluetoothManager { get; }
+        public ObservableCollection<GattRequestViewModel> GattRequestViewModels;
         byte[] value;
         public TestGattServiceWrapper(IBluetoothManager bluetoothManager, Int32 shortUuid)
         {
+            GattRequestViewModels = new ObservableCollection<GattRequestViewModel>();
             BluetoothManager = bluetoothManager;
-            RequestsList = new List<object>();
             TestCharacteristicWrapper = new TestCharacteristicWrapper(bluetoothManager);
             
             IGattServiceBuilder builder = bluetoothManager.NewGattServiceBuilder();
@@ -31,19 +32,17 @@ namespace Remote.Bluetooth.Tester.GattServer
 
         private void _OnCharacteristicWrite(object sender, ICharacteristicWriteRequest e)
         {
-            RequestsList.Add(e);
+            GattRequestViewModels.Add(new GattRequestViewModel(e));
             value = e.Value;
-            e.RespondSuccess();
         }
 
         private void _OnCharacteristicRead(object sender, ICharacteristicReadRequest e)
         {
-            RequestsList.Add(e);
-            e.RespondWithValue(value);
+            GattRequestViewModels.Add(new GattRequestViewModel(e));
         }
     }
 
-    class TestCharacteristicWrapper
+    public class TestCharacteristicWrapper
     {
         public ClientCharacteristicConfigurationDescriptorWrapper ClientCharacteristicConfigurationDescriptorWrapper { get; private set; }
         public static Guid UUID = BluetoothUtils.ShortValueUuid(0x7823);

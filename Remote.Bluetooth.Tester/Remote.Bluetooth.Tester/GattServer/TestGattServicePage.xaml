@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:gattserver="clr-namespace:Remote.Bluetooth.Tester.GattServer"
+             x:Class="Remote.Bluetooth.Tester.GattServer.TestGattServicePage">
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="FUCK YOU!"
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand" />
+            <Label Text="Test Gatt Service" FontSize="Large"/>
+            <Label Text="{Binding Uuid, Converter={StaticResource GuidToStringConverter}}"/>
+            <ListView x:Name="RequestListView" SeparatorColor="Black" HasUnevenRows="True">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <gattserver:GattRequestViewCell/>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
