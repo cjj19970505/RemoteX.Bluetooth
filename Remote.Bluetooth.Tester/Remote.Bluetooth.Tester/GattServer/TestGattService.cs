@@ -9,6 +9,7 @@ namespace Remote.Bluetooth.Tester.GattServer
 {
     public class TestGattServiceWrapper
     {
+        public string Name { get; set; }
         public IGattServerService GattServerService { get; }
         public TestCharacteristicWrapper TestCharacteristicWrapper { get; }
         public IBluetoothManager BluetoothManager { get; }
@@ -16,6 +17,7 @@ namespace Remote.Bluetooth.Tester.GattServer
         byte[] value;
         public TestGattServiceWrapper(IBluetoothManager bluetoothManager, Int32 shortUuid)
         {
+            Name = "No Name Motherfucker";
             GattRequestViewModels = new ObservableCollection<GattRequestViewModel>();
             BluetoothManager = bluetoothManager;
             TestCharacteristicWrapper = new TestCharacteristicWrapper(bluetoothManager);
@@ -40,6 +42,12 @@ namespace Remote.Bluetooth.Tester.GattServer
         {
             GattRequestViewModels.Add(new GattRequestViewModel(e));
         }
+
+        public void Notify(string text)
+        {
+            TestCharacteristicWrapper.GattServerCharacteristic.Value = Encoding.UTF8.GetBytes(text);
+            TestCharacteristicWrapper.NotifyAll();
+        }
     }
 
     public class TestCharacteristicWrapper
@@ -57,6 +65,8 @@ namespace Remote.Bluetooth.Tester.GattServer
             Read = true,
             Write = true
         };
+
+        
         public IGattServerCharacteristic GattServerCharacteristic { get; }
         public TestCharacteristicWrapper(IBluetoothManager bluetoothManager)
         {

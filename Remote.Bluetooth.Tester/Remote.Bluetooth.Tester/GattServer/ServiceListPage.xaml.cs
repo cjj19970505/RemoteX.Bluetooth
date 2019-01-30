@@ -42,6 +42,10 @@ namespace Remote.Bluetooth.Tester.GattServer
             {
                 servicePage = new TestGattServicePage(e.SelectedItem as GattServiceModel, TestGattServiceWrapper);
             }
+            else if((e.SelectedItem as GattServiceModel).GattServerService.Uuid == BatteryServiceWrapper.BATTERY_SERVICE_UUID)
+            {
+                servicePage = new BatteryServicePage(BatteryServiceWrapper);
+            }
 
             GattServiceListView.SelectedItem = null;
             await Navigation.PushAsync(servicePage);

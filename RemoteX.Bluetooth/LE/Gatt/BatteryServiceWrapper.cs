@@ -48,19 +48,27 @@ namespace RemoteX.Bluetooth.LE.Gatt
             }
             set
             {
-                _BatteryLevel = value;
-                GattServerCharacteristic.Value = new byte[] { BitConverter.GetBytes(BatteryLevel)[0] };
+                if(value != _BatteryLevel)
+                {
+                    _BatteryLevel = value;
+                    GattServerCharacteristic.Value = new byte[] { BitConverter.GetBytes(BatteryLevel)[0] };
+                    NotifyAll();
+                }
             }
         }
 
         public void NotifyAll()
         {
             var clientConfigurations = ClientCharacteristicConfigurationDescriptorWrapper.ClientConfigurations;
+            System.Diagnostics.Debug.WriteLine("XJ::READY TO NOTIFY TO:" + clientConfigurations.Count);
             foreach(var pair in clientConfigurations)
             {
+                System.Diagnostics.Debug.WriteLine("XJ:::("+pair.Key.Name+", "+pair.Value.ToString()+")");
                 if (pair.Value.Notifications)
                 {
                     GattServerCharacteristic.NotifyValueChanged(pair.Key, false);
+                    System.Diagnostics.Debug.WriteLine("XJ:::Notified");
+                    
                 }
             }
         }

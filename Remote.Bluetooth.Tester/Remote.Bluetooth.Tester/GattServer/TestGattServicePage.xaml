@@ -5,11 +5,13 @@
              x:Class="Remote.Bluetooth.Tester.GattServer.TestGattServicePage">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="FUCK YOU!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
             <Label Text="Test Gatt Service" FontSize="Large"/>
             <Label Text="{Binding Uuid, Converter={StaticResource GuidToStringConverter}}"/>
+            <StackLayout Orientation="Horizontal">
+                <Editor x:Name="NotifyEditor" Text="Notify Text"  HorizontalOptions="StartAndExpand" AutoSize="TextChanges"/>
+                <Button x:Name="NotifyButton" Text="Notify" HorizontalOptions="End" Clicked="NotifyButton_Clicked"/>
+            </StackLayout>
+            
             <ListView x:Name="RequestListView" SeparatorColor="Black" HasUnevenRows="True">
                 <ListView.ItemTemplate>
                     <DataTemplate>

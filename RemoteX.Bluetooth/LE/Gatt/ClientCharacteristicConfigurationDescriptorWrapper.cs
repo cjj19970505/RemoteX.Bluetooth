@@ -64,7 +64,12 @@ namespace RemoteX.Bluetooth.LE.Gatt
         private void _OnWrite(object sender, IDescriptorWriteRequest e)
         {
             var configuration = Configuration.FromBytes(e.Value);
-            this[e.SourceDevice] = configuration;
+            if(this[e.SourceDevice] != configuration)
+            {
+                this[e.SourceDevice] = configuration;
+            }
+                
+            System.Diagnostics.Debug.WriteLine("XJ:::"+ Configuration.FromBytes(configuration.Value));
             e.RespondSuccess();
         }
 
@@ -106,6 +111,20 @@ namespace RemoteX.Bluetooth.LE.Gatt
             public override string ToString()
             {
                 return "Notification:" + Notifications + " Indication:" + Indications;
+            }
+
+            public static bool operator ==(Configuration lhs, Configuration rhs)
+            {
+                if(lhs.Indications == rhs.Indications && lhs.Notifications == rhs.Notifications)
+                {
+                    return true;
+                }
+                return false;
+            }
+
+            public static bool operator !=(Configuration lhs, Configuration rhs)
+            {
+                return !(lhs == rhs);
             }
         }
     }
