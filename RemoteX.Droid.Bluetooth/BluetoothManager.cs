@@ -13,6 +13,7 @@ using Android.Widget;
 using Java.Util;
 using RemoteX.Bluetooth;
 using RemoteX.Bluetooth.LE.Gatt;
+using RemoteX.Bluetooth.LE.Gatt.Server;
 using RemoteX.Droid.Bluetooth.LE.Gatt;
 
 //[assembly: Xamarin.Forms.Dependency(typeof(RemoteX.Droid.BluetoothManager))]

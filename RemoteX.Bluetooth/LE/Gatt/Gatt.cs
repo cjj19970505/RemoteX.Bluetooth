@@ -4,6 +4,14 @@ using System.Text;
 
 namespace RemoteX.Bluetooth.LE.Gatt
 {
+    public enum GattServiceType { Primary, Secondary }
+
+    public struct GattPermissions
+    {
+        public bool Read;
+        public bool Write;
+    }
+
     public enum GattErrorCode
     {
         Success = 0,
@@ -43,5 +51,28 @@ namespace RemoteX.Bluetooth.LE.Gatt
         // 摘要:
         //     A GATT operation failed, errors other than the above
         Failure = 257
+    }
+
+    public enum GattRequestState
+    {
+        Pending = 0,
+        Completed = 1,
+        Canceled = 2
+    }
+
+    /// <summary>
+    /// 3.3.1.1
+    /// The Characteristic Properties bit field determines how the Characteristic Value can be used, or how the characteristic descriptors (see Section 3.3.3) can be accessed. If the bits defined in Table 3 5 are set, the action described is permitted. Multiple Characteristic Properties can be set.
+    /// </summary>
+    public struct GattCharacteristicProperties
+    {
+        public bool Broadcast;
+        public bool Read;
+        public bool WriteWithoutResponse;
+        public bool Write;
+        public bool Notify;
+        public bool Indicate;
+        public bool AuthenticatedSignedWrites;
+        public bool ExtendedProperties;
     }
 }

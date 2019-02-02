@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using RemoteX.Bluetooth.LE.Gatt;
+using RemoteX.Bluetooth.LE.Gatt.Server;
 
 namespace RemoteX.Bluetooth
 {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace RemoteX.Bluetooth.LE.Gatt
+namespace RemoteX.Bluetooth.LE.Gatt.Server
 {
     public class DeviceInfomationServiceBuilder
     {

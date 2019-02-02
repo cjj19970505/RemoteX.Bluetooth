@@ -1,4 +1,5 @@
 ﻿using RemoteX.Bluetooth.LE.Gatt;
+using RemoteX.Bluetooth.LE.Gatt.Server;
 using System;
 using System.Collections.Generic;
 using System.Linq;

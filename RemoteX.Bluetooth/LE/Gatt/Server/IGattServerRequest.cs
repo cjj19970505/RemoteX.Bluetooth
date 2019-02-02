@@ -1,15 +1,11 @@
-﻿using System;
+﻿using RemoteX.Bluetooth.LE.Gatt.Server;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace RemoteX.Bluetooth.LE.Gatt
+namespace RemoteX.Bluetooth.LE.Gatt.Server
 {
-    public enum GattRequestState
-    {
-        Pending = 0,
-        Completed = 1,
-        Canceled = 2
-    }
+    
     public interface IGattServerRequest
     {
         IBluetoothDevice SourceDevice { get; }

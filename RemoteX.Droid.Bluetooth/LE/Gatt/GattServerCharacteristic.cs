@@ -13,6 +13,7 @@ using RemoteX.Bluetooth.LE.Gatt;
 using RemoteX.Droid.Bluetooth;
 using RemoteX.Droid;
 using RemoteX.Bluetooth;
+using RemoteX.Bluetooth.LE.Gatt.Server;
 
 namespace RemoteX.Droid.Bluetooth.LE.Gatt
 {

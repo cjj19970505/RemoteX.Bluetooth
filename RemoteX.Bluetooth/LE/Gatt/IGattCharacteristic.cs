@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RemoteX.Bluetooth.LE.Gatt.Server;
+using System;
 using System.Collections.Generic;
 using System.Text;
 

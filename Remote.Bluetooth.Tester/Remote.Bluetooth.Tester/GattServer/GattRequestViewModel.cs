@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.ComponentModel;
+using RemoteX.Bluetooth.LE.Gatt.Server;
 
 namespace Remote.Bluetooth.Tester.GattServer
 {

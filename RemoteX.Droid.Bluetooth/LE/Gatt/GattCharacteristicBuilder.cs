@@ -10,6 +10,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using RemoteX.Bluetooth.LE.Gatt;
+using RemoteX.Bluetooth.LE.Gatt.Server;
 using static RemoteX.Droid.Bluetooth.LE.Gatt.GattServer.GattServerService;
 using static RemoteX.Droid.Bluetooth.LE.Gatt.GattServer.GattServerService.GattServerCharacteristic;
 using static RemoteX.Droid.Bluetooth.LE.Gatt.GattServer.GattServerService.GattServerCharacteristic.GattServerDescriptor;
