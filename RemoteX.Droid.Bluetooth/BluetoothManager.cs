@@ -15,6 +15,7 @@ using RemoteX.Bluetooth;
 using RemoteX.Bluetooth.LE.Gatt;
 using RemoteX.Bluetooth.LE.Gatt.Server;
 using RemoteX.Droid.Bluetooth.LE.Gatt;
+using RemoteX.Droid.Bluetooth.LE.Gatt.Server;
 
 //[assembly: Xamarin.Forms.Dependency(typeof(RemoteX.Droid.BluetoothManager))]
 namespace RemoteX.Droid

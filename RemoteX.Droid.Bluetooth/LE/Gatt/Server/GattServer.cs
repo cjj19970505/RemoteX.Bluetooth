@@ -17,7 +17,7 @@ using RemoteX.Bluetooth;
 using static RemoteX.Droid.BluetoothManager;
 using RemoteX.Bluetooth.LE.Gatt.Server;
 
-namespace RemoteX.Droid.Bluetooth.LE.Gatt
+namespace RemoteX.Droid.Bluetooth.LE.Gatt.Server
 {
     public partial class GattServer : IGattServer
     {
@@ -213,10 +213,11 @@ namespace RemoteX.Droid.Bluetooth.LE.Gatt
                 base.OnExecuteWrite(device, requestId, execute);
                 Log.Info("BLEAdver", "OnExecuteWrite");
             }
-            public override void OnConnectionStateChange(BluetoothDevice device, [GeneratedEnum] ProfileState status, [GeneratedEnum] ProfileState newState)
+            public override void OnConnectionStateChange(BluetoothDevice droidDevice, [GeneratedEnum] ProfileState status, [GeneratedEnum] ProfileState newState)
             {
-                base.OnConnectionStateChange(device, status, newState);
-                Log.Info("BLEAdver", "OnExecuteWrite State:"+status+" New"+ newState);
+                base.OnConnectionStateChange(droidDevice, status, newState);
+                var bluetoothDevice = BluetoothDeviceWrapper.GetBluetoothDeviceFromDroidDevice(GattServer.BluetoothManager, droidDevice);
+                Log.Info("BLEAdver", bluetoothDevice + "OnExecuteWrite State:" +status+" New"+ newState);
 
             }
 
@@ -233,6 +234,14 @@ namespace RemoteX.Droid.Bluetooth.LE.Gatt
             public override void OnStartFailure([GeneratedEnum] AdvertiseFailure errorCode)
             {
                 base.OnStartFailure(errorCode);
+            }
+        }
+
+        public IBluetoothDevice[] ConnectedDevices
+        {
+            get
+            {
+                throw new NotImplementedException();
             }
         }
 

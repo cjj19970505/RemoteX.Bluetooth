@@ -11,8 +11,8 @@
     <AssemblyName>Remote.Bluetooth.Tester.UWP</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
-    <TargetPlatformVersion>10.0.17134.0</TargetPlatformVersion>
-    <TargetPlatformMinVersion>10.0.16299.0</TargetPlatformMinVersion>
+    <TargetPlatformVersion>10.0.17763.0</TargetPlatformVersion>
+    <TargetPlatformMinVersion>10.0.17134.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <EnableDotNetNativeCompatibleProfile>true</EnableDotNetNativeCompatibleProfile>
     <FileAlignment>512</FileAlignment>
@@ -144,9 +144,17 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Xamarin.Forms" Version="3.4.0.1008975" />
-    <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.1.5"/>
+    <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.1.5" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\RemoteX.Bluetooth.Win10\RemoteX.Bluetooth.Win10.csproj">
+      <Project>{51ef8659-3867-4af1-8f44-a0392c5e02a6}</Project>
+      <Name>RemoteX.Bluetooth.Win10</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\RemoteX.Bluetooth\RemoteX.Bluetooth.csproj">
+      <Project>{da0fdbdc-7c4f-4f13-a7de-e1c5637d586f}</Project>
+      <Name>RemoteX.Bluetooth</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Remote.Bluetooth.Tester\Remote.Bluetooth.Tester.csproj">
       <Project>{87591EB6-F281-480B-82C0-C26DFA087040}</Project>
       <Name>Remote.Bluetooth.Tester</Name>

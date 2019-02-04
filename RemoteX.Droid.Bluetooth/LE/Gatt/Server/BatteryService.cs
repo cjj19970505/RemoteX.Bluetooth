@@ -13,7 +13,7 @@ using Android.Widget;
 using RemoteX.Bluetooth;
 using RemoteX.Bluetooth.LE.Gatt;
 
-namespace RemoteX.Droid.Bluetooth.LE.Gatt
+namespace RemoteX.Droid.Bluetooth.LE.Gatt.Server
 {
     internal class BatteryService:GattServer.GattServerService
     {

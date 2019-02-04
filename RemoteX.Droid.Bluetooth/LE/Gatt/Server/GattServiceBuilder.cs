@@ -11,10 +11,10 @@ using Android.Views;
 using Android.Widget;
 using RemoteX.Bluetooth.LE.Gatt;
 using RemoteX.Bluetooth.LE.Gatt.Server;
-using static RemoteX.Droid.Bluetooth.LE.Gatt.GattServer;
-using static RemoteX.Droid.Bluetooth.LE.Gatt.GattServer.GattServerService;
+using static RemoteX.Droid.Bluetooth.LE.Gatt.Server.GattServer;
+using static RemoteX.Droid.Bluetooth.LE.Gatt.Server.GattServer.GattServerService;
 
-namespace RemoteX.Droid.Bluetooth.LE.Gatt
+namespace RemoteX.Droid.Bluetooth.LE.Gatt.Server
 {
     class GattServiceBuilder : IGattServiceBuilder
     {

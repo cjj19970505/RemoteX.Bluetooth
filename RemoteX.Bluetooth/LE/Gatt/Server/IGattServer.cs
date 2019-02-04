@@ -12,5 +12,6 @@ namespace RemoteX.Bluetooth.LE.Gatt.Server
         void StartAdvertising();
         void NotifyTest();
         bool IsSupported { get; }
+        IBluetoothDevice[] ConnectedDevices { get; }
     }
 }

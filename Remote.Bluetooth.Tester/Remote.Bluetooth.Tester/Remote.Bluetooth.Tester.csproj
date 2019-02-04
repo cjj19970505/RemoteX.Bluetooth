@@ -37,4 +37,8 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="GattClient\" />
+  </ItemGroup>
 </Project>

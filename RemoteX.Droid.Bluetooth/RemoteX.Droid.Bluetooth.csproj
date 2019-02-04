@@ -48,18 +48,18 @@
     <Compile Include="BluetoothDeviceWrapper.cs" />
     <Compile Include="BluetoothManager.cs" />
     <Compile Include="Extensions.cs" />
-    <Compile Include="LE\Gatt\BatteryService.cs" />
-    <Compile Include="LE\Gatt\ClientCharacteristicConfigurationDescriptor.cs" />
-    <Compile Include="LE\Gatt\DeviceInfomationService.cs" />
+    <Compile Include="LE\Gatt\Server\BatteryService.cs" />
+    <Compile Include="LE\Gatt\Server\ClientCharacteristicConfigurationDescriptor.cs" />
+    <Compile Include="LE\Gatt\Server\DeviceInfomationService.cs" />
     <Compile Include="LE\Gatt\Extensions.cs" />
-    <Compile Include="LE\Gatt\GattCharacteristicBuilder.cs" />
-    <Compile Include="LE\Gatt\GattDescriptorBuilder.cs" />
-    <Compile Include="LE\Gatt\GattServer.cs" />
-    <Compile Include="LE\Gatt\GattServerCharacteristic.cs" />
-    <Compile Include="LE\Gatt\GattServerDescriptor.cs" />
-    <Compile Include="LE\Gatt\GattServerRequest.cs" />
-    <Compile Include="LE\Gatt\GattServerService.cs" />
-    <Compile Include="LE\Gatt\GattServiceBuilder.cs" />
+    <Compile Include="LE\Gatt\Server\GattCharacteristicBuilder.cs" />
+    <Compile Include="LE\Gatt\Server\GattDescriptorBuilder.cs" />
+    <Compile Include="LE\Gatt\Server\GattServer.cs" />
+    <Compile Include="LE\Gatt\Server\GattServerCharacteristic.cs" />
+    <Compile Include="LE\Gatt\Server\GattServerDescriptor.cs" />
+    <Compile Include="LE\Gatt\Server\GattServerRequest.cs" />
+    <Compile Include="LE\Gatt\Server\GattServerService.cs" />
+    <Compile Include="LE\Gatt\Server\GattServiceBuilder.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -73,6 +73,7 @@
     <AndroidResource Include="Resources\values\strings.xml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="LE\Gatt\Client\" />
     <Folder Include="Resources\drawable\" />
   </ItemGroup>
   <ItemGroup>

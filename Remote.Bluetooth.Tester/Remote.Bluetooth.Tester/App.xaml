@@ -7,5 +7,6 @@
         <tester:GuidToStringConverter x:Key="GuidToStringConverter"/>
         <tester:IntEnumConverter x:Key="IntEnumConverter"/>
         <tester:GattRequestStateToStringConverter x:Key="GattRequestStateToStringConverter"/>
+        <tester:MacAddressUlongToStringConverter x:Key="MacAddressUlongToStringConverter"/>
     </Application.Resources>
 </Application>

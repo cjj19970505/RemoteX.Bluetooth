@@ -108,6 +108,11 @@ namespace RemoteX.Droid
                 Application.Context.UnregisterReceiver(_Receiver);
             }
 
+            public override string ToString()
+            {
+                return "(DEVICE:: Name: " + Name + ", Mac: " + Address + ")";
+            }
+
 
             private class Receiver : BroadcastReceiver
             {

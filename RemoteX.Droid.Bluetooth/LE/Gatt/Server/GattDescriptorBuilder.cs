@@ -12,7 +12,7 @@ using Android.Widget;
 using RemoteX.Bluetooth.LE.Gatt;
 using RemoteX.Bluetooth.LE.Gatt.Server;
 
-namespace RemoteX.Droid.Bluetooth.LE.Gatt
+namespace RemoteX.Droid.Bluetooth.LE.Gatt.Server
 {
     class GattDescriptorBuilder : IGattDescriptorBuilder
     {

@@ -9,10 +9,20 @@
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
             <Button x:Name="StartAdvertisingButton" Text="Start Advertising" Clicked="StartAdvertisingButton_Clicked"/>
+            
             <ListView x:Name="GattServiceListView" SeparatorColor="Black" HasUnevenRows="True" ItemSelected="GattServiceListView_ItemSelected">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <gattserver:GattServiceListViewCell />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <Button x:Name="RefreshConnectedDeviceListButton" Text="Refresh Device" Clicked="RefreshConnectedDeviceListButton_Clicked" />
+
+            <ListView x:Name="ConnectedDeviceListView">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextCell Text="{Binding Name}" />
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
