@@ -10,9 +10,17 @@ namespace RemoteX.Bluetooth.LE.Gatt.Client
         public byte[] Value;
     }
 
+    
+
     public interface IGattClient
     {
         event EventHandler<IGattClientService[]> OnServicesDiscovered;
+
+        /// <summary>
+        /// ConnectedToGattServer
+        /// </summary>
+        /// <returns></returns>
+        Task ConnectToServerAsync();
 
         /// <summary>
         /// Core V5.0

@@ -12,6 +12,7 @@ using Android.Views;
 using Android.Widget;
 using Java.Util;
 using RemoteX.Bluetooth;
+using RemoteX.Bluetooth.LE;
 using RemoteX.Bluetooth.LE.Gatt;
 using RemoteX.Bluetooth.LE.Gatt.Server;
 using RemoteX.Droid.Bluetooth.LE.Gatt;
@@ -141,6 +142,8 @@ namespace RemoteX.Droid
                 return _GattServer;
             }
         }
+
+        public IBluetoothLEScanner LEScanner => throw new NotImplementedException();
 
         private class Receiver : BroadcastReceiver
         {

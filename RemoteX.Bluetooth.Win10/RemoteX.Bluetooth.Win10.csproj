@@ -121,9 +121,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="BluetoothManager.cs" />
-    <Compile Include="Class1.cs" />
     <Compile Include="LE\Gatt\Client\GattClient.cs" />
+    <Compile Include="LE\RXBluetoothDevice.cs" />
+    <Compile Include="LE\RXBluetoothLEScanner.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils.cs" />
     <EmbeddedResource Include="Properties\RemoteX.Bluetooth.Win10.rd.xml" />
   </ItemGroup>
   <ItemGroup>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RemoteX.Bluetooth.LE.Gatt.Client;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -23,29 +24,8 @@ namespace RemoteX.Bluetooth
         ulong Address { get; }
 
         /// <summary>
-        /// 最新获取的Uuid
+        /// 获取连接到该设备GattServer的接口
         /// </summary>
-        Guid[] LastestFetchedUuids { get; }
-
-        /// <summary>
-        /// 查询是否正在获取Uuid
-        /// </summary>
-        bool IsFetchingUuids { get; }
-
-        /// <summary>
-        /// 当获取到Uuid使触发该事件
-        /// </summary>
-        event BluetoothDeviceGetUuidsHanlder OnUuidsFetched;
-
-        /// <summary>
-        /// 获取uuid，若获取成功会触发<c>onUuidsFetched</c>
-        /// 若当前正在查询Uuid（即IsFetchingUuids == true），则什么都不做
-        /// </summary>
-        void FetchUuidsWithSdp();
-
-        /// <summary>
-        /// 其实这个不能真正阻止FetchingUuid，只能关闭发现，撤销Receiver之类的
-        /// </summary>
-        void stopFetchingUuidsWithSdp();
+        IGattClient GattClient { get; }
     }
 }

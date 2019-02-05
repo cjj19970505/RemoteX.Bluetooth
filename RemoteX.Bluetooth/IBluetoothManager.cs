@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using RemoteX.Bluetooth.LE;
 using RemoteX.Bluetooth.LE.Gatt;
 using RemoteX.Bluetooth.LE.Gatt.Server;
 
@@ -50,6 +51,8 @@ namespace RemoteX.Bluetooth
         IGattServiceBuilder NewGattServiceBuilder();
         IGattCharacteristicBuilder NewGattCharacteristicBuilder();
         IGattDescriptorBuilder NewGattDescriptorBuilder();
+
+        IBluetoothLEScanner LEScanner { get; }
 
 
 

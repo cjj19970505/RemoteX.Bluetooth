@@ -13,7 +13,7 @@ namespace Remote.Bluetooth.Tester
             InitializeComponent();
 
             //MainPage = new MainPage();
-            MainPage = new NavigationPage(new ServiceListPage());
+            MainPage = new NavigationPage(new MainMasterDetailPage());
         }
 
         protected override void OnStart()

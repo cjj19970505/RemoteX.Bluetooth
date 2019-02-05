@@ -11,6 +11,7 @@ using Android.Views;
 using Android.Widget;
 using Java.Util;
 using RemoteX.Bluetooth;
+using RemoteX.Bluetooth.LE.Gatt.Client;
 
 namespace RemoteX.Droid
 {
@@ -47,6 +48,8 @@ namespace RemoteX.Droid
             public event RemoteX.Bluetooth.BluetoothDeviceGetUuidsHanlder OnUuidsFetched;
 
             public Android.Bluetooth.BluetoothDevice DroidDevice { get; private set; }
+
+            public IGattClient GattClient => throw new NotImplementedException();
 
             [Obsolete("Will this update the BluetoothDevice locally ?")]
             /// <summary>

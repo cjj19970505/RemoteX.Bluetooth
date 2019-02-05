@@ -11,12 +11,28 @@ namespace Remote.Bluetooth.Tester
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return BluetoothUtils.AddressInt64ToString((ulong)value);
+            try
+            {
+                return BluetoothUtils.AddressInt64ToString((ulong)value);
+            }
+            catch (Exception)
+            {
+                return "Unknown Address";
+            }
+            
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return BluetoothUtils.AddressStringToInt64(targetType.ToString());
+            try
+            {
+                return BluetoothUtils.AddressStringToInt64(targetType.ToString());
+            }
+            catch (Exception)
+            {
+                return 0ul;
+            }
+           
         }
     }
 }
