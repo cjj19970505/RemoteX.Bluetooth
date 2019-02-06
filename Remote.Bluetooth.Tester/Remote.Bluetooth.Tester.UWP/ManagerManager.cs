@@ -12,18 +12,21 @@ namespace Remote.Bluetooth.Tester.UWP
     public class ManagerManager : IManagerManager
     {
         private IBluetoothManager _BluetoothManager;
+        public Windows.UI.Core.CoreDispatcher Dispatcher { get; set; }
         public IBluetoothManager BluetoothManager
         {
             get
             {
                 if(_BluetoothManager == null)
                 {
-                    _BluetoothManager = new BluetoothManager();
+                    if(Dispatcher == null)
+                    {
+                        throw new Exception("Dispatcher Not Set");
+                    }
+                    _BluetoothManager = new BluetoothManager(Dispatcher);
                 }
                 return _BluetoothManager;
             }
         }
-
-        
     }
 }

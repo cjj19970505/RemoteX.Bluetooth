@@ -7,7 +7,7 @@
         <StackLayout>
             <Button x:Name="ScanButton" Text="Scan" Clicked="ScanButton_Clicked" />
             <Button x:Name="ConnectButton" IsEnabled="False" Text="Connect" Clicked="ConnectButton_Clicked"/>
-            <ListView x:Name="DeviceListView" SeparatorColor="Black" HasUnevenRows="True" ItemSelected="DeviceListView_ItemSelected">
+            <ListView x:Name="DeviceListView" SeparatorVisibility="Default" SeparatorColor="Accent" HasUnevenRows="True" ItemSelected="DeviceListView_ItemSelected">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <gattclient:BluetoothDeviceViewCell/>

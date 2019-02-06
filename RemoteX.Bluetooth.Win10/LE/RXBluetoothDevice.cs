@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using RemoteX.Bluetooth.LE.Gatt.Client;
+using RemoteX.Bluetooth.Win10.LE.Gatt.Client;
 using Windows.Devices.Bluetooth;
 using Windows.Devices.Enumeration;
 
@@ -13,7 +14,8 @@ namespace RemoteX.Bluetooth.Win10.LE
     {
         public BluetoothLEDevice Win10LEDevice { get; }
         public DeviceInformation Win10DeviceInformaion { get; }
-
+        public BluetoothManager RXBluetoothManager { get; }
+        public IGattClient GattClient { get; }
         public string Name
         {
             get
@@ -26,26 +28,17 @@ namespace RemoteX.Bluetooth.Win10.LE
         {
             get
             {
-                return Win10LEDevice.BluetoothAddress;
+                return BluetoothUtils.AddressStringToInt64(RXBluetoothUtils.GetAddressStringFromDeviceId(Win10DeviceInformaion.Id));
             }
         }
 
-        public Guid[] LastestFetchedUuids => throw new NotImplementedException();
-
-        public bool IsFetchingUuids => throw new NotImplementedException();
-
-        public IGattClient GattClient => throw new NotImplementedException();
-
-        public event BluetoothDeviceGetUuidsHanlder OnUuidsFetched;
-
-        public void FetchUuidsWithSdp()
+        public RXBluetoothDevice(BluetoothManager bluetoothManager ,DeviceInformation deviceInformation)
         {
-            throw new NotImplementedException();
+            RXBluetoothManager = bluetoothManager;
+            Win10DeviceInformaion = deviceInformation;
+            GattClient = new RXGattClient(this);
         }
 
-        public void stopFetchingUuidsWithSdp()
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }

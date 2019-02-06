@@ -8,12 +8,12 @@ using Windows.Devices.Bluetooth;
 
 namespace RemoteX.Bluetooth.Win10.LE.Gatt.Client
 {
-    internal class GattClient:IGattClient
+    internal class RXGattClient:IGattClient
     {
         
         public RXBluetoothDevice BluetoothDevice { get; }
         public BluetoothLEDevice Win10LEDevice { get; private set; }
-        public GattClient(RXBluetoothDevice bluetoothDevice)
+        public RXGattClient(RXBluetoothDevice bluetoothDevice)
         {
             BluetoothDevice = bluetoothDevice;
         }
@@ -25,8 +25,6 @@ namespace RemoteX.Bluetooth.Win10.LE.Gatt.Client
             Win10LEDevice = await BluetoothLEDevice.FromIdAsync(BluetoothDevice.Win10DeviceInformaion.Id);
             System.Diagnostics.Debug.WriteLine(Win10LEDevice.DeviceId);
         }
-
-        
 
         public Task<IGattClientService[]> DiscoverAllPrimaryServiceAsync()
         {

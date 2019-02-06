@@ -12,7 +12,6 @@ namespace RemoteX.Bluetooth.LE
     public interface IBluetoothLEScanner
     {
         BluetoothLEScannerState Status { get; }
-
         event EventHandler<IBluetoothDevice> Added;
         event EventHandler<IBluetoothDevice> Removed;
         event EventHandler Stopped;

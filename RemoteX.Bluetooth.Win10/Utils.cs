@@ -8,7 +8,7 @@ using Windows.Devices.Enumeration;
 
 namespace RemoteX.Bluetooth.Win10
 {
-    public static class BluetoothUtils
+    public static class RXBluetoothUtils
     {
         public static DeviceWatcherStatus ToDeviceWatcherStatus(this BluetoothLEScannerState self)
         {

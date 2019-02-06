@@ -12,6 +12,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Xamarin.Forms;
 
 namespace Remote.Bluetooth.Tester.UWP
 {
@@ -20,8 +21,8 @@ namespace Remote.Bluetooth.Tester.UWP
         public MainPage()
         {
             this.InitializeComponent();
-
             LoadApplication(new Remote.Bluetooth.Tester.App());
+            (DependencyService.Get<IManagerManager>() as ManagerManager).Dispatcher = Window.Current.Dispatcher;
         }
     }
 }
