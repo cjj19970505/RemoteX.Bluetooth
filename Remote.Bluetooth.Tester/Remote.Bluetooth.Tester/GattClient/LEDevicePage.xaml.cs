@@ -28,8 +28,24 @@ namespace Remote.Bluetooth.Tester.GattClient
 
         private async void GetAllServicesButton_Clicked(object sender, EventArgs e)
         {
+            GetAllServicesButton.IsEnabled = false;
             await BluetoothDevice.GattClient.ConnectToServerAsync();
-            var serviceResult = await BluetoothDevice.GattClient.DiscoverAllPrimaryServiceAsync();
+            GattServiceResult serviceResult = new GattServiceResult();
+            bool failed = true;
+            while (failed)
+            {
+                try
+                {
+                    serviceResult = await BluetoothDevice.GattClient.DiscoverAllPrimaryServiceAsync();
+                    failed = false;
+                    System.Diagnostics.Debug.WriteLine("FAILED");
+                }
+                catch (Exception)
+                {
+
+                }
+            }
+            
             if(serviceResult.ProtocolError == RemoteX.Bluetooth.LE.Gatt.GattErrorCode.Success)
             {
                 System.Diagnostics.Debug.WriteLine("SUCCESS");
@@ -37,6 +53,31 @@ namespace Remote.Bluetooth.Tester.GattClient
                 {
                     Services.Add(service);
                 }
+            }
+            GetAllServicesButton.IsEnabled = true;
+        }
+
+        private async void EnterServicePageButton_Clicked(object sender, EventArgs e)
+        {
+            if(ServiceListView.SelectedItem == null)
+            {
+                return;
+            }
+            var service = ServiceListView.SelectedItem as IGattClientService;
+            await Navigation.PushAsync(new GattServicePage(service));
+        }
+
+        private void ServiceListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            if(e.SelectedItem == null)
+            {
+                EnterServicePageButton.IsEnabled = false;
+                SelectedServiceUuidLabel.Text = "NO SELECTED SERVICE";
+            }
+            else
+            {
+                EnterServicePageButton.IsEnabled = true;
+                SelectedServiceUuidLabel.Text = (ServiceListView.SelectedItem as IGattClientService).Uuid.ToString();
             }
         }
     }

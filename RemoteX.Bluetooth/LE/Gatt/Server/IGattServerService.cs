@@ -22,7 +22,9 @@ namespace RemoteX.Bluetooth.LE.Gatt.Server
     {
         event EventHandler<ICharacteristicReadRequest> OnRead;
         event EventHandler<ICharacteristicWriteRequest> OnWrite;
+        
         IGattServerService Service { get; }
+        IGattServerDescriptor[] Descriptors { get; }
         byte[] Value { get; set; }
         void NotifyValueChanged(IBluetoothDevice bluetoothDevice, bool confirm);
         

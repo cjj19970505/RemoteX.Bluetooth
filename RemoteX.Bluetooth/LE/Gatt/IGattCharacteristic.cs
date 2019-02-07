@@ -8,7 +8,7 @@ namespace RemoteX.Bluetooth.LE.Gatt
     
     public interface IGattCharacteristic
     {
-        IGattServerDescriptor[] Descriptors { get; }
+        
         
         GattPermissions Permissions { get; }
 

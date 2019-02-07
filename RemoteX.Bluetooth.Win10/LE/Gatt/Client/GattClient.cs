@@ -62,6 +62,10 @@ namespace RemoteX.Bluetooth.Win10.LE.Gatt.Client
                 throw new NotImplementedException("UNREACHABLE");
                 
             }
+            else if(win10ServiceResult.Status == GattCommunicationStatus.AccessDenied)
+            {
+                throw new NotImplementedException("ACCESS_DENIED");
+            }
             return rxServiceResult;
         }
 
@@ -77,10 +81,30 @@ namespace RemoteX.Bluetooth.Win10.LE.Gatt.Client
             }
             if(rxService == null)
             {
-                rxService = new RXGattClientService(win10Service);
+                rxService = new RXGattClientService(this, win10Service);
                 _AttributeList.Add(rxService);
             }
             return rxService;
         }
+
+        public RXGattClientCharacteristic GetRXCharacteristicFromWin10Characteristic(GattCharacteristic win10Characteristic)
+        {
+            RXGattClientCharacteristic rxCharacteristic = null;
+            foreach (var attribute in _AttributeList)
+            {
+                if (attribute.AttributeHandle == win10Characteristic.AttributeHandle)
+                {
+                    rxCharacteristic = attribute as RXGattClientCharacteristic;
+                }
+            }
+            if(rxCharacteristic == null)
+            {
+                rxCharacteristic = new RXGattClientCharacteristic(win10Characteristic);
+                _AttributeList.Add(rxCharacteristic);
+            }
+            return rxCharacteristic;
+        }
+
+        //public RXGattClientCharacteristic GetRXCharacteristicFromWin10Characteristic()
     }
 }

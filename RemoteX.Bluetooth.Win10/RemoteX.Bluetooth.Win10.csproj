@@ -123,6 +123,7 @@
     <Compile Include="BluetoothManager.cs" />
     <Compile Include="LE\Gatt\Client\GattClient.cs" />
     <Compile Include="LE\Gatt\Client\GattService.cs" />
+    <Compile Include="LE\Gatt\Client\RXGattClientCharacteristic.cs" />
     <Compile Include="LE\RXBluetoothDevice.cs" />
     <Compile Include="LE\RXBluetoothLEScanner.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

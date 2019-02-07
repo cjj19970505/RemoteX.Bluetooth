@@ -1,5 +1,7 @@
-﻿using System;
+﻿using RemoteX.Bluetooth.LE.Gatt.Client;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,9 +14,31 @@ namespace Remote.Bluetooth.Tester.GattClient
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class GattServicePage : ContentPage
 	{
-		public GattServicePage ()
+        public ObservableCollection<IGattClientCharacteristic> Characteristics;
+        IGattClientService GattService { get; }
+		public GattServicePage (IGattClientService gattService)
 		{
-			InitializeComponent ();
-		}
-	}
+            GattService = gattService;
+            Characteristics = new ObservableCollection<IGattClientCharacteristic>();
+            InitializeComponent ();
+            BindingContext = GattService;
+            CharactersticListView.ItemsSource = Characteristics;
+
+        }
+
+        private async void GetCharacteristicsButton_Clicked(object sender, EventArgs e)
+        {
+            GetCharacteristicsButton.IsEnabled = false;
+            var result = await GattService.DiscoverAllCharacteristicsAsync();
+            System.Diagnostics.Debug.WriteLine(Enum.GetName(typeof(RemoteX.Bluetooth.LE.Gatt.GattErrorCode), result.ProtocolError));
+            if(result.ProtocolError == RemoteX.Bluetooth.LE.Gatt.GattErrorCode.Success)
+            {
+                foreach(var characteristic in result.Characteristics)
+                {
+                    Characteristics.Add(characteristic);
+                }
+            }
+            GetCharacteristicsButton.IsEnabled = true;
+        }
+    }
 }

@@ -36,10 +36,10 @@ namespace RemoteX.Bluetooth.LE.Gatt.Client
         /// 4.6.1 Discover All Characteristics of a Service
         /// </summary>
         /// <returns></returns>
-        Task<IGattClientCharacteristic[]> DiscoverAllCharacteristicsAsync();
+        Task<GattCharacteristicsResult> DiscoverAllCharacteristicsAsync();
     }
 
-    public interface IGattClientCharacteristic : IGattCharacteristic
+    public interface IGattClientCharacteristic : IGattCharacteristic, IAttribute
     {
         IGattClientService Service { get; }
 

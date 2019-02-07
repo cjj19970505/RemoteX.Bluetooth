@@ -8,13 +8,18 @@
             <Label Text="{Binding Name}" FontSize="Large"/>
             <Label Text="{Binding Address, Converter={StaticResource MacAddressUlongToStringConverter}}" FontSize="Micro"/>
             <Button x:Name="GetAllServicesButton" Text="Discover All Services" Clicked="GetAllServicesButton_Clicked"/>
-            <ListView x:Name="ServiceListView">
+            
+            <ListView x:Name="ServiceListView" ItemSelected="ServiceListView_ItemSelected">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <gattclient:GattServiceViewCell/>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
+            <StackLayout Orientation="Horizontal">
+                <Label x:Name="SelectedServiceUuidLabel" Text="NO SELECTED SERVICE"/>
+            </StackLayout>
+            <Button x:Name="EnterServicePageButton" Text="Enter Service Page" IsEnabled="True" Clicked="EnterServicePageButton_Clicked"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

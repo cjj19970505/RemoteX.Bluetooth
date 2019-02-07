@@ -18,17 +18,14 @@ namespace Remote.Bluetooth.Tester.GattServer
 	public partial class ServiceListPage : ContentPage
 	{
         ObservableCollection<GattServiceModel> serviceModelList;
-        ObservableCollection<BluetoothDeviceModel> deviceModelList;
         BatteryServiceWrapper BatteryServiceWrapper;
         TestGattServiceWrapper TestGattServiceWrapper;
 
         public ServiceListPage ()
 		{
             serviceModelList = new ObservableCollection<GattServiceModel>();
-            deviceModelList = new ObservableCollection<BluetoothDeviceModel>();
             InitializeComponent ();
             GattServiceListView.ItemsSource = serviceModelList;
-            ConnectedDeviceListView.ItemsSource = deviceModelList;
 
         }
 
@@ -68,17 +65,6 @@ namespace Remote.Bluetooth.Tester.GattServer
             foreach(var gattService in gattServices)
             {
                 serviceModelList.Add(new GattServiceModel(gattService));
-            }
-        }
-
-        private void RefreshConnectedDeviceListButton_Clicked(object sender, EventArgs e)
-        {
-            deviceModelList.Clear();
-            var bluetoothManager = DependencyService.Get<IManagerManager>().BluetoothManager;
-            var connectedDevices = bluetoothManager.GattSever.ConnectedDevices;
-            foreach(var device in connectedDevices)
-            {
-                deviceModelList.Add(new BluetoothDeviceModel(device));
             }
         }
     }

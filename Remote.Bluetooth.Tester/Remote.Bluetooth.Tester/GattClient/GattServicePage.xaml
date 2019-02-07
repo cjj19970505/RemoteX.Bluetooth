@@ -1,11 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:gattclient="clr-namespace:Remote.Bluetooth.Tester.GattClient"
              x:Class="Remote.Bluetooth.Tester.GattClient.GattServicePage">
     <ContentPage.Content>
         <StackLayout>
             <Label Text="{Binding Uuid, Converter={StaticResource GuidToStringConverter}}" FontSize="Large"/>
-            
+            <Button x:Name="GetCharacteristicsButton" Text="Get Characteristic" Clicked="GetCharacteristicsButton_Clicked"/>
+            <ListView x:Name="CharactersticListView">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <gattclient:GattCharacteristicViewCell/>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </StackLayout>
+        
     </ContentPage.Content>
 </ContentPage> 
