@@ -79,7 +79,8 @@ namespace Remote.Bluetooth.Tester.GattClient
 
         private async void ConnectButton_Clicked(object sender, EventArgs e)
         {
-            await (DeviceListView.SelectedItem as IBluetoothDevice).GattClient.ConnectToServerAsync();
+            await Navigation.PushAsync(new LEDevicePage(DeviceListView.SelectedItem as IBluetoothDevice));
+            //await (DeviceListView.SelectedItem as IBluetoothDevice).GattClient.ConnectToServerAsync();
         }
 
         protected override void OnDisappearing()

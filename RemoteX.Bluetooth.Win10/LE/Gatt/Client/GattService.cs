@@ -1,4 +1,5 @@
-﻿using RemoteX.Bluetooth.LE.Gatt;
+﻿using RemoteX.Bluetooth.LE.Att;
+using RemoteX.Bluetooth.LE.Gatt;
 using RemoteX.Bluetooth.LE.Gatt.Client;
 using System;
 using System.Collections.Generic;
@@ -9,10 +10,17 @@ using Windows.Devices.Bluetooth.GenericAttributeProfile;
 
 namespace RemoteX.Bluetooth.Win10.LE.Gatt.Client
 {
-    internal class RXGattClientService : IGattClientService
+    internal class RXGattClientService : IGattClientService, IAttribute
     {
         public GattDeviceService Win10GattService { get; }
 
+        public ushort AttributeHandle
+        {
+            get
+            {
+                return Win10GattService.AttributeHandle;
+            }
+        }
 
         public Guid Uuid
         {

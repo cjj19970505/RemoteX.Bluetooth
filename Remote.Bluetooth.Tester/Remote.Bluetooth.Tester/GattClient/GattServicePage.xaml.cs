@@ -1,5 +1,4 @@
-﻿using RemoteX.Bluetooth.LE.Gatt.Client;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,10 +10,9 @@ using Xamarin.Forms.Xaml;
 namespace Remote.Bluetooth.Tester.GattClient
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class GattServiceViewCell : ViewCell
+	public partial class GattServicePage : ContentPage
 	{
-        public IGattClientService Service { get; set; }
-		public GattServiceViewCell ()
+		public GattServicePage ()
 		{
 			InitializeComponent ();
 		}

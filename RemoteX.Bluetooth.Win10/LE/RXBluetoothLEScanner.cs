@@ -54,7 +54,8 @@ namespace RemoteX.Bluetooth.Win10.LE
 
         private void BleDeviceWatcher_Updated(DeviceWatcher sender, DeviceInformationUpdate args)
         {
-            throw new NotImplementedException();
+            System.Diagnostics.Debug.WriteLine("BLEWATCHER_UPDATED::Address:" + RXBluetoothUtils.GetAddressStringFromDeviceId(args.Id));
+            //throw new NotImplementedException();
         }
 
         private void BleDeviceWatcher_Added(DeviceWatcher sender, DeviceInformation args)

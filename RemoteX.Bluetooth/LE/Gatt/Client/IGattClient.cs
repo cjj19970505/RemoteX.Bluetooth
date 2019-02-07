@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RemoteX.Bluetooth.LE.Att;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,8 +15,6 @@ namespace RemoteX.Bluetooth.LE.Gatt.Client
 
     public interface IGattClient
     {
-        event EventHandler<IGattClientService[]> OnServicesDiscovered;
-
         /// <summary>
         /// ConnectedToGattServer
         /// </summary>
@@ -27,10 +26,10 @@ namespace RemoteX.Bluetooth.LE.Gatt.Client
         /// 4.4.1 Discover All Primary Services
         /// </summary>
         /// <returns></returns>
-        Task<IGattClientService[]> DiscoverAllPrimaryServiceAsync();
+        Task<GattServiceResult> DiscoverAllPrimaryServiceAsync();
     }
 
-    public interface IGattClientService : IGattService
+    public interface IGattClientService : IGattService, IAttribute
     {
         /// <summary>
         /// Core v5.0
