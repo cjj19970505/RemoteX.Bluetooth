@@ -8,7 +8,10 @@ namespace RemoteX.Bluetooth.LE.Gatt.Client
 {
     public struct ReadCharacteristicValueResult
     {
+        public GattCommunicationStatus CommunicationStatus;
+        public GattErrorCode ProtocolError;
         public byte[] Value;
+        
     }
 
     
@@ -48,6 +51,7 @@ namespace RemoteX.Bluetooth.LE.Gatt.Client
         /// 4.10.1 Notification
         /// </summary>
         event EventHandler<byte[]> OnNotified;
+        
 
         /// <summary>
         /// Core v5.0
@@ -56,7 +60,21 @@ namespace RemoteX.Bluetooth.LE.Gatt.Client
         /// <returns></returns>
         Task<ReadCharacteristicValueResult> ReadCharacteristicValueAsync();
 
+        /// <summary>
+        /// Core v5.0
+        /// 4.7.1 Discover All Characteristic Descriptors
+        /// </summary>
+        /// <returns></returns>
+        Task<GattDescriptorsResult> DiscoverAllCharacteristicDescriptorsAsync();
+
+
         byte[] LatestValue { get; }
+    }
+
+    public interface IGattClientDescriptor : IGattDescriptor, IAttribute
+    {
+        Task<GattWriteResult> WriteAsync(byte[] value);
+        
     }
 
     

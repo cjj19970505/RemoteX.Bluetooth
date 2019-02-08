@@ -44,7 +44,8 @@ namespace RemoteX.Bluetooth.Win10.LE.Gatt.Client
             
             var win10Result = await Win10GattService.GetCharacteristicsAsync();
             Bluetooth.LE.Gatt.Client.GattCharacteristicsResult rxResult = new Bluetooth.LE.Gatt.Client.GattCharacteristicsResult();
-            if(win10Result.Status == GattCommunicationStatus.Success)
+            rxResult.CommunicationStatus = win10Result.Status.ToRXCommunicationStatus();
+            if(rxResult.CommunicationStatus == Bluetooth.LE.Gatt.GattCommunicationStatus.Success)
             {
                 rxResult.ProtocolError = GattErrorCode.Success;
                 List<RXGattClientCharacteristic> rxCharacteristicList = new List<RXGattClientCharacteristic>();
@@ -54,16 +55,16 @@ namespace RemoteX.Bluetooth.Win10.LE.Gatt.Client
                 }
                 rxResult.Characteristics = rxCharacteristicList.ToArray();
             }
-            else if(win10Result.Status == GattCommunicationStatus.ProtocolError)
+            else if(rxResult.CommunicationStatus == Bluetooth.LE.Gatt.GattCommunicationStatus.ProtocolError)
             {
                 rxResult.ProtocolError = (Bluetooth.LE.Gatt.GattErrorCode)(win10Result.ProtocolError);
             }
-            else if (win10Result.Status == GattCommunicationStatus.Unreachable)
+            else if (rxResult.CommunicationStatus == Bluetooth.LE.Gatt.GattCommunicationStatus.Unreachable)
             {
                 throw new NotImplementedException("UNREACHABLE");
 
             }
-            else if (win10Result.Status == GattCommunicationStatus.AccessDenied)
+            else if (rxResult.CommunicationStatus == Bluetooth.LE.Gatt.GattCommunicationStatus.AccessDenied)
             {
                 throw new NotImplementedException("ACCESS_DENIED");
             }

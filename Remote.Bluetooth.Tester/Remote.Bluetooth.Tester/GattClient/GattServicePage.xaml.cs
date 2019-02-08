@@ -40,5 +40,22 @@ namespace Remote.Bluetooth.Tester.GattClient
             }
             GetCharacteristicsButton.IsEnabled = true;
         }
+
+        private async void EnterCharacteristicButton_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new GattCharacteristicPage(CharactersticListView.SelectedItem as IGattClientCharacteristic));
+        }
+
+        private void CharactersticListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            if (e.SelectedItem != null)
+            {
+                EnterCharacteristicButton.IsEnabled = true;
+            }
+            else
+            {
+                EnterCharacteristicButton.IsEnabled = false;
+            }
+        }
     }
 }

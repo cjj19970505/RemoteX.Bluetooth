@@ -74,5 +74,43 @@ namespace RemoteX.Bluetooth.LE.Gatt
         public bool Indicate;
         public bool AuthenticatedSignedWrites;
         public bool ExtendedProperties;
+
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+            if (Broadcast)
+            {
+                sb.Append("Broadcast ");
+            }
+            if (Read)
+            {
+                sb.Append("Read ");
+            }
+            if (WriteWithoutResponse)
+            {
+                sb.Append("WriteWithoutResponse ");
+            }
+            if (Write)
+            {
+                sb.Append("Write ");
+            }
+            if (Notify)
+            {
+                sb.Append("Notify ");
+            }
+            if (Indicate)
+            {
+                sb.Append("Indicate ");
+            }
+            if (AuthenticatedSignedWrites)
+            {
+                sb.Append("AuthenticatedSignedWrites ");
+            }
+            if (ExtendedProperties)
+            {
+                sb.Append("ExtendedProperties ");
+            }
+            return sb.ToString();
+        }
     }
 }

@@ -52,7 +52,7 @@ namespace RemoteX.Droid.Bluetooth.LE.Gatt.Server
         public override void OnWriteRequest(BluetoothDevice device, int requestId, bool preparedWrite, bool responseNeeded, int offset, byte[] value)
         {
             base.OnWriteRequest(device, requestId, preparedWrite, responseNeeded, offset, value);
-            //Log.Info("BLEAdver", "OnWriteRequest PreparedWrite:" + preparedWrite + " responseNeeded" + responseNeeded);
+            Log.Info("BLEAdver", "OnClientCharacteristicConfigurationDescriptorWriteRequest PreparedWrite:" + preparedWrite + " responseNeeded" + responseNeeded);
         }
         public override void OnReadRequest(BluetoothDevice device, int requestId, int offset)
         {

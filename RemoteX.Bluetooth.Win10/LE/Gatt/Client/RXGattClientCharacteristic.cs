@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Windows.Devices.Bluetooth.GenericAttributeProfile;
+using Windows.Storage.Streams;
 
 namespace RemoteX.Bluetooth.Win10.LE.Gatt.Client
 {
@@ -20,7 +20,13 @@ namespace RemoteX.Bluetooth.Win10.LE.Gatt.Client
 
         public GattPermissions Permissions => throw new NotImplementedException();
 
-        public Bluetooth.LE.Gatt.GattCharacteristicProperties CharacteristicProperties => throw new NotImplementedException();
+        public Bluetooth.LE.Gatt.GattCharacteristicProperties CharacteristicProperties
+        {
+            get
+            {
+                return Win10Characteristic.CharacteristicProperties.ToRXProperties();
+            }
+        }
 
         public int CharacteristicValueHandle => throw new NotImplementedException();
 
@@ -32,7 +38,7 @@ namespace RemoteX.Bluetooth.Win10.LE.Gatt.Client
             }
         }
 
-        public GattCharacteristic Win10Characteristic { get; }
+        public Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristic Win10Characteristic { get; }
 
         public ushort AttributeHandle
         {
@@ -44,14 +50,83 @@ namespace RemoteX.Bluetooth.Win10.LE.Gatt.Client
 
         public event EventHandler<byte[]> OnNotified;
 
-        public Task<ReadCharacteristicValueResult> ReadCharacteristicValueAsync()
+        public async Task<ReadCharacteristicValueResult> ReadCharacteristicValueAsync()
         {
-            throw new NotImplementedException();
+            Windows.Devices.Bluetooth.GenericAttributeProfile.GattReadResult win10Result = await Win10Characteristic.ReadValueAsync();
+            System.Diagnostics.Debug.WriteLine(win10Result.Status);
+            ReadCharacteristicValueResult rxResult = new ReadCharacteristicValueResult();
+            rxResult.CommunicationStatus = win10Result.Status.ToRXCommunicationStatus();
+            if (rxResult.CommunicationStatus == GattCommunicationStatus.Success)
+            {
+                var reader = DataReader.FromBuffer(win10Result.Value);
+                byte[] valueBytes = new byte[reader.UnconsumedBufferLength];
+                reader.ReadBytes(valueBytes);
+                rxResult.ProtocolError = GattErrorCode.Success;
+                rxResult.Value = valueBytes;
+            }
+            else if (rxResult.CommunicationStatus == GattCommunicationStatus.ProtocolError)
+            {
+                rxResult.ProtocolError = (GattErrorCode)win10Result.ProtocolError;
+            }
+            else if(rxResult.CommunicationStatus == GattCommunicationStatus.Unreachable)
+            {
+                throw new NotImplementedException("UNREACHABLE");
+            }
+            else if(rxResult.CommunicationStatus == GattCommunicationStatus.AccessDenied)
+            {
+                throw new NotImplementedException("ACCESSDENIED");
+            }
+            return rxResult;
         }
 
-        public RXGattClientCharacteristic(GattCharacteristic win10Characteristic)
+        public RXGattClient RXGattClient { get; }
+
+        public RXGattClientCharacteristic(RXGattClient rxGattClient, Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristic win10Characteristic)
         {
+            RXGattClient = rxGattClient;
             Win10Characteristic = win10Characteristic;
+            Win10Characteristic.ValueChanged += Win10Characteristic_ValueChanged;
+            //Win10Characteristic.GetDescriptorsForUuidAsync()
+            
+        }
+
+        private void Win10Characteristic_ValueChanged(Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristic sender, Windows.Devices.Bluetooth.GenericAttributeProfile.GattValueChangedEventArgs args)
+        {
+            var reader = DataReader.FromBuffer(args.CharacteristicValue);
+            byte[] valueBytes = new byte[reader.UnconsumedBufferLength];
+            reader.ReadBytes(valueBytes);
+            System.Diagnostics.Debug.WriteLine("Notified::" + Encoding.UTF8.GetString(valueBytes));
+        }
+
+        public async Task<Bluetooth.LE.Gatt.Client.GattDescriptorsResult> DiscoverAllCharacteristicDescriptorsAsync()
+        {
+            var win10Result = await Win10Characteristic.GetDescriptorsAsync();
+            Bluetooth.LE.Gatt.Client.GattDescriptorsResult rxResult = new Bluetooth.LE.Gatt.Client.GattDescriptorsResult();
+            rxResult.CommunicationStatus = win10Result.Status.ToRXCommunicationStatus();
+            if (rxResult.CommunicationStatus == RemoteX.Bluetooth.LE.Gatt.GattCommunicationStatus.Success)
+            {
+                rxResult.ProtocolError = GattErrorCode.Success;
+                List<RXGattClientDescriptor> rxDescriptorList = new List<RXGattClientDescriptor>();
+                foreach(var win10Descriptor in win10Result.Descriptors)
+                {
+                    rxDescriptorList.Add(RXGattClient.GetRXDescriptorFromWin10Descriptor(win10Descriptor));
+                }
+                rxResult.Descriptors = rxDescriptorList.ToArray();
+            }
+            else if(rxResult.CommunicationStatus == RemoteX.Bluetooth.LE.Gatt.GattCommunicationStatus.ProtocolError)
+            {
+                rxResult.ProtocolError = (Bluetooth.LE.Gatt.GattErrorCode)(win10Result.ProtocolError);
+            }
+            else if (rxResult.CommunicationStatus == GattCommunicationStatus.Unreachable)
+            {
+                throw new NotImplementedException("UNREACHABLE");
+            }
+            else if (rxResult.CommunicationStatus == GattCommunicationStatus.AccessDenied)
+            {
+                throw new NotImplementedException("ACCESSDENIED");
+            }
+            return rxResult;
+
         }
     }
 }

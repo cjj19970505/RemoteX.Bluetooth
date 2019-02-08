@@ -15,5 +15,6 @@ namespace RemoteX.Bluetooth.LE.Gatt
             }
             return "Unknown Service";
         }
+        
     }
 }

@@ -1,10 +1,20 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ViewCell xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Remote.Bluetooth.Tester.GattClient.GattCharacteristicViewCell">
+          xmlns:gattclient="clr-namespace:Remote.Bluetooth.Tester.GattClient"
+          x:Class="Remote.Bluetooth.Tester.GattClient.GattCharacteristicViewCell">
   <ViewCell.View>
-      <StackLayout>
-          <Label Text="{Binding Uuid, Converter={StaticResource GuidToStringConverter}}" />
-      </StackLayout>
-  </ViewCell.View>
+        <StackLayout>
+            <Label Text="{Binding Uuid, Converter={StaticResource GuidToStringConverter}}" />
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Properties: "/>
+                <Label x:Name="PropertiesLabel" Text="NOTING"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Value: "/>
+                <Label Text="NO VALUE" x:Name="CharacteristicValueLabel"/>
+                <Button x:Name="GetValueButton" Text="GetValue" HorizontalOptions="End" Clicked="GetValueButton_Clicked"/>
+            </StackLayout>
+        </StackLayout>
+    </ViewCell.View>
 </ViewCell>

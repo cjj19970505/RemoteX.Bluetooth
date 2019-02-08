@@ -99,12 +99,28 @@ namespace RemoteX.Bluetooth.Win10.LE.Gatt.Client
             }
             if(rxCharacteristic == null)
             {
-                rxCharacteristic = new RXGattClientCharacteristic(win10Characteristic);
+                rxCharacteristic = new RXGattClientCharacteristic(this, win10Characteristic);
                 _AttributeList.Add(rxCharacteristic);
             }
             return rxCharacteristic;
         }
 
-        //public RXGattClientCharacteristic GetRXCharacteristicFromWin10Characteristic()
+        public RXGattClientDescriptor GetRXDescriptorFromWin10Descriptor(GattDescriptor win10Descriptor)
+        {
+            RXGattClientDescriptor rxDescriptor = null;
+            foreach(var attribute in _AttributeList)
+            {
+                if(attribute.AttributeHandle == win10Descriptor.AttributeHandle)
+                {
+                    rxDescriptor = attribute as RXGattClientDescriptor;
+                }
+            }
+            if(rxDescriptor == null)
+            {
+                rxDescriptor = new RXGattClientDescriptor(win10Descriptor);
+                _AttributeList.Add(rxDescriptor);
+            }
+            return rxDescriptor;
+        }
     }
 }

@@ -7,14 +7,18 @@
         <StackLayout>
             <Label Text="{Binding Uuid, Converter={StaticResource GuidToStringConverter}}" FontSize="Large"/>
             <Button x:Name="GetCharacteristicsButton" Text="Get Characteristic" Clicked="GetCharacteristicsButton_Clicked"/>
-            <ListView x:Name="CharactersticListView">
+            <ListView x:Name="CharactersticListView" HasUnevenRows="True" ItemSelected="CharactersticListView_ItemSelected">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <gattclient:GattCharacteristicViewCell/>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Selected Characterisitc:"/>
+                <Label x:Name="SelectedCharacteristicLabel" />
+            </StackLayout>
+            <Button x:Name="EnterCharacteristicButton" Text="Enter Characteristic" IsEnabled="False" Clicked="EnterCharacteristicButton_Clicked"/>
         </StackLayout>
-        
     </ContentPage.Content>
 </ContentPage> 

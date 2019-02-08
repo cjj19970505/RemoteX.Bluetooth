@@ -4,10 +4,10 @@ using System.Text;
 
 namespace RemoteX.Bluetooth.LE.Gatt.Client
 {
-    public struct GattCharacteristicsResult
+    public struct GattDescriptorsResult
     {
         public GattCommunicationStatus CommunicationStatus;
         public GattErrorCode ProtocolError;
-        public IGattClientCharacteristic[] Characteristics;
+        public IGattClientDescriptor[] Descriptors;
     }
 }
