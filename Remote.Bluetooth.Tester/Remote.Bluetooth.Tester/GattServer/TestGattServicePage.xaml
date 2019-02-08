@@ -10,6 +10,7 @@
             <StackLayout Orientation="Horizontal">
                 <Editor x:Name="NotifyEditor" Text="Notify Text"  HorizontalOptions="StartAndExpand" AutoSize="TextChanges"/>
                 <Button x:Name="NotifyButton" Text="Notify" HorizontalOptions="End" Clicked="NotifyButton_Clicked"/>
+                <Button x:Name="NotifyDeviceListButton" Text="Notify Device" Clicked="NotifyDeviceListButton_Clicked"/>
             </StackLayout>
             
             <ListView x:Name="RequestListView" SeparatorColor="Black" HasUnevenRows="True">
@@ -19,6 +20,7 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
+            
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

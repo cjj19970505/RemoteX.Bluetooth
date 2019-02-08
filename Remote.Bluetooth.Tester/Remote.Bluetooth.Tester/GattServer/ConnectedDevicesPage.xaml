@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:gattclient="clr-namespace:Remote.Bluetooth.Tester.GattClient"
+             x:Class="Remote.Bluetooth.Tester.GattServer.ConnectedDevicesPage">
+    <ContentPage.Content>
+        <StackLayout>
+            <ListView x:Name="DeviceListView">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <gattclient:BluetoothDeviceViewCell/>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

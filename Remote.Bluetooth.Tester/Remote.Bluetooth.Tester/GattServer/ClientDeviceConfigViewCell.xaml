@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ViewCell xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Remote.Bluetooth.Tester.GattServer.ClientDeviceConfigViewCell">
+    <ViewCell.View>
+        <StackLayout Orientation="Horizontal">
+            <StackLayout Orientation="Vertical">
+                <Label Text="{Binding Name}"/>
+                <Label Text="{Binding Address, Converter={StaticResource MacAddressUlongToStringConverter}}"/>
+            </StackLayout>
+            <Button x:Name="SetNotifyButton" Text="Notify" HorizontalOptions="End" Clicked="SetNotifyButton_Clicked"/>
+            <Button x:Name="SetNotNotifyButton" Text="NotNotify" HorizontalOptions="End" Clicked="SetNotNotifyButton_Clicked"/>
+        </StackLayout>
+    </ViewCell.View>
+</ViewCell>

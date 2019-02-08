@@ -59,14 +59,28 @@ namespace RemoteX.Droid.Bluetooth.LE.Gatt.Server
             }
         }
 
+        private List<BluetoothDeviceWrapper> _ConnectedDeviceList;
+
+        public IBluetoothDevice[] ConnectedDevices
+        {
+            get
+            {
+                return _ConnectedDeviceList.ToArray();
+            }
+        }
+
+        public event EventHandler<IBluetoothDevice> DeviceConnected;
+        public event EventHandler<IBluetoothDevice> DeviceDisconnected;
+
         internal GattServer(BluetoothManager bluetoothManager)
         {
             _GattServices = new List<GattServerService>();
+            _ConnectedDeviceList = new List<BluetoothDeviceWrapper>();
             _ServerCallback = new ServerCallback(this);
             _AdvertiserCallback = new AdvertiserCallback();
             BluetoothManager = bluetoothManager;
             DroidGattServer = BluetoothManager.DroidBluetoothManager.OpenGattServer(Application.Context, _ServerCallback);
-
+            
             //AddService(new DeviceInfomationService());
             //AddService(new BatteryService());
         }
@@ -217,11 +231,35 @@ namespace RemoteX.Droid.Bluetooth.LE.Gatt.Server
             {
                 base.OnConnectionStateChange(droidDevice, status, newState);
                 var bluetoothDevice = BluetoothDeviceWrapper.GetBluetoothDeviceFromDroidDevice(GattServer.BluetoothManager, droidDevice);
-                Log.Info("BLEAdver", bluetoothDevice + "OnExecuteWrite State:" +status+" New"+ newState);
+                Log.Info("BLEAdver", bluetoothDevice + "OnConnectionStateChange Status:" + status + ", NewStatus:" + newState);
+                bool alreadyConnected = false;
+                foreach (var connectedDevice in GattServer._ConnectedDeviceList)
+                {
+                    if (connectedDevice == bluetoothDevice)
+                    {
+                        alreadyConnected = true;
+                        break;
+                    }
+                }
+                if (newState == ProfileState.Connected)
+                {
+                    if (!alreadyConnected)
+                    {
+                        GattServer._ConnectedDeviceList.Add(bluetoothDevice);
+                        GattServer.DeviceConnected?.Invoke(GattServer, bluetoothDevice);
+                    }
+                }
+                else if(newState == ProfileState.Disconnected)
+                {
+                    if (alreadyConnected)
+                    {
+                        GattServer._ConnectedDeviceList.Remove(bluetoothDevice);
+                        GattServer.DeviceDisconnected?.Invoke(GattServer, bluetoothDevice);
+                    }
+                }
+                
 
             }
-
-
         }
     
 
@@ -237,13 +275,7 @@ namespace RemoteX.Droid.Bluetooth.LE.Gatt.Server
             }
         }
 
-        public IBluetoothDevice[] ConnectedDevices
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-        }
+        
 
         /*
         private static Guid SERVICE_DEVICE_INFORMATION = BluetoothUtils.ShortValueUuid(0x180A);

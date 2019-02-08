@@ -67,5 +67,11 @@ namespace Remote.Bluetooth.Tester.GattServer
                 serviceModelList.Add(new GattServiceModel(gattService));
             }
         }
+
+        private async void ShowDeviceListButton_Clicked(object sender, EventArgs e)
+        {
+            var bluetoothManager = DependencyService.Get<IManagerManager>().BluetoothManager;
+            await Navigation.PushAsync(new ConnectedDevicesPage(bluetoothManager.GattSever));
+        }
     }
 }

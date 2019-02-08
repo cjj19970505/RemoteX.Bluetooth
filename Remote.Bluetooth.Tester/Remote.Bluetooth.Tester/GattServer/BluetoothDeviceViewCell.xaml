@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ViewCell xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Remote.Bluetooth.Tester.GattServer.BluetoothDeviceViewCell">
+    <ViewCell.View>
+        <StackLayout>
+            <Label Text="{Binding Name}"/>
+            <Label Text="{Binding Address, Converter={StaticResource MacAddressUlongToStringConverter}}" FontSize="Micro"/>
+        </StackLayout>
+    </ViewCell.View>
+</ViewCell>

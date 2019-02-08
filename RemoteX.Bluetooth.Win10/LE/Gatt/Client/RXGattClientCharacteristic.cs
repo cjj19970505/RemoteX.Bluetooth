@@ -96,6 +96,7 @@ namespace RemoteX.Bluetooth.Win10.LE.Gatt.Client
             byte[] valueBytes = new byte[reader.UnconsumedBufferLength];
             reader.ReadBytes(valueBytes);
             System.Diagnostics.Debug.WriteLine("Notified::" + Encoding.UTF8.GetString(valueBytes));
+            OnNotified?.Invoke(this, valueBytes);
         }
 
         public async Task<Bluetooth.LE.Gatt.Client.GattDescriptorsResult> DiscoverAllCharacteristicDescriptorsAsync()

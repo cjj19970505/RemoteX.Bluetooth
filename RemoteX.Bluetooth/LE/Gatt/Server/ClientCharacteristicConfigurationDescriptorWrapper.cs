@@ -36,7 +36,7 @@ namespace RemoteX.Bluetooth.LE.Gatt.Server
                 }
                 return _ClientConfigurations[bluetoothDevice];
             }
-            private set
+            set
             {
                 if (bluetoothDevice == null)
                 {

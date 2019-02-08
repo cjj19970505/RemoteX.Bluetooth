@@ -29,5 +29,11 @@ namespace Remote.Bluetooth.Tester.GattServer
         {
             TestGattServiceWrapper.Notify(NotifyEditor.Text);
         }
+
+        private void NotifyDeviceListButton_Clicked(object sender, EventArgs e)
+        {
+            var GattServer = DependencyService.Get<IManagerManager>().BluetoothManager.GattSever;
+            Navigation.PushAsync(new ClientDeviceConfigPage(GattServer, TestGattServiceWrapper.TestCharacteristicWrapper.ClientCharacteristicConfigurationDescriptorWrapper));
+        }
     }
 }
