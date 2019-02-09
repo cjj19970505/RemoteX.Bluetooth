@@ -37,8 +37,9 @@ namespace RemoteX.Bluetooth.Win10.LE.Gatt.Client
             Win10Descriptor = win10Descriptor;
         }
 
-        public async Task<Bluetooth.LE.Gatt.Client.GattWriteResult> WriteAsync(byte[] value)
+        public Task<Bluetooth.LE.Gatt.Client.GattWriteResult> WriteAsync(byte[] value)
         {
+            /*
             var writer = new DataWriter();
             //writer.WriteBytes(value);
             writer.WriteByte(0x01);
@@ -48,6 +49,8 @@ namespace RemoteX.Bluetooth.Win10.LE.Gatt.Client
             System.Diagnostics.Debug.WriteLine("RESULT::" + Enum.GetName(typeof(GattCommunicationStatus), result));
             return new Bluetooth.LE.Gatt.Client.GattWriteResult();
             //return (await Win10Descriptor.WriteValueWithResultAsync(writer.DetachBuffer())).ToRXGattWriteResult();
+            */
+            throw new NotImplementedException();
         }
     }
 }

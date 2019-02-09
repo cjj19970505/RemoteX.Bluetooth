@@ -20,14 +20,43 @@ namespace Remote.Bluetooth.Tester.GattServer
 		{
 			InitializeComponent ();
             BindingContextChanged += _OnBindingContextChanged;
-            ResponseErrorCodePicker.SelectedIndex = 0;
-
-
         }
+
+
 
         private void _OnBindingContextChanged(object sender, EventArgs e)
         {
             GattRequestViewModel = BindingContext as GattRequestViewModel;
+            ResponseErrorCodePicker.SelectedIndex = 0;
+            _UpdateUI();
+
+
+
+        }
+
+        private void _UpdateUI()
+        {
+            if (GattRequestViewModel.GattServerRequest.State == GattRequestState.Completed)
+            {
+                RespondButton.IsEnabled = false;
+                ResponseErrorCodePicker.IsEnabled = false;
+            }
+            if (GattRequestViewModel.GattServerRequest is ICharacteristicWriteRequest)
+            {
+                var characteristicWriteRequest = GattRequestViewModel.GattServerRequest as ICharacteristicWriteRequest;
+                ResponseEditor.Text = Encoding.UTF8.GetString(characteristicWriteRequest.Value);
+                ResponseEditor.IsEnabled = false;
+                RespondButton.IsEnabled = true;
+                ResponseErrorCodePicker.IsEnabled = true;
+                if (!characteristicWriteRequest.ResponseNeeded)
+                {
+                    
+                    RespondButton.Text = "Response Not Needed";
+                    //RespondButton.IsEnabled = false;
+                    //ResponseErrorCodePicker.IsEnabled = false;
+                }
+
+            }
         }
 
         private void RespondButton_Clicked(object sender, EventArgs e)
@@ -57,6 +86,7 @@ namespace Remote.Bluetooth.Tester.GattServer
                     GattRequestViewModel.GattServerRequest.RespondWithProtocolError(errorcode);
                 }
             }
+            _UpdateUI();
         }
     }
 }

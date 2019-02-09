@@ -45,7 +45,7 @@ namespace RemoteX.Bluetooth.LE.Gatt.Client
     public interface IGattClientCharacteristic : IGattCharacteristic, IAttribute
     {
         IGattClientService Service { get; }
-
+        IClientCharacteristicConfiguration GattCharacteristicConfiguration { get; }
         /// <summary>
         /// Core v5.0
         /// 4.10.1 Notification
@@ -66,6 +66,17 @@ namespace RemoteX.Bluetooth.LE.Gatt.Client
         /// </summary>
         /// <returns></returns>
         Task<GattDescriptorsResult> DiscoverAllCharacteristicDescriptorsAsync();
+
+        Task<GattWriteResult> WriteAsync(byte[] value);
+
+        /// <summary>
+        /// Core v5.0
+        /// 4.9.1 Write Without Response
+        /// 注意：win10API目前似乎并不支持WriteWIthoutResponse，调用这个函数一样全都要Response，不然就会宕掉，不知道为啥
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        Task<GattCommunicationStatus> WriteWithoutResponseAsync(byte[] value);
 
 
         byte[] LatestValue { get; }

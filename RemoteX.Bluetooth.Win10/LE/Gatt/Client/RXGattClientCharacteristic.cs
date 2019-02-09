@@ -81,10 +81,13 @@ namespace RemoteX.Bluetooth.Win10.LE.Gatt.Client
 
         public RXGattClient RXGattClient { get; }
 
+        public IClientCharacteristicConfiguration GattCharacteristicConfiguration { get; }
+
         public RXGattClientCharacteristic(RXGattClient rxGattClient, Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristic win10Characteristic)
         {
             RXGattClient = rxGattClient;
             Win10Characteristic = win10Characteristic;
+            GattCharacteristicConfiguration = new RXClientCharacteristicConfiguration(this);
             Win10Characteristic.ValueChanged += Win10Characteristic_ValueChanged;
             //Win10Characteristic.GetDescriptorsForUuidAsync()
             
@@ -128,6 +131,50 @@ namespace RemoteX.Bluetooth.Win10.LE.Gatt.Client
             }
             return rxResult;
 
+        }
+
+        public async Task<GattWriteResult> WriteAsync(byte[] value)
+        {
+            var writer = new DataWriter();
+            writer.WriteBytes(value);
+            IBuffer buffer = writer.DetachBuffer();
+            var result = (await Win10Characteristic.WriteValueWithResultAsync(buffer)).ToRXGattWriteResult();
+            return result;
+        }
+
+        public async Task<GattCommunicationStatus> WriteWithoutResponseAsync(byte[] value)
+        {
+            var writer = new DataWriter();
+            writer.WriteBytes(value);
+            IBuffer buffer = writer.DetachBuffer();
+            GattCommunicationStatus status = (await Win10Characteristic.WriteValueAsync(buffer)).ToRXCommunicationStatus();
+            return status;
+        }
+
+
+        class RXClientCharacteristicConfiguration : IClientCharacteristicConfiguration
+        {
+            RXGattClientCharacteristic RXGattClientCharacteristic { get; }
+            public RXClientCharacteristicConfiguration(RXGattClientCharacteristic rxGattClientCharacteristic)
+            {
+                RXGattClientCharacteristic = rxGattClientCharacteristic;
+            }
+
+            public async Task<GattWriteResult> SetValueAsync(bool notification, bool indication)
+            {
+                int value = 0;
+                if (notification)
+                {
+                    value |= (int)(Windows.Devices.Bluetooth.GenericAttributeProfile.GattClientCharacteristicConfigurationDescriptorValue.Notify);
+                }
+                if (indication)
+                {
+                    value |= (int)(Windows.Devices.Bluetooth.GenericAttributeProfile.GattClientCharacteristicConfigurationDescriptorValue.Indicate); ;
+                }
+                var win10Result = await RXGattClientCharacteristic.Win10Characteristic.WriteClientCharacteristicConfigurationDescriptorWithResultAsync((Windows.Devices.Bluetooth.GenericAttributeProfile.GattClientCharacteristicConfigurationDescriptorValue)value);
+                var rxResult = win10Result.ToRXGattWriteResult();
+                return rxResult;
+            }
         }
     }
 }

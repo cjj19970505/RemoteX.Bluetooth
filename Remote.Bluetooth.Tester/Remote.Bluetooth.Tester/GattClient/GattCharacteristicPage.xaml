@@ -6,7 +6,17 @@
     <ContentPage.Content>
         <StackLayout>
             <Label Text="{Binding Uuid, Converter={StaticResource GuidToStringConverter}}" FontSize="Large"/>
+            <StackLayout Orientation="Horizontal">
+                <Editor x:Name="WriteEditor" Text="Write Content"/>
+                <Button x:Name="WriteButton" Text="Write" Clicked="WriteButton_Clicked"/>
+                <Button x:Name="WriteWithoutResponseButton" Text="WriteWithoutResponseButton" Clicked="WriteWithoutResponseButton_Clicked"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Button x:Name="SetNotifyButton" Text="Notify" Clicked="SetNotifyButton_Clicked"/>
+                <Button x:Name="SetNotNotifyButton" Text="Not Notify" Clicked="SetNotNotifyButton_Clicked"/>
+            </StackLayout>
             <Button x:Name="GetDescriptorsButton" Text="Get Descriptors" Clicked="GetDescriptorsButton_Clicked"/>
+            
             <ListView x:Name="DescriptorListView">
                 <ListView.ItemTemplate>
                     <DataTemplate>

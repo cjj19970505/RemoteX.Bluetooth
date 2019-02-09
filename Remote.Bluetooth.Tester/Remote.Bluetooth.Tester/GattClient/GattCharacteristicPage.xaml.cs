@@ -41,6 +41,30 @@ namespace Remote.Bluetooth.Tester.GattClient
                 }
             }
         }
+
+        private async void WriteButton_Clicked(object sender, EventArgs e)
+        {
+            var valueBytes = Encoding.UTF8.GetBytes(WriteEditor.Text);
+            var result = await Characteristic.WriteAsync(valueBytes);
+            System.Diagnostics.Debug.WriteLine("WriteCharacteristicResult:"+result);
+        }
+
+        private async void WriteWithoutResponseButton_Clicked(object sender, EventArgs e)
+        {
+            var valueBytes = Encoding.UTF8.GetBytes(WriteEditor.Text);
+            var result = await Characteristic.WriteWithoutResponseAsync(valueBytes);
+            System.Diagnostics.Debug.WriteLine("WriteCharacteristicResult:" + result);
+        }
+
+        private void SetNotifyButton_Clicked(object sender, EventArgs e)
+        {
+            Characteristic.GattCharacteristicConfiguration.SetValueAsync(true, false);
+        }
+
+        private void SetNotNotifyButton_Clicked(object sender, EventArgs e)
+        {
+            Characteristic.GattCharacteristicConfiguration.SetValueAsync(false, false);
+        }
     }
 
     
