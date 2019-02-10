@@ -11,10 +11,10 @@ using Android.Views;
 using Android.Widget;
 using RemoteX.Bluetooth.LE.Gatt;
 using RemoteX.Bluetooth.LE.Gatt.Server;
-using static RemoteX.Droid.Bluetooth.LE.Gatt.Server.GattServer.GattServerService;
-using static RemoteX.Droid.Bluetooth.LE.Gatt.Server.GattServer.GattServerService.GattServerCharacteristic;
+using static RemoteX.Bluetooth.Droid.LE.Gatt.Server.GattServer.GattServerService;
+using static RemoteX.Bluetooth.Droid.LE.Gatt.Server.GattServer.GattServerService.GattServerCharacteristic;
 
-namespace RemoteX.Droid.Bluetooth.LE.Gatt.Server
+namespace RemoteX.Bluetooth.Droid.LE.Gatt.Server
 {
     class GattCharacteristicBuilder : IGattCharacteristicBuilder
     {

@@ -13,7 +13,7 @@ using Java.Util;
 using RemoteX.Bluetooth;
 using RemoteX.Bluetooth.LE.Gatt.Client;
 
-namespace RemoteX.Droid
+namespace RemoteX.Bluetooth.Droid
 {
     public partial class BluetoothManager
     {

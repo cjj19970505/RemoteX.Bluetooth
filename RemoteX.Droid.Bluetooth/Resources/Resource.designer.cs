@@ -9,9 +9,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: global::Android.Runtime.ResourceDesignerAttribute("RemoteX.Droid.Bluetooth.Resource", IsApplication=false)]
+[assembly: global::Android.Runtime.ResourceDesignerAttribute("RemoteX.Bluetooth.Droid.Resource", IsApplication=false)]
 
-namespace RemoteX.Droid.Bluetooth
+namespace RemoteX.Bluetooth.Droid
 {
 	
 	

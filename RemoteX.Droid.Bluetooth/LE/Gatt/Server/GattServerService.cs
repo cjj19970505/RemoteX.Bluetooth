@@ -11,9 +11,9 @@ using Android.Views;
 using Android.Widget;
 using RemoteX.Bluetooth.LE.Gatt;
 using RemoteX.Bluetooth.LE.Gatt.Server;
-using RemoteX.Droid.Bluetooth.LE;
+using RemoteX.Bluetooth.Droid.LE;
 
-namespace RemoteX.Droid.Bluetooth.LE.Gatt.Server
+namespace RemoteX.Bluetooth.Droid.LE.Gatt.Server
 {
     public partial class GattServer: IGattServer
     {

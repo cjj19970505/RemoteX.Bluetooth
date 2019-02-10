@@ -10,9 +10,9 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using RemoteX.Bluetooth;
-using static RemoteX.Droid.BluetoothManager;
+using static RemoteX.Bluetooth.Droid.BluetoothManager;
 
-namespace RemoteX.Droid
+namespace RemoteX.Bluetooth.Droid
 {
     static class Extensions
     {

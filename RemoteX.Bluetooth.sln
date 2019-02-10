@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Remote.Bluetooth.Tester.UWP
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Remote.Bluetooth.Tester", "Remote.Bluetooth.Tester\Remote.Bluetooth.Tester\Remote.Bluetooth.Tester.csproj", "{9F23EA65-7898-4498-98F7-C0928771F5F3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RemoteX.Droid.Bluetooth", "RemoteX.Droid.Bluetooth\RemoteX.Droid.Bluetooth.csproj", "{3D04330F-9107-41DA-907D-84039C411B94}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RemoteX.Bluetooth.Droid", "RemoteX.Droid.Bluetooth\RemoteX.Bluetooth.Droid.csproj", "{3D04330F-9107-41DA-907D-84039C411B94}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RemoteX.Bluetooth.Win10", "RemoteX.Bluetooth.Win10\RemoteX.Bluetooth.Win10.csproj", "{51EF8659-3867-4AF1-8F44-A0392C5E02A6}"
 EndProject

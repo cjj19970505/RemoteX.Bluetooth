@@ -11,8 +11,7 @@ using Android.Util;
 using Android.Views;
 using Android.Widget;
 using RemoteX.Bluetooth;
-using RemoteX.Droid.Bluetooth;
-using RemoteX.Droid;
+using RemoteX.Bluetooth.Droid;
 
 [assembly: Xamarin.Forms.Dependency(typeof(Remote.Bluetooth.Tester.Droid.ManagerManagerFragment))]
 namespace Remote.Bluetooth.Tester.Droid

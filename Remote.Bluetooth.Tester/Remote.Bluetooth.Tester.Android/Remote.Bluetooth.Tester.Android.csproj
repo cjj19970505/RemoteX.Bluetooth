@@ -100,9 +100,9 @@
       <Project>{DA0FDBDC-7C4F-4F13-A7DE-E1C5637D586F}</Project>
       <Name>RemoteX.Bluetooth</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\RemoteX.Droid.Bluetooth\RemoteX.Droid.Bluetooth.csproj">
+    <ProjectReference Include="..\..\RemoteX.Droid.Bluetooth\RemoteX.Bluetooth.Droid.csproj">
       <Project>{3d04330f-9107-41da-907d-84039c411b94}</Project>
-      <Name>RemoteX.Droid.Bluetooth</Name>
+      <Name>RemoteX.Bluetooth.Droid</Name>
     </ProjectReference>
     <ProjectReference Include="..\Remote.Bluetooth.Tester\Remote.Bluetooth.Tester.csproj">
       <Project>{87591EB6-F281-480B-82C0-C26DFA087040}</Project>

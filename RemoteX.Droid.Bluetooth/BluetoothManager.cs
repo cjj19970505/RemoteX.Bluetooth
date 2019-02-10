@@ -15,11 +15,11 @@ using RemoteX.Bluetooth;
 using RemoteX.Bluetooth.LE;
 using RemoteX.Bluetooth.LE.Gatt;
 using RemoteX.Bluetooth.LE.Gatt.Server;
-using RemoteX.Droid.Bluetooth.LE.Gatt;
-using RemoteX.Droid.Bluetooth.LE.Gatt.Server;
+using RemoteX.Bluetooth.Droid.LE.Gatt;
+using RemoteX.Bluetooth.Droid.LE.Gatt.Server;
 
 //[assembly: Xamarin.Forms.Dependency(typeof(RemoteX.Droid.BluetoothManager))]
-namespace RemoteX.Droid
+namespace RemoteX.Bluetooth.Droid
 {
     /// <summary>
     /// 对IBluetoothManager的Android端的实现

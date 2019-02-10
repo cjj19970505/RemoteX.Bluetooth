@@ -13,7 +13,7 @@ using RemoteX.Bluetooth;
 using RemoteX.Bluetooth.LE.Gatt;
 using RemoteX.Bluetooth.LE.Gatt.Server;
 
-namespace RemoteX.Droid.Bluetooth.LE.Gatt.Server
+namespace RemoteX.Bluetooth.Droid.LE.Gatt.Server
 {
     class CharacteristicReadRequest : ICharacteristicReadRequest
     {

@@ -14,7 +14,7 @@ using Android.Widget;
 using RemoteX.Bluetooth;
 using RemoteX.Bluetooth.LE.Gatt;
 
-namespace RemoteX.Droid.Bluetooth.LE.Gatt.Server
+namespace RemoteX.Bluetooth.Droid.LE.Gatt.Server
 {
     class ClientCharacteristicConfigurationDescriptor: GattServer.GattServerService.GattServerCharacteristic.GattServerDescriptor
     {
