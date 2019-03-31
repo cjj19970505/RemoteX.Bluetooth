@@ -16,7 +16,7 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <Button x:Name="ShowDeviceListButton" Clicked="ShowDeviceListButton_Clicked"/>
+            <Button x:Name="ShowDeviceListButton" Text="Connected Device" Clicked="ShowDeviceListButton_Clicked"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

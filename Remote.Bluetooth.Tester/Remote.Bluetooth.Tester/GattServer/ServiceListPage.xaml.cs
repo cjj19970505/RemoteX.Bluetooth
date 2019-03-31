@@ -20,6 +20,7 @@ namespace Remote.Bluetooth.Tester.GattServer
         ObservableCollection<GattServiceModel> serviceModelList;
         BatteryServiceWrapper BatteryServiceWrapper;
         TestGattServiceWrapper TestGattServiceWrapper;
+        TcpTranspondServiceWrapper TcpTranspondServiceWrapper;
 
         public ServiceListPage ()
 		{
@@ -45,6 +46,11 @@ namespace Remote.Bluetooth.Tester.GattServer
             {
                 servicePage = new BatteryServicePage(BatteryServiceWrapper);
             }
+            else if((e.SelectedItem as GattServiceModel).GattServerService.Uuid == TcpTranspondServiceWrapper.Uuid)
+            {
+                servicePage = new TcpTranspondServicePage(TcpTranspondServiceWrapper);
+            }
+            
 
             GattServiceListView.SelectedItem = null;
             await Navigation.PushAsync(servicePage);
@@ -57,8 +63,10 @@ namespace Remote.Bluetooth.Tester.GattServer
             bluetoothManager.GattSever.AddService(new DeviceInfomationServiceBuilder(bluetoothManager).Build());
             BatteryServiceWrapper = new BatteryServiceWrapper(bluetoothManager);
             bluetoothManager.GattSever.AddService(BatteryServiceWrapper.GattServerService);
-            TestGattServiceWrapper = new TestGattServiceWrapper(bluetoothManager, 0x3432);
-            bluetoothManager.GattSever.AddService(TestGattServiceWrapper.GattServerService);
+            //TestGattServiceWrapper = new TestGattServiceWrapper(bluetoothManager, 0x3432);
+            //bluetoothManager.GattSever.AddService(TestGattServiceWrapper.GattServerService);
+            TcpTranspondServiceWrapper = new TcpTranspondServiceWrapper(bluetoothManager);
+            bluetoothManager.GattSever.AddService(TcpTranspondServiceWrapper.GattServerService);
             bluetoothManager.GattSever.StartAdvertising();
 
             var gattServices = bluetoothManager.GattSever.Services;

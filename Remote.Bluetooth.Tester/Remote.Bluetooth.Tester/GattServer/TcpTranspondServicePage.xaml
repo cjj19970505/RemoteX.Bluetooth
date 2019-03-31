@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Remote.Bluetooth.Tester.GattServer.TcpTranspondServicePage">
+    <ContentPage.Content>
+        <StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="IP:"/>
+                <Editor x:Name="IpEditor" Text="192.168.1.106"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Port:"/>
+                <Editor x:Name="PortEditor" Text="8084"/>
+            </StackLayout>
+            <Button x:Name="ConnectButton" Text="Connect" Clicked="ConnectButton_Clicked"/>
+            <StackLayout Orientation="Horizontal">
+                <Editor x:Name="SendEditor" Text="SendText" AutoSize="TextChanges"/>
+                <Button x:Name="SendButton" Text="Send" HorizontalOptions="End" Clicked="SendButton_Clicked"/>
+            </StackLayout>
+            
+            <ListView x:Name="ReceivedMessageListView" SeparatorColor="Black" HasUnevenRows="True">
+                
+            </ListView>
+            
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
