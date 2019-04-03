@@ -19,7 +19,7 @@ namespace Remote.Bluetooth.Tester.GattServer
         public TcpTranspondServiceWrapper TcpTranspondServiceWrapper { get; private set; }
         public TcpClient TcpClient { get; private set; }
         public NetworkStream NetworkStream { get; private set; }
-
+        public int ShowReceivedDataCount = 5;
 		public TcpTranspondServicePage (TcpTranspondServiceWrapper tcpTranspondServiceWrapper)
 		{
 			InitializeComponent ();
@@ -35,7 +35,12 @@ namespace Remote.Bluetooth.Tester.GattServer
         {
             Device.BeginInvokeOnMainThread(() =>
             {
+                if(ReceivedMessages.Count >= ShowReceivedDataCount)
+                {
+                    ReceivedMessages.RemoveAt(0);
+                }
                 ReceivedMessages.Add(Encoding.UTF8.GetString(e));
+                
             });
         }
 
@@ -97,6 +102,12 @@ namespace Remote.Bluetooth.Tester.GattServer
         private async void SendButton_Clicked(object sender, EventArgs e)
         {
             await TcpTranspondServiceWrapper.SendAsync(Encoding.UTF8.GetBytes(SendEditor.Text));
+        }
+
+        private void ClientDeviceConfigButton_Clicked(object sender, EventArgs e)
+        {
+            var GattServer = DependencyService.Get<IManagerManager>().BluetoothManager.GattSever;
+            Navigation.PushAsync(new ClientDeviceConfigPage(GattServer, TcpTranspondServiceWrapper.TranspondCharacteristicWrapper.ClientCharacteristicConfigurationDescriptorWrapper));
         }
 
         /*

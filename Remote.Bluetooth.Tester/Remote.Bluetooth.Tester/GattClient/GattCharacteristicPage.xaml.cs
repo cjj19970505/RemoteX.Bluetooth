@@ -25,7 +25,19 @@ namespace Remote.Bluetooth.Tester.GattClient
             InitializeComponent ();
             BindingContext = Characteristic;
             DescriptorListView.ItemsSource = Descriptors;
+            characteristic.OnNotified += Characteristic_OnNotified;
+        }
 
+        private void Characteristic_OnNotified(object sender, byte[] e)
+        {
+            StringBuilder sb = new StringBuilder();
+            foreach(var data in e)
+            {
+                sb.Append(data);
+                sb.Append(" ");
+            }
+            System.Diagnostics.Debug.WriteLine(sb.ToString());
+            
         }
 
         private async void GetDescriptorsButton_Clicked(object sender, EventArgs e)

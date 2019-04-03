@@ -6,13 +6,16 @@
         <StackLayout>
             <StackLayout Orientation="Horizontal">
                 <Label Text="IP:"/>
-                <Editor x:Name="IpEditor" Text="192.168.1.106"/>
+                <Editor x:Name="IpEditor" Text="192.168.1.0" MinimumWidthRequest="20"/>
             </StackLayout>
             <StackLayout Orientation="Horizontal">
                 <Label Text="Port:"/>
-                <Editor x:Name="PortEditor" Text="8084"/>
+                <Editor x:Name="PortEditor" Text="1"/>
             </StackLayout>
-            <Button x:Name="ConnectButton" Text="Connect" Clicked="ConnectButton_Clicked"/>
+            <StackLayout Orientation="Horizontal">
+                <Button x:Name="ConnectButton" Text="Connect" Clicked="ConnectButton_Clicked"/>
+                <Button x:Name="ClientDeviceConfigButton" Text="Config" Clicked="ClientDeviceConfigButton_Clicked"/>
+            </StackLayout>
             <StackLayout Orientation="Horizontal">
                 <Editor x:Name="SendEditor" Text="SendText" AutoSize="TextChanges"/>
                 <Button x:Name="SendButton" Text="Send" HorizontalOptions="End" Clicked="SendButton_Clicked"/>
