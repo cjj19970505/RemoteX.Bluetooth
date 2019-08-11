@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Windows.Devices.Bluetooth.Rfcomm;
 using Windows.Networking.Sockets;
 using System.IO;
+using System.Net.Sockets;
 
 namespace RemoteX.Bluetooth.Win10.Rfcomm
 {
@@ -38,7 +39,6 @@ namespace RemoteX.Bluetooth.Win10.Rfcomm
             await Socket.ConnectAsync(Win10RfcommDeviceService.ConnectionHostName, Win10RfcommDeviceService.ConnectionServiceName);
             InputStream = Socket.InputStream.AsStreamForRead();
             OutputStream = Socket.OutputStream.AsStreamForWrite();
-
         }
 
     }

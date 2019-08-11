@@ -128,6 +128,7 @@
     <Compile Include="LE\RXBluetoothDevice.cs" />
     <Compile Include="LE\RXBluetoothLEScanner.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Rfcomm\RXRfcommServiceProvider.cs" />
     <Compile Include="Rfcomm\RXBluetoothRfcommScanner.cs" />
     <Compile Include="Rfcomm\RXRfcommDeviceService.cs" />
     <Compile Include="Utils.cs" />
