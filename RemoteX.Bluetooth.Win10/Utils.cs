@@ -1,4 +1,5 @@
 ﻿using RemoteX.Bluetooth.LE;
+using RemoteX.Bluetooth.Rfcomm;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -51,6 +52,27 @@ namespace RemoteX.Bluetooth.Win10
 
             }
             throw new Exception("No Matched BluetoothLEScannerState");
+        }
+
+        public static BluetoothRfcommScannerState ToRfcommScannerState(this DeviceWatcherStatus self)
+        {
+            switch (self)
+            {
+                case DeviceWatcherStatus.Created:
+                    return BluetoothRfcommScannerState.Created;
+                case DeviceWatcherStatus.Started:
+                    return BluetoothRfcommScannerState.Started;
+                case DeviceWatcherStatus.EnumerationCompleted:
+                    return BluetoothRfcommScannerState.EnumerationCompleted;
+                case DeviceWatcherStatus.Stopping:
+                    return BluetoothRfcommScannerState.Stopping;
+                case DeviceWatcherStatus.Stopped:
+                    return BluetoothRfcommScannerState.Stopped;
+                case DeviceWatcherStatus.Aborted:
+                    return BluetoothRfcommScannerState.Aborted;
+
+            }
+            throw new Exception("No Matched BluetoothRfcommScannerState");
         }
 
         public static string GetAddressStringFromDeviceId(string deviceId)
@@ -123,6 +145,11 @@ namespace RemoteX.Bluetooth.Win10
             }
             return rxResult;
             
+        }
+
+        public static BluetoothError ToRXBluetoothError(this Windows.Devices.Bluetooth.BluetoothError self)
+        {
+            return (BluetoothError)self;
         }
     }
 }

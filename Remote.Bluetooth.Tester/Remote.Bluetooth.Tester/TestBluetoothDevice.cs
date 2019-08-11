@@ -1,10 +1,11 @@
 ﻿using RemoteX.Bluetooth;
 using RemoteX.Bluetooth.LE.Gatt.Client;
+using RemoteX.Bluetooth.Rfcomm;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace Remote.Bluetooth.Tester
@@ -30,6 +31,21 @@ namespace Remote.Bluetooth.Tester
         }
 
         public void stopFetchingUuidsWithSdp()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task RfcommConnectAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<RfcommDeviceServiceResult> GetRfcommServicesAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<RfcommDeviceServiceResult> GetRfcommServicesForIdAsync(Guid serviceId)
         {
             throw new NotImplementedException();
         }

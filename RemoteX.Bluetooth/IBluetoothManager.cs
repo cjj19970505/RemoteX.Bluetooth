@@ -4,6 +4,7 @@ using System.Text;
 using RemoteX.Bluetooth.LE;
 using RemoteX.Bluetooth.LE.Gatt;
 using RemoteX.Bluetooth.LE.Gatt.Server;
+using RemoteX.Bluetooth.Rfcomm;
 
 namespace RemoteX.Bluetooth
 {
@@ -30,6 +31,8 @@ namespace RemoteX.Bluetooth
         IGattDescriptorBuilder NewGattDescriptorBuilder();
 
         IBluetoothLEScanner LEScanner { get; }
+
+        IBluetoothRfcommScanner RfcommScanner { get; }
 
     }
 }

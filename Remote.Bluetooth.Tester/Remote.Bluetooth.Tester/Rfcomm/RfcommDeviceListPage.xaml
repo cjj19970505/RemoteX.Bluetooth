@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:gattclient="clr-namespace:Remote.Bluetooth.Tester.GattClient"
+             mc:Ignorable="d"
+             x:Class="Remote.Bluetooth.Tester.Rfcomm.RfcommDeviceListPage">
+    <ContentPage.Content>
+        <StackLayout>
+            <Button x:Name="ScanButton" Clicked="ScanButton_Clicked" Text="Scan"/>
+            <Button x:Name="ConnectButton" IsEnabled="False" Text="Connect" Clicked="ConnectButton_Clicked"/>
+            <ListView x:Name="DeviceListView" SeparatorVisibility="Default" ItemSelected="DeviceListView_ItemSelected">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <gattclient:BluetoothDeviceViewCell/>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

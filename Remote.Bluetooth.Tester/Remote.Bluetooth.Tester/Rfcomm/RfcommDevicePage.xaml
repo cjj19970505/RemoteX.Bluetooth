@@ -1,8 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:gattclient="clr-namespace:Remote.Bluetooth.Tester.GattClient"
-             x:Class="Remote.Bluetooth.Tester.GattClient.LEDevicePage">
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:rfcomm="clr-namespace:Remote.Bluetooth.Tester.Rfcomm"
+             mc:Ignorable="d"
+             x:Class="Remote.Bluetooth.Tester.Rfcomm.RfcommDevicePage">
     <ContentPage.Content>
         <StackLayout>
             <Label Text="{Binding Name}" FontSize="Large"/>
@@ -12,7 +15,7 @@
             <ListView x:Name="ServiceListView" ItemSelected="ServiceListView_ItemSelected">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <gattclient:GattServiceViewCell/>
+                        <rfcomm:RfcommDeviceServiceCell/>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>

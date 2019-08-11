@@ -7,6 +7,8 @@ using RemoteX.Bluetooth.LE;
 using RemoteX.Bluetooth.LE.Gatt.Server;
 using RemoteX.Bluetooth.Win10.LE;
 using Windows.Devices.Enumeration;
+using RemoteX.Bluetooth.Rfcomm;
+using RemoteX.Bluetooth.Win10.Rfcomm;
 
 namespace RemoteX.Bluetooth.Win10
 {
@@ -57,13 +59,8 @@ namespace RemoteX.Bluetooth.Win10
             return deviceReadyToDelete;
         }
 
-        
-
         public IBluetoothLEScanner LEScanner { get; }
-
-        public event BluetoothScanResultHandler OnDevicesFound;
-        public event BluetoothStartEndScanHandler OnDiscoveryFinished;
-        public event BluetoothStartEndScanHandler OnDiscoveryStarted;
+        public IBluetoothRfcommScanner RfcommScanner { get; }
 
         public Windows.UI.Core.CoreDispatcher Dispatcher { get; }
 
@@ -71,8 +68,10 @@ namespace RemoteX.Bluetooth.Win10
         {
             _BluetoothDeviceList = new List<RXBluetoothDevice>();
             LEScanner = new RXBluetoothLEScanner(this);
+            RfcommScanner = new RXBluetoothRfcommScanner(this);
             Dispatcher = dispatcher;
         }
+
 
         public IBluetoothDevice GetBluetoothDevice(ulong macAddress)
         {
