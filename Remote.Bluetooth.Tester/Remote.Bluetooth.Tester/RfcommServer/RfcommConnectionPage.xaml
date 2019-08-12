@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="Remote.Bluetooth.Tester.RfcommServer.RfcommConnectionPage">
+    <ContentPage.Content>
+        <StackLayout>
+            <StackLayout BindingContext="{Binding Path=RemoteDevice, Mode=OneWay}">
+                <Label Text="{Binding Path=Name, Mode=OneWay}"/>
+                <Label Text="{Binding Address, Converter={StaticResource MacAddressUlongToStringConverter}}" FontSize="Micro"/>
+            </StackLayout>
+            
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.9*"/>
+                    <ColumnDefinition Width="0.1*"/>
+                </Grid.ColumnDefinitions>
+                <Entry x:Name="SendEntry" Grid.Column="0"/>
+                <Button x:Name="SendButton" Text="Send" Grid.Column="1" Clicked="SendButton_Clicked"/>
+            </Grid>
+            <ListView x:Name="ReceivedListView"/>
+            
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

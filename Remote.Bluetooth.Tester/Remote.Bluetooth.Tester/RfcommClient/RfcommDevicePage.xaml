@@ -3,9 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:rfcomm="clr-namespace:Remote.Bluetooth.Tester.Rfcomm"
+             xmlns:rfcommclient="clr-namespace:Remote.Bluetooth.Tester.RfcommClient"
              mc:Ignorable="d"
-             x:Class="Remote.Bluetooth.Tester.Rfcomm.RfcommDevicePage">
+             x:Class="Remote.Bluetooth.Tester.RfcommClient.RfcommDevicePage">
     <ContentPage.Content>
         <StackLayout>
             <Label Text="{Binding Name}" FontSize="Large"/>
@@ -15,7 +15,7 @@
             <ListView x:Name="ServiceListView" ItemSelected="ServiceListView_ItemSelected">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <rfcomm:RfcommDeviceServiceCell/>
+                        <rfcommclient:RfcommDeviceServiceCell/>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>

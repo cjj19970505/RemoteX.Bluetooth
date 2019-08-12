@@ -84,16 +84,31 @@
     <EmbeddedResource Update="MainMasterDetailPageMaster.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Rfcomm\RfcommDeviceListPage.xaml">
+    <EmbeddedResource Update="RfcommClient\RfcommDeviceListPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Rfcomm\RfcommDevicePage.xaml">
+    <EmbeddedResource Update="RfcommClient\RfcommDevicePage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Rfcomm\RfcommDeviceServiceCell.xaml">
+    <EmbeddedResource Update="RfcommClient\RfcommDeviceServiceCell.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Rfcomm\RfcommDeviceServicePage.xaml">
+    <EmbeddedResource Update="RfcommClient\RfcommDeviceServicePage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="RfcommServer\RfcommConnectionCell.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="RfcommServer\RfcommConnectionPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="RfcommServer\RfcommServerPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="RfcommServer\RfcommServiceProviderPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="RfcommServer\RfcommServiceProviderViewCell.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
@@ -102,5 +117,9 @@
     <Compile Update="MainMasterDetailPageMenuItem.cs">
       <SubType>Code</SubType>
     </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Rfcomm\" />
   </ItemGroup>
 </Project>

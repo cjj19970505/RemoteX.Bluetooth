@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="Remote.Bluetooth.Tester.RfcommClient.RfcommDeviceServicePage">
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="{Binding ServiceId, Converter={StaticResource GuidToStringConverter}}"/>
+            <Button x:Name="ConnectButton" Clicked="ConnectButton_Clicked"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.9*"/>
+                    <ColumnDefinition Width="0.1*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <Entry x:Name="SendEntry" Grid.Row="0" Grid.Column="0"/>
+                <Button x:Name="SendButton" Grid.Row="0" Grid.Column="1" Clicked="SendButton_Clicked"/>
+                <ListView x:Name="RXListView" Grid.Row="1" Grid.ColumnSpan="2">
+                </ListView>
+            </Grid>
+            
+            
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

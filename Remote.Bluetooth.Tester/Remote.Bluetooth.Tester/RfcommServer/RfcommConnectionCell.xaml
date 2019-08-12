@@ -4,10 +4,11 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="Remote.Bluetooth.Tester.Rfcomm.RfcommDeviceServiceCell">
+             x:Class="Remote.Bluetooth.Tester.RfcommServer.RfcommConnectionCell">
     <ViewCell.View>
-        <StackLayout>
-            <Label Text="{Binding ServiceId, Converter={StaticResource GuidToStringConverter}}"/>
+        <StackLayout BindingContext="{Binding Path=RemoteDevice, Mode=OneWay}">
+            <Label Text="{Binding Path=Name, Mode=OneWay}"/>
+            <Label Text="{Binding Address, Converter={StaticResource MacAddressUlongToStringConverter}}" FontSize="Micro"/>
         </StackLayout>
     </ViewCell.View>
 </ViewCell>

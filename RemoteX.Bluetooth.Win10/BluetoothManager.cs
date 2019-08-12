@@ -9,6 +9,7 @@ using RemoteX.Bluetooth.Win10.LE;
 using Windows.Devices.Enumeration;
 using RemoteX.Bluetooth.Rfcomm;
 using RemoteX.Bluetooth.Win10.Rfcomm;
+using Windows.Devices.Bluetooth.Rfcomm;
 
 namespace RemoteX.Bluetooth.Win10
 {
@@ -64,9 +65,21 @@ namespace RemoteX.Bluetooth.Win10
 
         public Windows.UI.Core.CoreDispatcher Dispatcher { get; }
 
+        private List<RXRfcommServiceProvider> _ServiceProviderList;
+
+        public IRfcommServiceProvider[] ServiceProviders
+        {
+            get
+            {
+                return (from provider in _ServiceProviderList
+                        select provider as IRfcommServiceProvider).ToArray();
+            }
+        }
+
         public BluetoothManager(Windows.UI.Core.CoreDispatcher dispatcher)
         {
             _BluetoothDeviceList = new List<RXBluetoothDevice>();
+            _ServiceProviderList = new List<RXRfcommServiceProvider>();
             LEScanner = new RXBluetoothLEScanner(this);
             RfcommScanner = new RXBluetoothRfcommScanner(this);
             Dispatcher = dispatcher;
@@ -96,6 +109,22 @@ namespace RemoteX.Bluetooth.Win10
         public void SearchForBlutoothDevices()
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<IRfcommServiceProvider> CreateRfcommServiceProviderAsync(Guid serviceId)
+        {
+            foreach(var serviceProvider in _ServiceProviderList)
+            {
+                if (serviceProvider.ServiceId == serviceId)
+                {
+                    return serviceProvider;
+                }
+            }
+            var win10RfcommProvider = await RfcommServiceProvider.CreateAsync(RfcommServiceId.FromUuid(serviceId));
+            RXRfcommServiceProvider provider = new RXRfcommServiceProvider(this, win10RfcommProvider);
+            _ServiceProviderList.Add(provider);
+            return provider;
+            
         }
     }
 }

@@ -1,17 +1,13 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+<ViewCell xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="Remote.Bluetooth.Tester.Rfcomm.RfcommDeviceServicePage">
-    <ContentPage.Content>
+             x:Class="Remote.Bluetooth.Tester.RfcommServer.RfcommServiceProviderViewCell">
+    <ViewCell.View>
         <StackLayout>
             <Label Text="{Binding ServiceId, Converter={StaticResource GuidToStringConverter}}"/>
-            <Button x:Name="ConnectButton" Clicked="ConnectButton_Clicked"/>
-            <ListView x:Name="RXListView">
-            </ListView>
-            
         </StackLayout>
-    </ContentPage.Content>
-</ContentPage>
+    </ViewCell.View>
+</ViewCell>

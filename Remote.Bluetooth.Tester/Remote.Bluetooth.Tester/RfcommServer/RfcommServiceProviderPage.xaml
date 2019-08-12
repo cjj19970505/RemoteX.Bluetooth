@@ -4,16 +4,17 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:gattclient="clr-namespace:Remote.Bluetooth.Tester.GattClient"
+             xmlns:rfcommserver="clr-namespace:Remote.Bluetooth.Tester.RfcommServer"
              mc:Ignorable="d"
-             x:Class="Remote.Bluetooth.Tester.Rfcomm.RfcommDeviceListPage">
+             x:Class="Remote.Bluetooth.Tester.RfcommServer.RfcommServiceProviderPage">
     <ContentPage.Content>
         <StackLayout>
-            <Button x:Name="ScanButton" Clicked="ScanButton_Clicked" Text="Scan"/>
-            <Button x:Name="ConnectButton" IsEnabled="False" Text="Connect" Clicked="ConnectButton_Clicked"/>
-            <ListView x:Name="DeviceListView" SeparatorVisibility="Default" ItemSelected="DeviceListView_ItemSelected">
+            <Label Text="{Binding ServiceId, Converter={StaticResource GuidToStringConverter}}"/>
+            <Button x:Name="StartAdvertiseButton" Text="Start Adver" Clicked="StartAdvertiseButton_Clicked"/>
+            <ListView x:Name="ConnectedDeviceListView" ItemSelected="ConnectedDeviceListView_ItemSelected">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <gattclient:BluetoothDeviceViewCell/>
+                        <rfcommserver:RfcommConnectionCell/>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>

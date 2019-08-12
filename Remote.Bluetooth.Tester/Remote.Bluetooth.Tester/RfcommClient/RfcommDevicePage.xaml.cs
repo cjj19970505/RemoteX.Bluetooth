@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace Remote.Bluetooth.Tester.Rfcomm
+namespace Remote.Bluetooth.Tester.RfcommClient
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
 

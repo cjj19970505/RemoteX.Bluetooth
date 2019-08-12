@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using RemoteX.Bluetooth.LE;
 using RemoteX.Bluetooth.LE.Gatt;
 using RemoteX.Bluetooth.LE.Gatt.Server;
@@ -33,6 +34,11 @@ namespace RemoteX.Bluetooth
         IBluetoothLEScanner LEScanner { get; }
 
         IBluetoothRfcommScanner RfcommScanner { get; }
+
+        IRfcommServiceProvider[] ServiceProviders { get; }
+
+        Task<IRfcommServiceProvider> CreateRfcommServiceProviderAsync(Guid serviceId);
+        
 
     }
 }

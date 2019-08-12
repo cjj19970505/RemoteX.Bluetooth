@@ -1,6 +1,7 @@
 ﻿using Remote.Bluetooth.Tester.GattClient;
 using Remote.Bluetooth.Tester.GattServer;
-using Remote.Bluetooth.Tester.Rfcomm;
+using Remote.Bluetooth.Tester.RfcommClient;
+using Remote.Bluetooth.Tester.RfcommServer;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -38,7 +39,8 @@ namespace Remote.Bluetooth.Tester
                 {
                     new MainMasterDetailPageMenuItem { Id = 0, Title = "Server", TargetType = typeof(ServiceListPage) },
                     new MainMasterDetailPageMenuItem { Id = 1, Title = "Client", TargetType = typeof(GattLEDeviceListPage)},
-                    new MainMasterDetailPageMenuItem{Id = 2, Title="Rfcomm Client", TargetType=typeof(RfcommDeviceListPage)}
+                    new MainMasterDetailPageMenuItem{Id = 2, Title="Rfcomm Client", TargetType=typeof(RfcommDeviceListPage)},
+                    new MainMasterDetailPageMenuItem{Id = 2, Title="Rfcomm Server", TargetType=typeof(RfcommServerPage)}
                 });
             }
             

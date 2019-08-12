@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace Remote.Bluetooth.Tester.Rfcomm
+namespace Remote.Bluetooth.Tester.RfcommClient
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class RfcommDeviceServicePage : ContentPage
@@ -64,6 +65,27 @@ namespace Remote.Bluetooth.Tester.Rfcomm
                 }
                 
             });
+        }
+
+        private async void SendButton_Clicked(object sender, EventArgs e)
+        {
+            var sendText = SendEntry.Text;
+            if(sendText == null)
+            {
+                sendText = "SUD";
+            }
+            var strBuffer = Encoding.UTF8.GetBytes(sendText);
+            var lenBuffer = BitConverter.GetBytes((UInt32)sendText.Length);
+            lenBuffer = new byte[] { lenBuffer[3], lenBuffer[2], lenBuffer[1], lenBuffer[0] };
+            List<byte> bufferList = new List<byte>();
+            bufferList.AddRange(lenBuffer);
+            bufferList.AddRange(strBuffer);
+            //bufferList = new List<byte>(new byte[] { 0, 0, 0, 3, 70, 70, 70 });
+            
+            await RfcommDeviceService.OutputStream.WriteAsync(bufferList.ToArray(), 0, bufferList.Count);
+            await RfcommDeviceService.OutputStream.FlushAsync();
+            System.Diagnostics.Debug.WriteLine("SENT");
+            //await RfcommDeviceService.TrySend();
         }
     }
 }
