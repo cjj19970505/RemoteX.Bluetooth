@@ -17,10 +17,15 @@
                     <ColumnDefinition Width="0.9*"/>
                     <ColumnDefinition Width="0.1*"/>
                 </Grid.ColumnDefinitions>
-                <Entry x:Name="SendEntry" Grid.Column="0"/>
-                <Button x:Name="SendButton" Text="Send" Grid.Column="1" Clicked="SendButton_Clicked"/>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <Entry x:Name="SendEntry" Grid.Row="0" Grid.Column="0"/>
+                <Button x:Name="SendButton" Text="Send" Grid.Row="0" Grid.Column="1" Clicked="SendButton_Clicked"/>
+                <ListView x:Name="ReceivedListView" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"/>
             </Grid>
-            <ListView x:Name="ReceivedListView"/>
+            
             
         </StackLayout>
     </ContentPage.Content>

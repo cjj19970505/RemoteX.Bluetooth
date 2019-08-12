@@ -13,7 +13,5 @@ namespace RemoteX.Bluetooth.Rfcomm
         Stream InputStream { get; }
         Stream OutputStream { get; }
         Task ConnectAsync();
-
-        Task TrySend();
     }
 }
