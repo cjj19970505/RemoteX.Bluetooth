@@ -10,8 +10,7 @@ namespace RemoteX.Bluetooth.Rfcomm
     {
         Guid ServiceId { get; }
         IBluetoothDevice Device { get; }
-        Stream InputStream { get; }
-        Stream OutputStream { get; }
         Task ConnectAsync();
+        IRfcommConnection RfcommConnection { get; }
     }
 }

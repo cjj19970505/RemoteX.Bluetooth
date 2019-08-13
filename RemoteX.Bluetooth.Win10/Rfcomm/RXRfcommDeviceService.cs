@@ -25,8 +25,8 @@ namespace RemoteX.Bluetooth.Win10.Rfcomm
         public IBluetoothDevice Device { get; }
 
         public StreamSocket Socket { get; }
-        public Stream InputStream { get; private set; }
-        public Stream OutputStream { get; private set; }
+
+        public IRfcommConnection RfcommConnection { get; private set; }
 
         public RXRfcommDeviceService(IBluetoothDevice bluetoothDevice, RfcommDeviceService win10Service)
         {
@@ -38,8 +38,7 @@ namespace RemoteX.Bluetooth.Win10.Rfcomm
         public async Task ConnectAsync()
         {
             await Socket.ConnectAsync(Win10RfcommDeviceService.ConnectionHostName, Win10RfcommDeviceService.ConnectionServiceName);
-            InputStream = Socket.InputStream.AsStreamForRead();
-            OutputStream = Socket.OutputStream.AsStreamForWrite();
+            RfcommConnection = new RXRFCommConnection(this, Device, Socket);
         }
     }
 }

@@ -19,10 +19,5 @@ namespace RemoteX.Bluetooth.Rfcomm
         void StartAdvertising();
     }
 
-    public interface IRfcommConnection
-    {
-        IBluetoothDevice RemoteDevice { get; }
-        Stream InputStream { get; }
-        Stream OutputStream { get; }
-    }
+    
 }

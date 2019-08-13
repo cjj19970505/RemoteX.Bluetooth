@@ -14,6 +14,7 @@ namespace RemoteX.Bluetooth.Win10.Rfcomm
     internal class RXRFCommConnection : IRfcommConnection
     {
         public IRfcommServiceProvider ServiceProvider { get; }
+        public IRfcommDeviceService RemoteDeviceService { get; }
         public IBluetoothDevice RemoteDevice { get; }
 
         public StreamSocket StreamSocket { get; }
@@ -32,7 +33,16 @@ namespace RemoteX.Bluetooth.Win10.Rfcomm
             OutputStream = streamSocket.OutputStream.AsStreamForWrite();
 
         }
+        public RXRFCommConnection(IRfcommDeviceService remoteDeviceService, IBluetoothDevice remoteDevice, StreamSocket streamSocket)
+        {
+            RemoteDeviceService = remoteDeviceService;
+            RemoteDevice = remoteDevice;
+            StreamSocket = streamSocket;
 
-        
+            InputStream = streamSocket.InputStream.AsStreamForRead();
+            OutputStream = streamSocket.OutputStream.AsStreamForWrite();
+
+        }
+
     }
 }

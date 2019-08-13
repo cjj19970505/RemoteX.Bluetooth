@@ -52,7 +52,7 @@ namespace Remote.Bluetooth.Tester.RfcommClient
                 {
                     int readBufferSize = 255;
                     byte[] buffer = new byte[readBufferSize];
-                    var readSize = RfcommDeviceService.InputStream.Read(buffer, 0, readBufferSize);
+                    var readSize = RfcommDeviceService.RfcommConnection.InputStream.Read(buffer, 0, readBufferSize);
                     StringBuilder sb = new StringBuilder();
                     for(int i = 0;i<readSize;i++)
                     {
@@ -82,8 +82,8 @@ namespace Remote.Bluetooth.Tester.RfcommClient
             bufferList.AddRange(strBuffer);
             //bufferList = new List<byte>(new byte[] { 0, 0, 0, 3, 70, 70, 70 });
             
-            await RfcommDeviceService.OutputStream.WriteAsync(bufferList.ToArray(), 0, bufferList.Count);
-            await RfcommDeviceService.OutputStream.FlushAsync();
+            await RfcommDeviceService.RfcommConnection.OutputStream.WriteAsync(bufferList.ToArray(), 0, bufferList.Count);
+            await RfcommDeviceService.RfcommConnection.OutputStream.FlushAsync();
             System.Diagnostics.Debug.WriteLine("SENT");
             //await RfcommDeviceService.TrySend();
         }
