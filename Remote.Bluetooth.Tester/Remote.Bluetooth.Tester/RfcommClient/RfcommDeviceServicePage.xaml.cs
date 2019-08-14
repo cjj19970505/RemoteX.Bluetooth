@@ -78,7 +78,7 @@ namespace Remote.Bluetooth.Tester.RfcommClient
             var lenBuffer = BitConverter.GetBytes((UInt32)sendText.Length);
             lenBuffer = new byte[] { lenBuffer[3], lenBuffer[2], lenBuffer[1], lenBuffer[0] };
             List<byte> bufferList = new List<byte>();
-            bufferList.AddRange(lenBuffer);
+            //bufferList.AddRange(lenBuffer);
             bufferList.AddRange(strBuffer);
             //bufferList = new List<byte>(new byte[] { 0, 0, 0, 3, 70, 70, 70 });
             
