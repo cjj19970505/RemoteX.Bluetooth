@@ -54,17 +54,24 @@ namespace RemoteX.Bluetooth.Win10.Rfcomm
 
         private async void RfcommServiceProviderSocketListener_ConnectionReceived(StreamSocketListener sender, StreamSocketListenerConnectionReceivedEventArgs args)
         {
-            StreamSocket socket = null;
-            socket = args.Socket;
+            StreamSocket socket = args.Socket;
             var remoteWin10Device = await BluetoothDevice.FromHostNameAsync(socket.Information.RemoteHostName);
             var remoteDevice = (BluetoothManager as BluetoothManager).GetBluetoothDeviceFromDeviceInformation(remoteWin10Device.DeviceInformation);
             System.Diagnostics.Debug.WriteLine("SOME ONE CONNECT:" + remoteWin10Device.DeviceInformation.Id);
             var connection = new RXRFCommConnection(this, remoteDevice, socket);
             RfcommConnectionList.Add(connection);
+            connection.Disposed += Connection_Disposed;
             OnConnectionReceived?.Invoke(this, connection);
         }
 
-        
+        private void Connection_Disposed(object sender, EventArgs e)
+        {
+            var connection = sender as RXRFCommConnection;
+            if (RfcommConnectionList.Contains(connection))
+            {
+                RfcommConnectionList.Remove(connection);
+            }
+        }
 
         private void InitializeServiceSdpAttributes(RfcommServiceProvider rfcommProvider, string serviceName)
         {

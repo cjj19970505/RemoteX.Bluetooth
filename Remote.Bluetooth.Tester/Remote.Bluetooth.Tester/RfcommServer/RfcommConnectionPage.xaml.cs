@@ -38,11 +38,18 @@ namespace Remote.Bluetooth.Tester.RfcommServer
         {
             return Task.Run(() =>
             {
+                bool disconnected = false;
                 while (true)
                 {
                     int readBufferSize = 255;
                     byte[] buffer = new byte[readBufferSize];
                     var readSize = RfcommConnection.InputStream.Read(buffer, 0, readBufferSize);
+                    if(readSize == 0)
+                    {
+                        disconnected = true;
+                        break;
+                    }
+                    
                     StringBuilder sb = new StringBuilder();
                     for (int i = 0; i < readSize; i++)
                     {
@@ -53,7 +60,11 @@ namespace Remote.Bluetooth.Tester.RfcommServer
                         RXList.Add(sb.ToString());
                     });
                 }
-
+                RfcommConnection.Dispose();
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    Navigation.PopAsync();
+                });
             });
         }
     }

@@ -53,6 +53,10 @@ namespace Remote.Bluetooth.Tester.RfcommClient
                     int readBufferSize = 255;
                     byte[] buffer = new byte[readBufferSize];
                     var readSize = RfcommDeviceService.RfcommConnection.InputStream.Read(buffer, 0, readBufferSize);
+                    if(readSize == 0)
+                    {
+                        break;
+                    }
                     StringBuilder sb = new StringBuilder();
                     for(int i = 0;i<readSize;i++)
                     {
@@ -63,7 +67,11 @@ namespace Remote.Bluetooth.Tester.RfcommClient
                         RXList.Add(sb.ToString());
                     });
                 }
-                
+                RfcommDeviceService.RfcommConnection.Dispose();
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    Navigation.PopAsync();
+                });
             });
         }
 

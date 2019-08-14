@@ -39,7 +39,7 @@ namespace Remote.Bluetooth.Tester.RfcommServer
 
         private async void CreateServerProviderButton_Clicked(object sender, EventArgs e)
         {
-            var provider = await BluetoothManager.CreateRfcommServiceProviderAsync(Guid.NewGuid());
+            var provider = await BluetoothManager.CreateRfcommServiceProviderAsync(Guid.Parse("4fb996ea-01dc-466c-8b95-9a018c289cef"));
             Device.BeginInvokeOnMainThread(() =>
             {
                 ServiceProviders.Add(provider);

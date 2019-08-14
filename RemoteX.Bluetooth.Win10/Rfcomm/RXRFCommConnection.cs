@@ -17,11 +17,13 @@ namespace RemoteX.Bluetooth.Win10.Rfcomm
         public IRfcommDeviceService RemoteDeviceService { get; }
         public IBluetoothDevice RemoteDevice { get; }
 
-        public StreamSocket StreamSocket { get; }
+        public StreamSocket StreamSocket { get; private set; }
 
-        public Stream InputStream { get; }
+        public Stream InputStream { get; private set; }
 
-        public Stream OutputStream { get; }
+        public Stream OutputStream { get; private set; }
+
+        internal event EventHandler Disposed;
 
         public RXRFCommConnection(RXRfcommServiceProvider provider, IBluetoothDevice remoteDevice, StreamSocket streamSocket)
         {
@@ -44,5 +46,13 @@ namespace RemoteX.Bluetooth.Win10.Rfcomm
 
         }
 
+        public void Dispose()
+        {
+            InputStream = null;
+            OutputStream = null;
+            StreamSocket.Dispose();
+            StreamSocket = null;
+            Disposed?.Invoke(this, null);
+        }
     }
 }

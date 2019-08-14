@@ -5,7 +5,7 @@ using System.Text;
 
 namespace RemoteX.Bluetooth.Rfcomm
 {
-    public interface IRfcommConnection
+    public interface IRfcommConnection: IDisposable
     {
         IBluetoothDevice RemoteDevice { get; }
         Stream InputStream { get; }
