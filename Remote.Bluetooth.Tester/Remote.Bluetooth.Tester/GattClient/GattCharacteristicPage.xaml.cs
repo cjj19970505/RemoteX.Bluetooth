@@ -25,7 +25,18 @@ namespace Remote.Bluetooth.Tester.GattClient
             InitializeComponent ();
             BindingContext = Characteristic;
             DescriptorListView.ItemsSource = Descriptors;
-            characteristic.OnNotified += Characteristic_OnNotified;
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            Characteristic.OnNotified += Characteristic_OnNotified;
+        }
+
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+            Characteristic.OnNotified -= Characteristic_OnNotified;
         }
 
         private void Characteristic_OnNotified(object sender, byte[] e)
@@ -33,22 +44,24 @@ namespace Remote.Bluetooth.Tester.GattClient
             StringBuilder sb = new StringBuilder();
             foreach(var data in e)
             {
-                sb.Append(data);
+                sb.AppendFormat("{0:X2}", data);
                 sb.Append(" ");
             }
-            System.Diagnostics.Debug.WriteLine(sb.ToString());
-            
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                WriteEditor.Text = sb.ToString();
+            });
         }
 
         private async void GetDescriptorsButton_Clicked(object sender, EventArgs e)
         {
+            Descriptors.Clear();
             var result = await Characteristic.DiscoverAllCharacteristicDescriptorsAsync();
             System.Diagnostics.Debug.WriteLine("PROTOCOL_ERROR:" + result.ProtocolError);
             if (result.ProtocolError == GattErrorCode.Success)
             {
                 foreach (var descriptor in result.Descriptors)
                 {
-                    System.Diagnostics.Debug.WriteLine(descriptor.Uuid);
                     Descriptors.Add(descriptor);
                 }
             }

@@ -33,5 +33,6 @@
     <uap2:Capability Name="spatialPerception" />
     <DeviceCapability Name="bluetooth" />
     <DeviceCapability Name="proximity" />
+    <DeviceCapability Name="location"/>
   </Capabilities>
 </Package>
