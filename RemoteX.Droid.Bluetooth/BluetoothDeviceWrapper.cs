@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using System.Threading.Tasks;
 using Android.App;
 using Android.Content;
 using Android.OS;
@@ -12,6 +12,7 @@ using Android.Widget;
 using Java.Util;
 using RemoteX.Bluetooth;
 using RemoteX.Bluetooth.LE.Gatt.Client;
+using RemoteX.Bluetooth.Rfcomm;
 
 namespace RemoteX.Bluetooth.Droid
 {
@@ -116,6 +117,20 @@ namespace RemoteX.Bluetooth.Droid
                 return "(DEVICE:: Name: " + Name + ", Mac: " + Address + ")";
             }
 
+            public Task RfcommConnectAsync()
+            {
+                throw new NotImplementedException();
+            }
+
+            public Task<RfcommDeviceServiceResult> GetRfcommServicesAsync()
+            {
+                throw new NotImplementedException();
+            }
+
+            public Task<RfcommDeviceServiceResult> GetRfcommServicesForIdAsync(Guid serviceId)
+            {
+                throw new NotImplementedException();
+            }
 
             private class Receiver : BroadcastReceiver
             {

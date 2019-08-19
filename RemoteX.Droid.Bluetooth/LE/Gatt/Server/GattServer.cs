@@ -22,7 +22,7 @@ namespace RemoteX.Bluetooth.Droid.LE.Gatt.Server
     public partial class GattServer : IGattServer
     {
         public ulong Address => throw new NotImplementedException();
-
+        public event EventHandler<IGattServerService> OnServiceAdded;
         internal Android.Bluetooth.BluetoothGattServer DroidGattServer { get; private set; }
         internal BluetoothManager BluetoothManager { get; private set; }
 
@@ -142,6 +142,7 @@ namespace RemoteX.Bluetooth.Droid.LE.Gatt.Server
         public void AddService(IGattServerService service)
         {
             (service as GattServerService).AddToServer(this);
+            OnServiceAdded?.Invoke(this, service);
         }
         BluetoothDevice _ConnectedDevice;
         public void NotifyTest()

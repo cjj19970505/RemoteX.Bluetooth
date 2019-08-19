@@ -68,12 +68,6 @@ namespace Remote.Bluetooth.Tester.GattServer
             TcpTranspondServiceWrapper = new TcpTranspondServiceWrapper(bluetoothManager);
             bluetoothManager.GattSever.AddService(TcpTranspondServiceWrapper.GattServerService);
             bluetoothManager.GattSever.StartAdvertising();
-
-            var gattServices = bluetoothManager.GattSever.Services;
-            foreach(var gattService in gattServices)
-            {
-                serviceModelList.Add(new GattServiceModel(gattService));
-            }
         }
 
         private async void ShowDeviceListButton_Clicked(object sender, EventArgs e)
@@ -81,5 +75,44 @@ namespace Remote.Bluetooth.Tester.GattServer
             var bluetoothManager = DependencyService.Get<IManagerManager>().BluetoothManager;
             await Navigation.PushAsync(new ConnectedDevicesPage(bluetoothManager.GattSever));
         }
+
+        private void NewServiceButton_Clicked(object sender, EventArgs e)
+        {
+            var bluetoothManager = DependencyService.Get<IManagerManager>().BluetoothManager;
+            TestGattServiceWrapper = new TestGattServiceWrapper(bluetoothManager, 0x3432);
+            bluetoothManager.GattSever.AddService(TestGattServiceWrapper.GattServerService);
+        }
+
+        protected override void OnAppearing()
+        {
+
+            base.OnAppearing();
+            var bluetoothManager = DependencyService.Get<IManagerManager>().BluetoothManager;
+            
+            var gattServices = bluetoothManager.GattSever.Services;
+            bluetoothManager.GattSever.OnServiceAdded += GattSever_OnServiceAdded;
+            foreach (var gattService in gattServices)
+            {
+                serviceModelList.Add(new GattServiceModel(gattService));
+            }
+        }
+
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+            var bluetoothManager = DependencyService.Get<IManagerManager>().BluetoothManager;
+            bluetoothManager.GattSever.OnServiceAdded -= GattSever_OnServiceAdded;
+            serviceModelList.Clear();
+        }
+
+        private void GattSever_OnServiceAdded(object sender, IGattServerService e)
+        {
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                serviceModelList.Add(new GattServiceModel(e));
+            });
+        }
     }
+
+    
 }

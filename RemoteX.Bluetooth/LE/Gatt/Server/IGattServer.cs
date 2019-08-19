@@ -6,6 +6,7 @@ namespace RemoteX.Bluetooth.LE.Gatt.Server
 {
     public interface IGattServer
     {
+        event EventHandler<IGattServerService> OnServiceAdded;
         ulong Address { get; }
         IGattServerService[] Services { get; }
         bool IsSupported { get; }

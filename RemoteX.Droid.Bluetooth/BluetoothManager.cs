@@ -17,6 +17,8 @@ using RemoteX.Bluetooth.LE.Gatt;
 using RemoteX.Bluetooth.LE.Gatt.Server;
 using RemoteX.Bluetooth.Droid.LE.Gatt;
 using RemoteX.Bluetooth.Droid.LE.Gatt.Server;
+using RemoteX.Bluetooth.Rfcomm;
+using System.Threading.Tasks;
 
 //[assembly: Xamarin.Forms.Dependency(typeof(RemoteX.Droid.BluetoothManager))]
 namespace RemoteX.Bluetooth.Droid
@@ -115,6 +117,11 @@ namespace RemoteX.Bluetooth.Droid
             return new GattDescriptorBuilder();
         }
 
+        public Task<IRfcommServiceProvider> CreateRfcommServiceProviderAsync(Guid serviceId)
+        {
+            throw new NotImplementedException();
+        }
+
         public RemoteX.Bluetooth.IBluetoothDevice[] PairedDevices
         {
             get
@@ -144,6 +151,10 @@ namespace RemoteX.Bluetooth.Droid
         }
 
         public IBluetoothLEScanner LEScanner => throw new NotImplementedException();
+
+        public IBluetoothRfcommScanner RfcommScanner => throw new NotImplementedException();
+
+        public IRfcommServiceProvider[] ServiceProviders => throw new NotImplementedException();
 
         private class Receiver : BroadcastReceiver
         {

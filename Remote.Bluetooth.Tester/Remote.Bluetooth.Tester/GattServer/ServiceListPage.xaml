@@ -9,6 +9,7 @@
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
             <Button x:Name="StartAdvertisingButton" Text="Start Advertising" Clicked="StartAdvertisingButton_Clicked"/>
+            <Button x:Name="NewServiceButton" Text="NewService" Clicked="NewServiceButton_Clicked"/>
             <ListView x:Name="GattServiceListView" SeparatorColor="Black" HasUnevenRows="True" ItemSelected="GattServiceListView_ItemSelected">
                 <ListView.ItemTemplate>
                     <DataTemplate>
