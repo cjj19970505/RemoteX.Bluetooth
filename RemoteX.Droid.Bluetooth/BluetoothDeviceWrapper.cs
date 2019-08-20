@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Android.App;
 using Android.Content;
@@ -11,6 +12,7 @@ using Android.Views;
 using Android.Widget;
 using Java.Util;
 using RemoteX.Bluetooth;
+using RemoteX.Bluetooth.Droid.Rfcomm;
 using RemoteX.Bluetooth.LE.Gatt.Client;
 using RemoteX.Bluetooth.Rfcomm;
 
@@ -42,11 +44,9 @@ namespace RemoteX.Bluetooth.Droid
                 }
             }
 
-            public Guid[] LastestFetchedUuids { get; private set; }
+            public List<RfcommDeviceService> _Services;
 
-            public bool IsFetchingUuids { get; private set; }
-
-            public event RemoteX.Bluetooth.BluetoothDeviceGetUuidsHanlder OnUuidsFetched;
+            Thread FetchingUuidThread;
 
             public Android.Bluetooth.BluetoothDevice DroidDevice { get; private set; }
 
@@ -71,45 +71,29 @@ namespace RemoteX.Bluetooth.Droid
                 return existDevice;
             }
 
+            public RfcommDeviceService GetRXServiceFromDroidService(Guid droidService)
+            {
+                RfcommDeviceService rxService = null;
+                foreach (var service in _Services)
+                {
+                    if (service.ServiceId == droidService)
+                    {
+                        rxService = service as RfcommDeviceService;
+                    }
+                }
+                if (rxService == null)
+                {
+                    rxService = new RfcommDeviceService(this, droidService);
+                    _Services.Add(rxService);
+                }
+                return rxService;
+            }
+
             private BluetoothDeviceWrapper(Android.Bluetooth.BluetoothDevice bluetoothDevice)
             {
-                this.DroidDevice = bluetoothDevice;
-                IsFetchingUuids = false;
+                DroidDevice = bluetoothDevice;
                 _Receiver = new Receiver(this);
-                ParcelUuid[] uuids = bluetoothDevice.GetUuids();
-                if (uuids != null)
-                {
-                    Guid[] guids = new Guid[uuids.Length];
-                    for (int i = 0; i < uuids.Length; i++)
-                    {
-                        Guid guid = Guid.Parse(uuids[i].Uuid.ToString());
-                        guids[i] = guid;
-                    }
-                    LastestFetchedUuids = guids;
-                }
-            }
-
-            public void FetchUuidsWithSdp()
-            {
-                if (IsFetchingUuids)
-                {
-                    return;
-                }
-                IsFetchingUuids = true;
-                IntentFilter intentFilter = new IntentFilter(Android.Bluetooth.BluetoothDevice.ActionUuid);
-                Application.Context.RegisterReceiver(_Receiver, intentFilter);
-                DroidDevice.FetchUuidsWithSdp();
-            }
-
-            public void stopFetchingUuidsWithSdp()
-            {
-                if (!IsFetchingUuids)
-                {
-                    return;
-                }
-                IsFetchingUuids = false;
-                Android.Bluetooth.BluetoothAdapter.DefaultAdapter.CancelDiscovery();
-                Application.Context.UnregisterReceiver(_Receiver);
+                _Services = new List<RfcommDeviceService>();
             }
 
             public override string ToString()
@@ -119,12 +103,47 @@ namespace RemoteX.Bluetooth.Droid
 
             public Task RfcommConnectAsync()
             {
-                throw new NotImplementedException();
+                return Task.Run(() =>
+                {
+
+                });
             }
 
-            public Task<RfcommDeviceServiceResult> GetRfcommServicesAsync()
+            public async Task<RfcommDeviceServiceResult> GetRfcommServicesAsync()
             {
-                throw new NotImplementedException();
+                //Do some test here;
+                {
+                    Guid guid = Guid.NewGuid();
+                    Java.Nio.ByteBuffer bb = Java.Nio.ByteBuffer.Wrap(guid.ToByteArray());
+                    long firstLong = bb.Long;
+                    long secondLong = bb.Long;
+                    UUID uuid = new UUID(firstLong, secondLong);
+                    System.Diagnostics.Debug.WriteLine("1 GUID:" + guid.ToString());
+                    System.Diagnostics.Debug.WriteLine("1 UUID:" + uuid.ToString());
+
+                    guid = Guid.Parse(uuid.ToString());
+                    System.Diagnostics.Debug.WriteLine("2 GUID:" + guid.ToString());
+                    System.Diagnostics.Debug.WriteLine("2 UUID:" + uuid.ToString());
+                }
+                IntentFilter intentFilter = new IntentFilter(Android.Bluetooth.BluetoothDevice.ActionUuid);
+                Application.Context.RegisterReceiver(_Receiver, intentFilter);
+                
+                return await Task.Run(() =>
+                {
+                    FetchingUuidThread = Thread.CurrentThread;
+                    DroidDevice.FetchUuidsWithSdp();
+                    try
+                    {
+                        Thread.Sleep(Timeout.Infinite);
+                        FetchingUuidThread = null;
+                    }
+                    catch(ThreadInterruptedException)
+                    {
+                        FetchingUuidThread = null;
+                    }
+                    return _Receiver.RfcommDeviceServiceResult;
+
+                });
             }
 
             public Task<RfcommDeviceServiceResult> GetRfcommServicesForIdAsync(Guid serviceId)
@@ -135,9 +154,10 @@ namespace RemoteX.Bluetooth.Droid
             private class Receiver : BroadcastReceiver
             {
                 private BluetoothDeviceWrapper _DeviceWrapper;
+                public RfcommDeviceServiceResult RfcommDeviceServiceResult { get; private set; }
                 public Receiver(BluetoothDeviceWrapper deviceWrapper)
                 {
-                    this._DeviceWrapper = deviceWrapper;
+                    _DeviceWrapper = deviceWrapper;
                 }
 
                 public override void OnReceive(Context context, Intent intent)
@@ -154,14 +174,26 @@ namespace RemoteX.Bluetooth.Droid
                                 ParcelUuid parcelUuid = parcel as ParcelUuid;
                                 if (parcelUuid != null)
                                 {
-                                    guids.Add(Guid.Parse(parcelUuid.Uuid.ToString()));
+                                    guids.Add(parcelUuid.Uuid.ToGuid());
                                 }
                             }
                         }
                         Application.Context.UnregisterReceiver(this);
-                        _DeviceWrapper.IsFetchingUuids = false;
-                        _DeviceWrapper.LastestFetchedUuids = guids.ToArray();
-                        _DeviceWrapper.OnUuidsFetched?.Invoke(_DeviceWrapper, guids.ToArray());
+                        List<IRfcommDeviceService> serviceList = new List<IRfcommDeviceService>();
+                        foreach(var guid in guids)
+                        {
+                            var service = _DeviceWrapper.GetRXServiceFromDroidService(guid);
+                            serviceList.Add(service);
+                        }
+                        RfcommDeviceServiceResult = new RfcommDeviceServiceResult()
+                        {
+                            Error = BluetoothError.Success,
+                            Services = serviceList.ToArray()
+                        };
+                        if(_DeviceWrapper.FetchingUuidThread != null)
+                        {
+                            _DeviceWrapper.FetchingUuidThread.Interrupt();
+                        }
                     }
                 }
             }

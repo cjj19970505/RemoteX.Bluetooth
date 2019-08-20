@@ -51,7 +51,7 @@ namespace RemoteX.Bluetooth.Droid.Rfcomm
             Application.Context.RegisterReceiver(DiscoveryStartedReceiver, startFilter);
             Application.Context.RegisterReceiver(DevicesFoundReceiver, foundFilter);
             Application.Context.RegisterReceiver(DiscoveryFinishedReceiver, finishFilter);
-
+            
             BluetoothManager.BluetoothAdapter.StartDiscovery();
 
         }

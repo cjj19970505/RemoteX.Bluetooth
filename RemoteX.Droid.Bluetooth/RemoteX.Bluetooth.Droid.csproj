@@ -62,7 +62,10 @@
     <Compile Include="LE\Gatt\Server\GattServiceBuilder.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Rfcomm\RfcommConnection.cs" />
+    <Compile Include="Rfcomm\RfcommDeviceService.cs" />
     <Compile Include="Rfcomm\RfcommScanner.cs" />
+    <Compile Include="Rfcomm\RfcommServiceProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
