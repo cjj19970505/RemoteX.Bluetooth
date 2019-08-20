@@ -45,6 +45,7 @@ namespace RemoteX.Bluetooth.Droid
             RfcommScanner = new RfcommScanner(this);
             _KnownBluetoothDevices = new List<BluetoothDeviceWrapper>();
             DroidBluetoothManager = Application.Context.GetSystemService(Context.BluetoothService) as Android.Bluetooth.BluetoothManager;
+            ServiceProviderList = new List<IRfcommServiceProvider>();
         }
         public bool IsDiscoverying
         {
@@ -66,6 +67,19 @@ namespace RemoteX.Bluetooth.Droid
                     return true;
                 }
                 return false;
+            }
+        }
+
+        public IBluetoothLEScanner LEScanner => throw new NotImplementedException();
+
+        public IBluetoothRfcommScanner RfcommScanner { get; }
+
+        private List<IRfcommServiceProvider> ServiceProviderList;
+        public IRfcommServiceProvider[] ServiceProviders
+        {
+            get
+            {
+                return ServiceProviderList.ToArray();
             }
         }
 
@@ -98,7 +112,12 @@ namespace RemoteX.Bluetooth.Droid
 
         public Task<IRfcommServiceProvider> CreateRfcommServiceProviderAsync(Guid serviceId)
         {
-            throw new NotImplementedException();
+            return Task.Run(() =>
+            {
+                var serviceProvider = new RfcommServiceProvider(this, serviceId);
+                ServiceProviderList.Add(serviceProvider);
+                return serviceProvider as IRfcommServiceProvider;
+            });
         }
 
         public RemoteX.Bluetooth.IBluetoothDevice[] PairedDevices
@@ -129,10 +148,6 @@ namespace RemoteX.Bluetooth.Droid
             }
         }
 
-        public IBluetoothLEScanner LEScanner => throw new NotImplementedException();
-
-        public IBluetoothRfcommScanner RfcommScanner { get; }
-
-        public IRfcommServiceProvider[] ServiceProviders => throw new NotImplementedException();
+        
     }
 }
