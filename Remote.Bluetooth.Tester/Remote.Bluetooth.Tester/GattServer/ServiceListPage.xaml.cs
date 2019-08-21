@@ -2,6 +2,7 @@
 using RemoteX.Bluetooth.LE;
 using RemoteX.Bluetooth.LE.Gatt;
 using RemoteX.Bluetooth.LE.Gatt.Server;
+using RemoteX.Bluetooth.Procedure.Server;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -67,6 +68,8 @@ namespace Remote.Bluetooth.Tester.GattServer
             //bluetoothManager.GattSever.AddService(TestGattServiceWrapper.GattServerService);
             TcpTranspondServiceWrapper = new TcpTranspondServiceWrapper(bluetoothManager);
             bluetoothManager.GattSever.AddService(TcpTranspondServiceWrapper.GattServerService);
+            RfcommServerServiceWrapper rfcommServerServiceWrapper = new RfcommServerServiceWrapper(bluetoothManager);
+            bluetoothManager.GattSever.AddService(rfcommServerServiceWrapper.GattServerService);
             bluetoothManager.GattSever.StartAdvertising();
         }
 

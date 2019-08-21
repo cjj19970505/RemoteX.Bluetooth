@@ -70,6 +70,14 @@ namespace RemoteX.Bluetooth.Droid
             }
         }
 
+        public ulong MacAddress
+        {
+            get
+            {
+                return BluetoothUtils.AddressStringToInt64(BluetoothAdapter.Address);
+            }
+        }
+
         public IBluetoothLEScanner LEScanner => throw new NotImplementedException();
 
         public IBluetoothRfcommScanner RfcommScanner { get; }

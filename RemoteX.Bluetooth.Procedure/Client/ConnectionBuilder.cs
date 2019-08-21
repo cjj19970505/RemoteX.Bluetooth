@@ -19,7 +19,7 @@ namespace RemoteX.Bluetooth.Procedure.Client
             RemoteDevice = remoteDevice;
         }
 
-        public async Task StartAsync()
+        public async Task<ConnectionBuildResult> StartAsync()
         {
             await RemoteDevice.GattClient.ConnectToServerAsync();
             var serviceResult = await RemoteDevice.GattClient.DiscoverAllPrimaryServiceAsync();
@@ -45,7 +45,7 @@ namespace RemoteX.Bluetooth.Procedure.Client
                 }
             }
 
-            Dictionary<IGattClientService, List<IGattClientCharacteristic>> serviceCharacteristicDict = new Dictionary<IGattClientService, List<IGattClientCharacteristic>>();
+            Dictionary<IGattClientService, Dictionary<Guid, IGattClientCharacteristic>> serviceCharacteristicDict = new Dictionary<IGattClientService, Dictionary<Guid, IGattClientCharacteristic>>();
             foreach (var gattService in gattServiceList)
             {
                 var characteristics = await gattService.DiscoverAllCharacteristicsAsync();
@@ -58,7 +58,7 @@ namespace RemoteX.Bluetooth.Procedure.Client
                 {
                     allFoundGattCharacteristicDict.Add(chara.Uuid, chara);
                 }
-                List<IGattClientCharacteristic> characteristicsList = new List<IGattClientCharacteristic>();
+                Dictionary<Guid, IGattClientCharacteristic> characteristicsDict = new Dictionary<Guid, IGattClientCharacteristic>();
                 var inProfileCharacteristicGuidList = from characteristicProfile in ConnectionProfile.RequiredCharacteristicGuids[gattService.Uuid]
                                                       select characteristicProfile.Guid;
                 
@@ -70,15 +70,27 @@ namespace RemoteX.Bluetooth.Procedure.Client
                     }
                     else
                     {
-                        characteristicsList.Add(allFoundGattCharacteristicDict[profileCharacteristicGuid]);
+                        characteristicsDict.Add(profileCharacteristicGuid, allFoundGattCharacteristicDict[profileCharacteristicGuid]);
+                        
                     }
                 }
-                serviceCharacteristicDict.Add(gattService, characteristicsList);
-
+                serviceCharacteristicDict.Add(gattService, characteristicsDict);
+                foreach(var charateristicProfile in ConnectionProfile.RequiredCharacteristicGuids[gattService.Uuid])
+                {
+                    if(charateristicProfile.Notified)
+                    {
+                        var result = await characteristicsDict[charateristicProfile.Guid].GattCharacteristicConfiguration.SetValueAsync(true, false);
+                        if(result.ProtocolError != LE.Gatt.GattErrorCode.Success)
+                        {
+                            throw new Exception("无法打开Notify");
+                        }
+                    }
+                }
             }
-
-
-
+            var finalResult = new ConnectionBuildResult(serviceCharacteristicDict);
+            
+            System.Diagnostics.Debug.WriteLine("连接过程完成");
+            return finalResult;
         }
     }
 }

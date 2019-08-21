@@ -40,7 +40,8 @@ namespace Remote.Bluetooth.Tester
                     new MainMasterDetailPageMenuItem { Id = 0, Title = "Server", TargetType = typeof(ServiceListPage) },
                     new MainMasterDetailPageMenuItem { Id = 1, Title = "Client", TargetType = typeof(GattLEDeviceListPage)},
                     new MainMasterDetailPageMenuItem{Id = 2, Title="Rfcomm Client", TargetType=typeof(RfcommDeviceListPage)},
-                    new MainMasterDetailPageMenuItem{Id = 2, Title="Rfcomm Server", TargetType=typeof(RfcommServerPage)}
+                    new MainMasterDetailPageMenuItem{Id = 3, Title="Rfcomm Server", TargetType=typeof(RfcommServerPage)},
+                    new MainMasterDetailPageMenuItem{Id = 4, Title="Procedure Client", TargetType=typeof(ProcedureClient.DeviceListPage)}
                 });
             }
             

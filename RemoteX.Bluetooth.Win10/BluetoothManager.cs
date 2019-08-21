@@ -26,6 +26,8 @@ namespace RemoteX.Bluetooth.Win10
         /// </summary>
         private List<RXBluetoothDevice> _BluetoothDeviceList;
 
+        public Windows.Devices.Bluetooth.BluetoothAdapter Win10Adapter;
+
         internal RXBluetoothDevice GetBluetoothDeviceFromDeviceInformation(DeviceInformation deviceInformation)
         {
             ulong address = BluetoothUtils.AddressStringToInt64(RXBluetoothUtils.GetAddressStringFromDeviceId(deviceInformation.Id));
@@ -76,6 +78,14 @@ namespace RemoteX.Bluetooth.Win10
             }
         }
 
+        public ulong MacAddress
+        {
+            get
+            {
+                return Win10Adapter.BluetoothAddress;
+            }
+        }
+
         public BluetoothManager(Windows.UI.Core.CoreDispatcher dispatcher)
         {
             _BluetoothDeviceList = new List<RXBluetoothDevice>();
@@ -83,6 +93,9 @@ namespace RemoteX.Bluetooth.Win10
             LEScanner = new RXBluetoothLEScanner(this);
             RfcommScanner = new RXBluetoothRfcommScanner(this);
             Dispatcher = dispatcher;
+            var adapterTask = Windows.Devices.Bluetooth.BluetoothAdapter.GetDefaultAsync().AsTask();
+            adapterTask.Wait();
+            Win10Adapter = adapterTask.Result;
         }
 
 

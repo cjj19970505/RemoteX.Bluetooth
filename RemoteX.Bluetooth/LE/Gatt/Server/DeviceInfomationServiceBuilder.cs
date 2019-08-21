@@ -7,10 +7,10 @@ namespace RemoteX.Bluetooth.LE.Gatt.Server
     public class DeviceInfomationServiceBuilder
     {
         //private static Guid SERVICE_DEVICE_INFORMATION = BluetoothUtils.ShortValueUuid(0x180A);
-        private static Guid SERVICE_DEVICE_INFORMATION = BluetoothUtils.ShortValueUuid(0x180A);
-        private static Guid CHARACTERISTIC_MANUFACTURER_NAME = BluetoothUtils.ShortValueUuid(0x2A29);
-        private static Guid CHARACTERISTIC_MODEL_NUMBER = BluetoothUtils.ShortValueUuid(0x2A24);
-        private static Guid CHARACTERISTIC_SERIAL_NUMBER = BluetoothUtils.ShortValueUuid(0x2A25);
+        public static Guid SERVICE_DEVICE_INFORMATION = BluetoothUtils.ShortValueUuid(0x180A);
+        public static Guid CHARACTERISTIC_MANUFACTURER_NAME = BluetoothUtils.ShortValueUuid(0x2A29);
+        public static Guid CHARACTERISTIC_MODEL_NUMBER = BluetoothUtils.ShortValueUuid(0x2A24);
+        public static Guid CHARACTERISTIC_SERIAL_NUMBER = BluetoothUtils.ShortValueUuid(0x2A25);
 
         private IGattServiceBuilder _ServiceBuilder;
         public IBluetoothManager BluetoothManager { get; private set; }
