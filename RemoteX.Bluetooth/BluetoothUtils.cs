@@ -25,7 +25,8 @@ namespace RemoteX.Bluetooth
             string ans = "";
             for (int i = 0; i < decbyte.Length - 2; i++)
             {
-                ans += Convert.ToString(decbyte[decbyte.Length - 3 - i], 16);
+                //ans += Convert.ToString(decbyte[decbyte.Length - 3 - i], 16);
+                ans += string.Format("{0:X2}", decbyte[decbyte.Length - 3 - i]);
             }
             for (int j = 2; j <= 14; j += 2)
             {

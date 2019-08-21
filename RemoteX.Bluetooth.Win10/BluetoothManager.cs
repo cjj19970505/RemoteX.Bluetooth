@@ -86,6 +86,16 @@ namespace RemoteX.Bluetooth.Win10
             }
         }
 
+        public string Name
+        {
+            get
+            {
+                var deviceInfo = new Windows.Security.ExchangeActiveSyncProvisioning.EasClientDeviceInformation();
+                var deviceName = deviceInfo.FriendlyName;
+                return deviceName;
+            }
+        }
+
         public BluetoothManager(Windows.UI.Core.CoreDispatcher dispatcher)
         {
             _BluetoothDeviceList = new List<RXBluetoothDevice>();

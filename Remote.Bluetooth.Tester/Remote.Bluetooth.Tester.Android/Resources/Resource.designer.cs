@@ -696,7 +696,6 @@ namespace Remote.Bluetooth.Tester.Droid
 			global::RemoteX.Bluetooth.Droid.Resource.Id.submenuarrow = global::Remote.Bluetooth.Tester.Droid.Resource.Id.submenuarrow;
 			global::RemoteX.Bluetooth.Droid.Resource.Id.submit_area = global::Remote.Bluetooth.Tester.Droid.Resource.Id.submit_area;
 			global::RemoteX.Bluetooth.Droid.Resource.Id.tabMode = global::Remote.Bluetooth.Tester.Droid.Resource.Id.tabMode;
-			global::RemoteX.Bluetooth.Droid.Resource.Id.tag_transition_group = global::Remote.Bluetooth.Tester.Droid.Resource.Id.tag_transition_group;
 			global::RemoteX.Bluetooth.Droid.Resource.Id.text = global::Remote.Bluetooth.Tester.Droid.Resource.Id.text;
 			global::RemoteX.Bluetooth.Droid.Resource.Id.text2 = global::Remote.Bluetooth.Tester.Droid.Resource.Id.text2;
 			global::RemoteX.Bluetooth.Droid.Resource.Id.textSpacerNoButtons = global::Remote.Bluetooth.Tester.Droid.Resource.Id.textSpacerNoButtons;
@@ -1377,9 +1376,6 @@ namespace Remote.Bluetooth.Tester.Droid
 			global::RemoteX.Bluetooth.Droid.Resource.Styleable.FontFamily_fontProviderPackage = global::Remote.Bluetooth.Tester.Droid.Resource.Styleable.FontFamily_fontProviderPackage;
 			global::RemoteX.Bluetooth.Droid.Resource.Styleable.FontFamily_fontProviderQuery = global::Remote.Bluetooth.Tester.Droid.Resource.Styleable.FontFamily_fontProviderQuery;
 			global::RemoteX.Bluetooth.Droid.Resource.Styleable.FontFamilyFont = global::Remote.Bluetooth.Tester.Droid.Resource.Styleable.FontFamilyFont;
-			global::RemoteX.Bluetooth.Droid.Resource.Styleable.FontFamilyFont_android_font = global::Remote.Bluetooth.Tester.Droid.Resource.Styleable.FontFamilyFont_android_font;
-			global::RemoteX.Bluetooth.Droid.Resource.Styleable.FontFamilyFont_android_fontStyle = global::Remote.Bluetooth.Tester.Droid.Resource.Styleable.FontFamilyFont_android_fontStyle;
-			global::RemoteX.Bluetooth.Droid.Resource.Styleable.FontFamilyFont_android_fontWeight = global::Remote.Bluetooth.Tester.Droid.Resource.Styleable.FontFamilyFont_android_fontWeight;
 			global::RemoteX.Bluetooth.Droid.Resource.Styleable.FontFamilyFont_font = global::Remote.Bluetooth.Tester.Droid.Resource.Styleable.FontFamilyFont_font;
 			global::RemoteX.Bluetooth.Droid.Resource.Styleable.FontFamilyFont_fontStyle = global::Remote.Bluetooth.Tester.Droid.Resource.Styleable.FontFamilyFont_fontStyle;
 			global::RemoteX.Bluetooth.Droid.Resource.Styleable.FontFamilyFont_fontWeight = global::Remote.Bluetooth.Tester.Droid.Resource.Styleable.FontFamilyFont_fontWeight;

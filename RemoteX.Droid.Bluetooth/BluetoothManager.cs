@@ -46,6 +46,7 @@ namespace RemoteX.Bluetooth.Droid
             _KnownBluetoothDevices = new List<BluetoothDeviceWrapper>();
             DroidBluetoothManager = Application.Context.GetSystemService(Context.BluetoothService) as Android.Bluetooth.BluetoothManager;
             ServiceProviderList = new List<IRfcommServiceProvider>();
+
         }
         public bool IsDiscoverying
         {
@@ -69,12 +70,27 @@ namespace RemoteX.Bluetooth.Droid
                 return false;
             }
         }
+        public string Name
+        {
+            get
+            {
+                return BluetoothAdapter.Name;
+            }
+        }
 
+        /// <summary>
+        /// According to https://developer.android.com/about/versions/marshmallow/android-6.0-changes.html#behavior-hardware-id this only returns 02:00:00:00:00:00
+        /// </summary>
         public ulong MacAddress
         {
             get
             {
-                return BluetoothUtils.AddressStringToInt64(BluetoothAdapter.Address);
+                //android.provider.Settings.Secure.getString(context.getContentResolver(), "bluetooth_address");
+                //var strAddr = Android.Provider.Settings.Secure.GetString(Application.Context.ContentResolver, "bluetooth_address");
+                var strAddr = BluetoothAdapter.Address;
+                
+                //return BluetoothUtils.AddressStringToInt64(BluetoothAdapter.Address);
+                return BluetoothUtils.AddressStringToInt64(strAddr);
             }
         }
 
@@ -156,6 +172,14 @@ namespace RemoteX.Bluetooth.Droid
             }
         }
 
-        
+        class ConnectionStateChangeReceiver : BroadcastReceiver
+        {
+            public override void OnReceive(Context context, Intent intent)
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+
     }
 }

@@ -10,15 +10,17 @@ namespace RemoteX.Bluetooth.Procedure.Server
     {
         public IGattServerService GattServerService { get; private set; }
         public IBluetoothManager BluetoothManager { get; }
-        public RfcommServerAddressCharacteristicWrapper RfcommServerAddressCharacteristicWrapper { get; }
-
+        public RfcommServerAddressCharacteristicWrapper AddressCharacteristicWrapper { get; }
+        public RfcommServerNameCharacteristicWrapper NameCharacteristicWrapper { get; }
         public RfcommServerServiceWrapper(IBluetoothManager bluetoothManager)
         {
             BluetoothManager = bluetoothManager;
-            RfcommServerAddressCharacteristicWrapper = new RfcommServerAddressCharacteristicWrapper(this);
+            AddressCharacteristicWrapper = new RfcommServerAddressCharacteristicWrapper(this);
+            NameCharacteristicWrapper = new RfcommServerNameCharacteristicWrapper(this);
             GattServerService = BluetoothManager.NewGattServiceBuilder()
                 .SetUuid(Constants.RfcommServerServiceGuid)
-                .AddCharacteristics(RfcommServerAddressCharacteristicWrapper.GattServerCharacteristic)
+                .AddCharacteristics(AddressCharacteristicWrapper.GattServerCharacteristic)
+                .AddCharacteristics(NameCharacteristicWrapper.GattServerCharacteristic)
                 .Build();
         }
     }
@@ -55,7 +57,44 @@ namespace RemoteX.Bluetooth.Procedure.Server
 
         private void GattServerCharacteristic_OnRead(object sender, ICharacteristicReadRequest e)
         {
-            e.RespondWithValue(BitConverter.GetBytes(RfcommServerServiceWrapper.BluetoothManager.MacAddress));
+            var bytes = BitConverter.GetBytes(RfcommServerServiceWrapper.BluetoothManager.MacAddress);
+            e.RespondWithValue(bytes);
+        }
+    }
+
+    public class RfcommServerNameCharacteristicWrapper
+    {
+        public IGattServerCharacteristic GattServerCharacteristic { get; private set; }
+        public ClientCharacteristicConfigurationDescriptorWrapper ClientCharacteristicConfigurationDescriptorWrapper { get; }
+        public RfcommServerServiceWrapper RfcommServerServiceWrapper { get; }
+
+        private static GattCharacteristicProperties Properties = new GattCharacteristicProperties
+        {
+            Read = true,
+        };
+
+        private static GattPermissions Permission = new GattPermissions
+        {
+            Read = true,
+        };
+
+        public RfcommServerNameCharacteristicWrapper(RfcommServerServiceWrapper serviceWrapper)
+        {
+            RfcommServerServiceWrapper = serviceWrapper;
+            ClientCharacteristicConfigurationDescriptorWrapper = new ClientCharacteristicConfigurationDescriptorWrapper(serviceWrapper.BluetoothManager);
+            var characteristic = RfcommServerServiceWrapper.BluetoothManager.NewGattCharacteristicBuilder()
+                    .SetUuid(Constants.RfcommServerNameCharacteristicGuid)
+                    .AddDescriptors(ClientCharacteristicConfigurationDescriptorWrapper.GattServerDescriptor)
+                    .SetPermissions(Permission)
+                    .SetProperties(Properties)
+                    .Build();
+            GattServerCharacteristic = characteristic;
+            GattServerCharacteristic.OnRead += GattServerCharacteristic_OnRead; ;
+        }
+
+        private void GattServerCharacteristic_OnRead(object sender, ICharacteristicReadRequest e)
+        {
+            e.RespondWithValue(Encoding.UTF8.GetBytes(RfcommServerServiceWrapper.BluetoothManager.Name));
         }
     }
 }

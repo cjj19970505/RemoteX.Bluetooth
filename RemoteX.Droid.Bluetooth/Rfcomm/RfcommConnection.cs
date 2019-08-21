@@ -29,6 +29,7 @@ namespace RemoteX.Bluetooth.Droid.Rfcomm
             DroidSocket = droidSocket;
             InputStream = DroidSocket.InputStream;
             OutputStream = DroidSocket.OutputStream;
+            
         }
 
         public void Dispose()

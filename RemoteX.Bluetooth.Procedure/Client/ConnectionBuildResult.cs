@@ -1,4 +1,5 @@
 ﻿using RemoteX.Bluetooth.LE.Gatt.Client;
+using RemoteX.Bluetooth.Rfcomm;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,11 +9,12 @@ namespace RemoteX.Bluetooth.Procedure.Client
     public class ConnectionBuildResult
     {
         public Dictionary<IGattClientService, Dictionary<Guid, IGattClientCharacteristic>> ServiceCharacteristcLookup { get; }
+        public Dictionary<Guid, IRfcommDeviceService> RfcommServiceLookup { get; internal set; }
         internal ConnectionBuildResult(Dictionary<IGattClientService, Dictionary<Guid, IGattClientCharacteristic>> serviceCharacteristcLookup)
         {
             ServiceCharacteristcLookup = serviceCharacteristcLookup;
         }
-
+        
         public IGattClientService GetGattServiceFromGuid(Guid serviceGuid)
         {
             foreach(var service in ServiceCharacteristcLookup.Keys)
@@ -45,8 +47,13 @@ namespace RemoteX.Bluetooth.Procedure.Client
                 return null;
             }
         }
-
-
+        public IRfcommDeviceService this[Guid serviceId]
+        {
+            get
+            {
+                return RfcommServiceLookup[serviceId];
+            }
+        }
 
     }
 }

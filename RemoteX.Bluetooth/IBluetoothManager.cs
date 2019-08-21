@@ -37,6 +37,7 @@ namespace RemoteX.Bluetooth
 
         IRfcommServiceProvider[] ServiceProviders { get; }
 
+        string Name { get; }
         ulong MacAddress { get; }
 
         Task<IRfcommServiceProvider> CreateRfcommServiceProviderAsync(Guid serviceId);

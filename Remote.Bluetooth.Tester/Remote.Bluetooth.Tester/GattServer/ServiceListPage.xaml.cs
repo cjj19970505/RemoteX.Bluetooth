@@ -27,6 +27,7 @@ namespace Remote.Bluetooth.Tester.GattServer
 		{
             serviceModelList = new ObservableCollection<GattServiceModel>();
             InitializeComponent ();
+            BluetoothManagerInfoLayout.BindingContext = DependencyService.Get<IManagerManager>().BluetoothManager;
             GattServiceListView.ItemsSource = serviceModelList;
 
         }

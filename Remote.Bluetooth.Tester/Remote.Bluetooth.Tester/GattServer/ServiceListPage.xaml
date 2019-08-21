@@ -5,9 +5,10 @@
              x:Class="Remote.Bluetooth.Tester.GattServer.ServiceListPage">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <StackLayout x:Name="BluetoothManagerInfoLayout">
+                <Label Text="{Binding Path=Name}" FontSize="Large"/>
+                <Label Text="{Binding Path=MacAddress, Converter={StaticResource MacAddressUlongToStringConverter}}"/>
+            </StackLayout>
             <Button x:Name="StartAdvertisingButton" Text="Start Advertising" Clicked="StartAdvertisingButton_Clicked"/>
             <Button x:Name="NewServiceButton" Text="NewService" Clicked="NewServiceButton_Clicked"/>
             <ListView x:Name="GattServiceListView" SeparatorColor="Black" HasUnevenRows="True" ItemSelected="GattServiceListView_ItemSelected">

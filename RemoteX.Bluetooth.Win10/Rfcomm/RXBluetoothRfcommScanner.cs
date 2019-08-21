@@ -52,21 +52,14 @@ namespace RemoteX.Bluetooth.Win10.Rfcomm
         private void DeviceWatcher_Stopped(DeviceWatcher sender, object args)
         {
             System.Diagnostics.Debug.WriteLine("BLEWATCHER_STOPED");
-            var invokeDispatcherAction = (BluetoothManager as BluetoothManager).Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
-            {
-                Stopped?.Invoke(this, null);
-            });
+            Stopped?.Invoke(this, null);
         }
 
         private void DeviceWatcher_Removed(DeviceWatcher sender, DeviceInformationUpdate args)
         {
             System.Diagnostics.Debug.WriteLine("BLEWATCHER_REMOVED:: Id:" + args.Id);
             var device = (BluetoothManager as BluetoothManager).RemoveBluetoothDeviceFromDeviceInformationUpdate(args);
-
-            var invokeDispatcherAction = (BluetoothManager as BluetoothManager).Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
-            {
-                Removed?.Invoke(this, device);
-            });
+            Removed?.Invoke(this, device);
         }
 
         private void DeviceWatcher_EnumerationCompleted(DeviceWatcher sender, object args)
@@ -79,10 +72,7 @@ namespace RemoteX.Bluetooth.Win10.Rfcomm
         {
             System.Diagnostics.Debug.WriteLine("BLEWATCHER_ADDED:: Name:" + args.Name + " Address:" + RXBluetoothUtils.GetAddressStringFromDeviceId(args.Id));
             RXBluetoothDevice device = (BluetoothManager as BluetoothManager).GetBluetoothDeviceFromDeviceInformation(args);
-            var invokeDispatcherAction = (BluetoothManager as BluetoothManager).Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
-            {
-                Added?.Invoke(this, device);
-            });
+            Added?.Invoke(this, device);
         }
 
         public void Start()
