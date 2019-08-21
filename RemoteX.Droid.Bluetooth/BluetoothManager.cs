@@ -172,14 +172,6 @@ namespace RemoteX.Bluetooth.Droid
             }
         }
 
-        class ConnectionStateChangeReceiver : BroadcastReceiver
-        {
-            public override void OnReceive(Context context, Intent intent)
-            {
-                throw new NotImplementedException();
-            }
-        }
-
 
     }
 }
