@@ -107,8 +107,19 @@ namespace Remote.Bluetooth.Tester.ProcedureClient
             ConnectionBuilder builder = new ConnectionBuilder(BluetoothManager, profile, DeviceListView.SelectedItem as IBluetoothDevice);
             var result = await builder.StartAsync();
             result[BatteryServiceWrapper.BATTERY_SERVICE_UUID, BatteryLevelCharacteristicWrapper.BATTERY_LEVEL_UUID].OnNotified += DeviceListPage_OnNotified;
-            ReadInputSreamAsync(result[Guid.Parse("4fb996ea-01dc-466c-8b95-9a018c289cef")]);
+            var rfcommConnectionHandler = new RfcommFixedLengthConnectionHandler(result[Guid.Parse("4fb996ea-01dc-466c-8b95-9a018c289cef")].RfcommConnection, 6);
+            rfcommConnectionHandler.OnReceived += RfcommConnectionHandler_OnReceived;
             //await (DeviceListView.SelectedItem as IBluetoothDevice).GattClient.ConnectToServerAsync();
+        }
+
+        private void RfcommConnectionHandler_OnReceived(object sender, byte[] e)
+        {
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < e.Length; i++)
+            {
+                sb.AppendFormat("{0:X2} ", e[i]);
+            }
+            System.Diagnostics.Debug.WriteLine("RFCOMM RECEIVE:" + sb.ToString());
         }
 
         private void DeviceListPage_OnNotified(object sender, byte[] e)
@@ -123,30 +134,6 @@ namespace Remote.Bluetooth.Tester.ProcedureClient
             {
                 DeviceScanner.Stop();
             }
-        }
-
-        Task ReadInputSreamAsync(IRfcommDeviceService service)
-        {
-            return Task.Run(() =>
-            {
-                while (true)
-                {
-                    int readBufferSize = 255;
-                    byte[] buffer = new byte[readBufferSize];
-                    var readSize = service.RfcommConnection.InputStream.Read(buffer, 0, readBufferSize);
-                    if (readSize == 0)
-                    {
-                        break;
-                    }
-                    StringBuilder sb = new StringBuilder();
-                    for (int i = 0; i < readSize; i++)
-                    {
-                        sb.AppendFormat("{0:X2} ", buffer[i]);
-                    }
-                    System.Diagnostics.Debug.WriteLine("RFCOMM RECEIVE:" + sb.ToString());
-                }
-                service.RfcommConnection.Dispose();
-            });
         }
     }
 }
