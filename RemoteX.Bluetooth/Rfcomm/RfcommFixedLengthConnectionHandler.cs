@@ -52,8 +52,8 @@ namespace RemoteX.Bluetooth.Rfcomm
 
         public async Task SendAsync(byte[] sendBytes)
         {
-            await Connection.InputStream.WriteAsync(sendBytes, 0, SendLength);
-            await Connection.InputStream.FlushAsync();
+            await Connection.OutputStream.WriteAsync(sendBytes, 0, SendLength);
+            await Connection.OutputStream.FlushAsync();
         }
 
     }

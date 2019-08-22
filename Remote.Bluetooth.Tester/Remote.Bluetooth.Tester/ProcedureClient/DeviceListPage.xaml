@@ -10,6 +10,16 @@
         <StackLayout>
             <Button x:Name="ScanButton" Text="Scan" Clicked="ScanButton_Clicked" />
             <Button x:Name="ConnectButton" IsEnabled="False" Text="Connect" Clicked="ConnectButton_Clicked"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="8*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Editor x:Name="SendEditor" Grid.Column="0"/>
+                <Button x:Name="SendButton" Grid.Column="1" Clicked="SendButton_Clicked"/>
+
+            </Grid>
+            
             <ListView x:Name="DeviceListView" SeparatorVisibility="Default" SeparatorColor="Accent" HasUnevenRows="True" ItemSelected="DeviceListView_ItemSelected">
                 <ListView.ItemTemplate>
                     <DataTemplate>

@@ -25,7 +25,7 @@ namespace Remote.Bluetooth.Tester.ProcedureClient
         private IBluetoothManager BluetoothManager { get; }
         private IBluetoothLEScanner DeviceScanner { get; }
 
-
+        RfcommFixedLengthConnectionHandler RfcommConnectionHandler { get; set; }
         public DeviceListPage()
         {
             BluetoothDeviceList = new ObservableCollection<IBluetoothDevice>();
@@ -107,8 +107,8 @@ namespace Remote.Bluetooth.Tester.ProcedureClient
             ConnectionBuilder builder = new ConnectionBuilder(BluetoothManager, profile, DeviceListView.SelectedItem as IBluetoothDevice);
             var result = await builder.StartAsync();
             result[BatteryServiceWrapper.BATTERY_SERVICE_UUID, BatteryLevelCharacteristicWrapper.BATTERY_LEVEL_UUID].OnNotified += DeviceListPage_OnNotified;
-            var rfcommConnectionHandler = new RfcommFixedLengthConnectionHandler(result[Guid.Parse("4fb996ea-01dc-466c-8b95-9a018c289cef")].RfcommConnection, 6);
-            rfcommConnectionHandler.OnReceived += RfcommConnectionHandler_OnReceived;
+            RfcommConnectionHandler = new RfcommFixedLengthConnectionHandler(result[Guid.Parse("4fb996ea-01dc-466c-8b95-9a018c289cef")].RfcommConnection, 6);
+            RfcommConnectionHandler.OnReceived += RfcommConnectionHandler_OnReceived;
             //await (DeviceListView.SelectedItem as IBluetoothDevice).GattClient.ConnectToServerAsync();
         }
 
@@ -134,6 +134,15 @@ namespace Remote.Bluetooth.Tester.ProcedureClient
             {
                 DeviceScanner.Stop();
             }
+        }
+
+        private async void SendButton_Clicked(object sender, EventArgs e)
+        {
+            if(RfcommConnectionHandler == null)
+            {
+                return;
+            }
+            await RfcommConnectionHandler.SendAsync(Encoding.UTF8.GetBytes(SendEditor.Text));
         }
     }
 }
