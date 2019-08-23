@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{5B5B4F75-1D2B-454E-9658-B428E1F7DF4A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>RemoteX.Bluetooth.Win10Framework</RootNamespace>
+    <AssemblyName>RemoteX.Bluetooth.Win10Framework</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\RemoteX.Bluetooth.Win10\BluetoothManager.cs">
+      <Link>BluetoothManager.cs</Link>
+    </Compile>
+    <Compile Include="..\RemoteX.Bluetooth.Win10\LE\Gatt\Client\GattClient.cs">
+      <Link>LE\Gatt\Client\GattClient.cs</Link>
+    </Compile>
+    <Compile Include="..\RemoteX.Bluetooth.Win10\LE\Gatt\Client\GattService.cs">
+      <Link>LE\Gatt\Client\GattService.cs</Link>
+    </Compile>
+    <Compile Include="..\RemoteX.Bluetooth.Win10\LE\Gatt\Client\RXGattClientCharacteristic.cs">
+      <Link>LE\Gatt\Client\RXGattClientCharacteristic.cs</Link>
+    </Compile>
+    <Compile Include="..\RemoteX.Bluetooth.Win10\LE\Gatt\Client\RXGattClientDescriptor.cs">
+      <Link>LE\Gatt\Client\RXGattClientDescriptor.cs</Link>
+    </Compile>
+    <Compile Include="..\RemoteX.Bluetooth.Win10\LE\RXBluetoothDevice.cs">
+      <Link>LE\RXBluetoothDevice.cs</Link>
+    </Compile>
+    <Compile Include="..\RemoteX.Bluetooth.Win10\LE\RXBluetoothLEScanner.cs">
+      <Link>LE\RXBluetoothLEScanner.cs</Link>
+    </Compile>
+    <Compile Include="..\RemoteX.Bluetooth.Win10\Rfcomm\RXBluetoothRfcommScanner.cs">
+      <Link>Rfcomm\RXBluetoothRfcommScanner.cs</Link>
+    </Compile>
+    <Compile Include="..\RemoteX.Bluetooth.Win10\Rfcomm\RXRFCommConnection.cs">
+      <Link>Rfcomm\RXRFCommConnection.cs</Link>
+    </Compile>
+    <Compile Include="..\RemoteX.Bluetooth.Win10\Rfcomm\RXRfcommDeviceService.cs">
+      <Link>Rfcomm\RXRfcommDeviceService.cs</Link>
+    </Compile>
+    <Compile Include="..\RemoteX.Bluetooth.Win10\Rfcomm\RXRfcommServiceProvider.cs">
+      <Link>Rfcomm\RXRfcommServiceProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\RemoteX.Bluetooth.Win10\Utils.cs">
+      <Link>Utils.cs</Link>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Windows.SDK.Contracts">
+      <Version>10.0.18362.2002-preview</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RemoteX.Bluetooth\RemoteX.Bluetooth.csproj">
+      <Project>{da0fdbdc-7c4f-4f13-a7de-e1c5637d586f}</Project>
+      <Name>RemoteX.Bluetooth</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

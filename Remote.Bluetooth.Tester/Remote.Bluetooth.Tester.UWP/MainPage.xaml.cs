@@ -22,7 +22,6 @@ namespace Remote.Bluetooth.Tester.UWP
         {
             this.InitializeComponent();
             LoadApplication(new Remote.Bluetooth.Tester.App());
-            (DependencyService.Get<IManagerManager>() as ManagerManager).Dispatcher = Window.Current.Dispatcher;
         }
     }
 }

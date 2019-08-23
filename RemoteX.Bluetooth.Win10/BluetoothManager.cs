@@ -65,8 +65,6 @@ namespace RemoteX.Bluetooth.Win10
         public IBluetoothLEScanner LEScanner { get; }
         public IBluetoothRfcommScanner RfcommScanner { get; }
 
-        public Windows.UI.Core.CoreDispatcher Dispatcher { get; }
-
         private List<RXRfcommServiceProvider> _ServiceProviderList;
 
         public IRfcommServiceProvider[] ServiceProviders
@@ -96,13 +94,12 @@ namespace RemoteX.Bluetooth.Win10
             }
         }
 
-        public BluetoothManager(Windows.UI.Core.CoreDispatcher dispatcher)
+        public BluetoothManager()
         {
             _BluetoothDeviceList = new List<RXBluetoothDevice>();
             _ServiceProviderList = new List<RXRfcommServiceProvider>();
             LEScanner = new RXBluetoothLEScanner(this);
             RfcommScanner = new RXBluetoothRfcommScanner(this);
-            Dispatcher = dispatcher;
             var adapterTask = Windows.Devices.Bluetooth.BluetoothAdapter.GetDefaultAsync().AsTask();
             adapterTask.Wait();
             Win10Adapter = adapterTask.Result;

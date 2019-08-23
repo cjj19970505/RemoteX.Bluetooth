@@ -44,17 +44,29 @@ namespace Remote.Bluetooth.Tester.GattClient
 
         private void DeviceScanner_Stopped(object sender, EventArgs e)
         {
-            ScanButton.Text = "Scan";
+
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                ScanButton.Text = "Scan";
+            });
         }
 
         private void DeviceScanner_Removed(object sender, IBluetoothDevice e)
         {
-            BluetoothDeviceList.Remove(e);
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                BluetoothDeviceList.Remove(e);
+            });
+            
         }
 
         private void DeviceScanner_Added(object sender, IBluetoothDevice e)
         {
-            BluetoothDeviceList.Add(e);
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                BluetoothDeviceList.Add(e);
+            });
+            
         }
 
         private void ScanButton_Clicked(object sender, EventArgs e)

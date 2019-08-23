@@ -16,7 +16,6 @@ namespace RemoteX.Bluetooth.Win10.LE
     {
         public DeviceWatcher BleDeviceWatcher { get; }
         public IBluetoothManager BluetoothManager { get; }
-        public Windows.UI.Core.CoreDispatcher Dispatcher { get; }
 
         public BluetoothLEScannerState Status
         {
@@ -35,7 +34,6 @@ namespace RemoteX.Bluetooth.Win10.LE
         public RXBluetoothLEScanner(BluetoothManager bluetoothManager)
         {
             BluetoothManager = bluetoothManager;
-            Dispatcher = CoreApplication.MainView.CoreWindow.Dispatcher;
             // Query for extra properties you want returned
             string[] requestedProperties = { "System.Devices.Aep.DeviceAddress", "System.Devices.Aep.IsConnected" };
 
@@ -62,21 +60,14 @@ namespace RemoteX.Bluetooth.Win10.LE
         {
             System.Diagnostics.Debug.WriteLine("BLEWATCHER_ADDED:: Name:"+args.Name+" Address:"+RXBluetoothUtils.GetAddressStringFromDeviceId(args.Id));
             RXBluetoothDevice device = (BluetoothManager as BluetoothManager).GetBluetoothDeviceFromDeviceInformation(args);
-            
-            var invokeDispatcherAction = (BluetoothManager as BluetoothManager).Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
-            {
-                Added?.Invoke(this, device);
-            });
+            Added?.Invoke(this, device);
         }
    
         private void BleDeviceWatcher_Stopped(DeviceWatcher sender, object args)
         {
             
             System.Diagnostics.Debug.WriteLine("BLEWATCHER_STOPED");
-            var invokeDispatcherAction = (BluetoothManager as BluetoothManager).Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
-            {
-                Stopped?.Invoke(this, null);
-            });
+            Stopped?.Invoke(this, null);
 
         }
 
@@ -85,10 +76,7 @@ namespace RemoteX.Bluetooth.Win10.LE
             System.Diagnostics.Debug.WriteLine("BLEWATCHER_REMOVED:: Id:"+args.Id);
             var device = (BluetoothManager as BluetoothManager).RemoveBluetoothDeviceFromDeviceInformationUpdate(args);
 
-            var invokeDispatcherAction = (BluetoothManager as BluetoothManager).Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
-            {
-                Removed?.Invoke(this, device);
-            });
+            Removed?.Invoke(this, device);
             
         }
 
